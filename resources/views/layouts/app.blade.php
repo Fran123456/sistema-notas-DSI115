@@ -84,7 +84,7 @@
                                 <div class="widget-content-left">
                                   <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="{{ asset(Auth::user()->foto) }}" alt="">
+                                            <img width="42" class="rounded-circle" src="{{ asset("images/users/".Auth::user()->photo) }}" alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
 
@@ -102,7 +102,7 @@
                                         {{Auth::user()->name}}
                                     </div>
                                     <div class="widget-subheading">
-                                        rol actual
+                                        {{Auth::user()->roles()->first()->name}}
                                     </div>
                                 </div>
 
@@ -164,24 +164,24 @@
                                     <a href="{{ route('home') }}"><i class="metismenu-icon fa fa-home"></i>Home</a>
                                 </li>
                           <!--GENERAL-->
-                            <!--    <li class="app-sidebar__heading">General</li>
+                                <li class="app-sidebar__heading">General</li>
                                 <li class="">
                                     <a href="#" aria-expanded="false">
                                         <i class="metismenu-icon fa fa-users"></i>
-                                        Empleados y más
+                                        Usuarios y roles
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul class="mm-collapse" style="height: 7.04px;">
                                         <li>
-                                            <a href=""><i class="metismenu-icon"></i>Administradores</a>
+                                            <a href=""><i class="metismenu-icon"></i>Usuarios</a>
                                         </li>
                                         <li>
-                                          <a href=""><i class="metismenu-icon"></i>Empleados</a>
+                                          <a href=""><i class="metismenu-icon"></i>Roles</a>
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li>
+                                <!--<li>
                                   <a href=""><i class="metismenu-icon fa fa-bell"></i>Notificaciones</a>
                                 </li>
                                 <li>

@@ -1,0 +1,2 @@
+git remote add origin https://github.com/Fran123456/sistema-notas-DSI115.git
+git push -u origin master
