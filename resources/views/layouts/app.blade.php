@@ -1,80 +1,297 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="Wide selection of cards with multiple styles, borders, actions and hover effects.">
+    <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
+<link rel="shortcut icon" href="{!! asset('images/favicon.ico') !!}">
+<link rel="stylesheet" href="{!! asset('main.css') !!}">
+
+<script src="{!! asset('assets/scripts/main.js') !!}" type="text/javascript"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<style media="screen">
+.app-header__logo .logo-src {
+  height: 23px;
+  width: 97px;
+  background: url(assets/images/logo-inverse.png);
+}
+</style>
+
+
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+                <img height="50" width="60" src="{{asset('images/catalana.png') }}" alt="">
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </nav>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>    <div class="app-header__content">
+                <div class="app-header-left">
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+                    <ul class="header-menu nav">
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <i class="nav-link-icon fa fa-database"> </i>
+                                Statistics
+                            </a>
+                        </li>
+
+
+                    </ul>
+               </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                  <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="{{ asset(Auth::user()->foto) }}" alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                           @csrf
+                                        </form>
+
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                            <button onclick="event.preventDefault();document.getElementById('logout-form').submit();" type="button" tabindex="0" class="dropdown-item">Salir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        {{Auth::user()->name}}
+                                    </div>
+                                    <div class="widget-subheading">
+                                        rol actual
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="ui-theme-settings">
+            <div class="theme-settings__inner">
+                <div class="scrollbar-container">
+                    <div class="theme-settings__options-wrapper">
+                        <h3 class="themeoptions-heading">Layout Options
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-main">
+                <div class="app-sidebar sidebar-shadow">
+                    <div class="app-header__logo">
+                        <div class="logo-src"></div>
+                        <div class="header__pane ml-auto">
+                            <div>
+                                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-header__mobile-menu">
+                        <div>
+                            <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="app-header__menu">
+                        <span>
+                            <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                        </span>
+                    </div>    <div class="scrollbar-sidebar">
+                        <div class="app-sidebar__inner">
+                            <ul class="vertical-nav-menu">
+
+
+                                <li class="app-sidebar__heading">Home</li>
+                                <li>
+                                    <a href="{{ route('home') }}"><i class="metismenu-icon fa fa-home"></i>Home</a>
+                                </li>
+                          <!--GENERAL-->
+                            <!--    <li class="app-sidebar__heading">General</li>
+                                <li class="">
+                                    <a href="#" aria-expanded="false">
+                                        <i class="metismenu-icon fa fa-users"></i>
+                                        Empleados y más
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul class="mm-collapse" style="height: 7.04px;">
+                                        <li>
+                                            <a href=""><i class="metismenu-icon"></i>Administradores</a>
+                                        </li>
+                                        <li>
+                                          <a href=""><i class="metismenu-icon"></i>Empleados</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                  <a href=""><i class="metismenu-icon fa fa-bell"></i>Notificaciones</a>
+                                </li>
+                                <li>
+                                  <a href=""><i class="metismenu-icon fa fa-envelope"></i>Mensajes(Tormenta Tropical)</a>
+                               </li>-->
+                              <!--GENERAL-->
+
+                              <!--PUBLICACIONES-->
+                             <!--   <li class="app-sidebar__heading">Publicaciones</li>
+                                <li>
+                                      <a href=""><i class="metismenu-icon fa fa-th-list"></i>Publicaciones</a>
+                                </li>-->
+                                <!--PUBLICACIONES-->
+
+                              <!--REMUNERACIONES-->
+                             <!--   <li class="app-sidebar__heading">Remuneraciones</li>
+                                <li class="">
+                                    <a href="#" aria-expanded="false">
+                                        <i class="metismenu-icon fa fa-calendar"></i>Vacaciones
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul class="mm-collapse" style="height: 7.04px;">
+                                      <li>
+                                     <a href=""><i class="metismenu-icon"></i>Coordinadores</a>
+                                  </li>
+
+                                  <li>
+                                    <a href=""><i class="metismenu-icon"></i>Empleados disponibles</a>
+                                 </li>
+
+                                 <li>
+                                    <a href=""><i class="metismenu-icon"></i>No aplican</a>
+                                 </li>
+
+                                 <li>
+                                    <a href=""><i class="metismenu-icon"></i>Rechazados</a>
+                                 </li>
+                                 <li>
+                                    <a href=""><i class="metismenu-icon"></i>Reportes</a>
+                                 </li>
+                                    </ul>
+                                </li>-->
+                                <!--REMUNERACIONES-->
+
+                                <!--Desarrollo orzanizacional-->
+                               <!-- <li class="app-sidebar__heading">Desarrollo organizacional</li>
+                                <li class="">
+                                    <a href="#" aria-expanded="false">
+                                        <i class="metismenu-icon fa fa-desktop"></i>Capacitaciones
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul class="mm-collapse" style="height: 7.04px;">
+                                        <li>
+                                        <a href=""><i class="metismenu-icon"></i>Capacitaciones</a>
+                                        </li>
+                                    </ul>
+                                </li>-->
+                                <!--Desarrollo orzanizacional-->
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-main__outer">
+                    <div class="app-main__inner">
+                        <div class="tab-content">
+
+                                   @yield('content')
+                        </div>
+                    </div>
+                    <div class="app-wrapper-footer">
+                        <div class="app-footer">
+                            <div class="app-footer__inner">
+                                <div class="app-footer-left">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 1
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 2
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="app-footer-right">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 3
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                <div class="badge badge-success mr-1 ml-0">
+                                                    <small>NEW</small>
+                                                </div>
+                                                Footer Link 4
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    </div>
+        </div>
     </div>
+
 </body>
 </html>
