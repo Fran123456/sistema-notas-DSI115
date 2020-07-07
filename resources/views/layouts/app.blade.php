@@ -173,7 +173,7 @@
                                     </a>
                                     <ul class="mm-collapse" style="height: 7.04px;">
                                         <li>
-                                            <a href=""><i class="metismenu-icon"></i>Usuarios</a>
+                                            <a href="{{ route('users.index') }}"><i class="metismenu-icon"></i>Usuarios</a>
                                         </li>
                                         <li>
                                           <a href=""><i class="metismenu-icon"></i>Roles</a>

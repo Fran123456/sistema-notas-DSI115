@@ -20,3 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/*USERS*/
+//
+Route::resource('users', 'User\userController');
+//
+/*USERS*/
