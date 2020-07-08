@@ -5,9 +5,14 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        return view('users.userCreate', compact('roles'));
     }
 
     /**
@@ -37,7 +43,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::where('email', $request->email)->get(); 
+        if(count($user)>0){
+            return back()->with('delete','<strong>Error el correo ya existe</strong>');
+        }else{
+             $user = User::create([
+             'name' => $request->name,
+             'email' => $request->email,
+             'password' => Hash::make($request->password),
+             'photo' => "request->photo",
+             ]);
+          $user->roles()->attach(Role::where('id', $request->role)->first());
+          return redirect()->route('users.index')->with('success','<strong>El usuario '.$user->name.' fue creado correctamente</strong>');
+        }
     }
 
     /**

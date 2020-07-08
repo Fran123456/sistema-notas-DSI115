@@ -9,7 +9,7 @@
 
 <div class="row ">
     <div class="col-md-12 col-sm-12 col-xs-12 text-right">
-       <a class="btn btn-info mb-1" href=""><i class="fa fa-plus" aria-hidden="true"></i></a>
+       <a class="btn btn-info mb-1" href="{{ route('users.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </div>
 </div>
 
