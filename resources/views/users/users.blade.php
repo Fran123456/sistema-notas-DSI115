@@ -49,7 +49,7 @@
                         <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                      </td>
                       <td>
-                        <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                        <a href="{{ route('users.edit', $value->id) }}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
                       <td>
                         @if (Auth::user()->id == $value->id)
                           <button disabled="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
