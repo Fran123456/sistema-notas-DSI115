@@ -10,6 +10,21 @@
     padding-top: 35px;
   }
 </style>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Usuarios</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Actualizar usuario</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+
 <form method="post" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
 @csrf
 @method('PUT')

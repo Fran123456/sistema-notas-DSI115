@@ -38,7 +38,7 @@ class Help
     return $code[0].$code[1].$code[2];
    }
 
-	 public static function fechaHoy(){
+	 public static function Today(){
 		 $hoy = getdate();
      return $hoy['mday'].'-'.$hoy['mon'].'-'.$hoy['year'];
 	 }
@@ -53,8 +53,8 @@ class Help
 	 	return $hoy['year'];
 	 }
 
-	 public static function formato_fecha($fecha){
-		 $c =  substr($fecha, 0, 10);
+	 public static function dateFormatter($date){
+		 $c =  substr($date, 0, 10);
 		 $date = new \DateTime($c);
 		 return $date->format('d/m/Y') ;
 	 }

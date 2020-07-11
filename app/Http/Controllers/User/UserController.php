@@ -76,7 +76,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $created_at = Help::dateFormatter($user->created_at);
+        return view('users.user', compact('user','created_at'));
     }
 
     /**
