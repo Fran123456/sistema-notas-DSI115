@@ -26,3 +26,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('users', 'User\userController');
 //
 /*USERS*/
+
+
+/*ROLES*/
+//
+Route::resource('roles', 'Role\RoleController');
+//
+/*ROLES*/

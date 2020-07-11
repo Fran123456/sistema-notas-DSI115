@@ -7,6 +7,18 @@
   @include('alerts.alerts')
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+
 <div class="row ">
     <div class="col-md-12 col-sm-12 col-xs-12 text-right">
        <a class="btn btn-info mb-1" href="{{ route('users.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -46,10 +58,10 @@
                         {{$value->roles()->first()->name}}
                      </td>
                      <td>
-                        <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{{ route('users.show', $value->id) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                      </td>
                       <td>
-                        <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                        <a href="{{ route('users.edit', $value->id) }}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
                       <td>
                         @if (Auth::user()->id == $value->id)
                           <button disabled="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>

@@ -49,7 +49,7 @@
 
            <div class="form-group">
              <label for="file-multiple-input" class=" form-control-label">Foto de perfil</label>
-             <input required type="file" id="file-multiple-input" accept="image/*" name="photo"  class="form-control-file">
+             <input  type="file" id="file-multiple-input" accept="image/*" name="photo"  class="form-control-file">
            </div>
 
             <div class="row form-group">

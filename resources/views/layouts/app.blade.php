@@ -177,7 +177,7 @@
                                             <a href="{{ route('users.index') }}"><i class="metismenu-icon"></i>Usuarios</a>
                                         </li>
                                         <li>
-                                          <a href=""><i class="metismenu-icon"></i>Roles</a>
+                                          <a href="{{ route('roles.index') }}"><i class="metismenu-icon"></i>Roles</a>
                                         </li>
                                     </ul>
                                 </li>
