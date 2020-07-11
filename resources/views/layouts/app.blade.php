@@ -94,7 +94,8 @@
 
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                                             <button onclick="event.preventDefault();document.getElementById('logout-form').submit();" type="button" tabindex="0" class="dropdown-item">Salir</button>
-                                            <button onclick="#" type="button" tabindex="0" class="dropdown-item">Cambiar Contraseña</button>
+                                         <a href="{{route('updatePassword',Auth::user()->id)}}" type="button" tabindex="0" class="dropdown-item"> Cambiar Contraseña</a>
+
                                         </div>
                                     </div>
                                 </div>

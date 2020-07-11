@@ -9,6 +9,7 @@ use App\Role;
 use App\Help\Help;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class UserController extends Controller
 {
@@ -45,7 +46,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::where('email', $request->email)->get(); 
+        $user = User::where('email', $request->email)->get();
         if(count($user)>0){
             return back()->with('delete','<strong>Error el correo ya existe</strong>');
         }else{
@@ -55,7 +56,7 @@ class UserController extends Controller
              }else{
                 $file = 'default.png';
              }
-             
+
              // Storage::disk('public')->delete('imagen-tipos-mas/'.$tipoAux->imagen);
              $user = User::create([
              'name' => $request->name,
@@ -136,4 +137,49 @@ class UserController extends Controller
        User::destroy($id);
        return back()->with('delete', '<strong>Usuario eliminado correctamente');
     }
+
+
+    public function updatePassword($id)
+    {
+        $user= User::find($id);
+       return view('users.updatePassword', compact('user'));
+    }
+
+private function checkCurrentPassword($currentPassword,$passwordSaved)
+{
+    if (Hash::check($currentPassword,$passwordSaved))
+     return true;
+    else return false;
+
+}
+
+
+
+    public function savePassword(Request $request, $id)
+    {
+        $user= User::find($id);
+
+        if( $this->checkCurrentPassword($request->currentPassword,$user->password) == false ){
+        return back()->with('edit', 'Contraseña actual incorrecta');
+       }
+       if ( $request->repeatPassword != $request->newPassword) {
+        return back()->with('edit', 'Contraseñas no coinciden');
+       }
+       elseif (  $this->checkCurrentPassword($request->currentPassword,$user->password) == true && $request->repeatPassword == $request->newPassword) {
+           User::where('id',$id)->update(
+               [
+                   'password' => Hash::make($request->newPassword),
+               ]
+               );
+        return back()->with('edit', 'Actualizado Correctamente');
+       }
+
+
+
+
+
+
+    }
+
+
 }
