@@ -21,8 +21,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {        
+        $request->user()->authorizeRoles(['administrador']);
         $users = User::all();
         return view('users.users', compact('users'));
     }
@@ -32,8 +33,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(Request $request)
+    {        
+        $request->user()->authorizeRoles(['administrador']);
         $roles = Role::all();
         return view('users.userCreate', compact('roles'));
     }
@@ -45,7 +47,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
+        $request->user()->authorizeRoles(['administrador']);
         $user = User::where('email', $request->email)->get();
         if(count($user)>0){
             return back()->with('delete','<strong>Error el correo ya existe</strong>');
@@ -75,8 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show(Request $request, $id)
+    {    
+        $request->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $created_at = Help::dateFormatter($user->created_at);
         return view('users.user', compact('user','created_at'));
@@ -88,8 +92,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit(Request $request, $id)
+    {    
+        $request->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $roles = Role::all();
         return view('users.userUpdate',compact('user','roles'));
@@ -103,7 +108,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {        
+        $request->user()->authorizeRoles(['administrador']);
         $backUser = User::find($id);
         $backUser->roles()->where('role_id', $backUser->roles()->first()->id)
         ->where('user_id',$backUser->id)
@@ -132,15 +138,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['administrador']);
        User::destroy($id);
        return back()->with('delete', '<strong>Usuario eliminado correctamente');
     }
 
 
-    public function updatePassword($id)
+    public function updatePassword(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['administrador']);
         $user= User::find($id);
        return view('users.updatePassword', compact('user'));
     }
@@ -157,6 +165,7 @@ private function checkCurrentPassword($currentPassword,$passwordSaved)
 
     public function savePassword(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['administrador']);
         $user= User::find($id);
 
         if( $this->checkCurrentPassword($request->currentPassword,$user->password) == false ){

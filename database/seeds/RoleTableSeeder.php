@@ -13,13 +13,19 @@ class RoleTableSeeder extends Seeder
     {
         $role = new Role();
         $role->name = 'Administrador';
-        $role->description = 'Puede acceder a todo el sistema';
+        $role->description = 'Puede acceder a todos los componentes del sistema';
         $role->save();
 
         $role = new Role();
         $role->name = 'Docente';
-        $role->description = 'Acceso a la administración de ciertos modulos';
+        $role->description = 'Acceso a la administración del módulo de notas de alumnos';
         $role->save();
+
+        $role = new Role();
+        $role->name = 'Secretaria';
+        $role->description = 'Acceso a la administración de inscripción y notas de alumnos ';
+        $role->save();
+
 
     }
 }

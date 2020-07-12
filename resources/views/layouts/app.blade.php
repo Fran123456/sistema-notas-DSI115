@@ -174,9 +174,11 @@
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul class="mm-collapse" style="height: 7.04px;">
+                                    @if(Auth::user()->roles()->first()->name == "Administrador")
                                         <li>
                                             <a href="{{ route('users.index') }}"><i class="metismenu-icon"></i>Usuarios</a>
                                         </li>
+                                    @endif
                                         <li>
                                           <a href="{{ route('roles.index') }}"><i class="metismenu-icon"></i>Roles</a>
                                         </li>
