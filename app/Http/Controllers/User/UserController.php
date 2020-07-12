@@ -153,15 +153,13 @@ class UserController extends Controller
        return view('users.updatePassword', compact('user'));
     }
 
-private function checkCurrentPassword($currentPassword,$passwordSaved)
-{
-    if (Hash::check($currentPassword,$passwordSaved))
-     return true;
-    else return false;
+    private function checkCurrentPassword($currentPassword,$passwordSaved)
+    {
+        if (Hash::check($currentPassword,$passwordSaved))
+         return true;
+        else return false;
 
-}
-
-
+    }
 
     public function savePassword(Request $request, $id)
     {

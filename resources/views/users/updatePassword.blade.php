@@ -11,7 +11,8 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-            <div class="card-header"><h5>Cambiar Contraseña <strong> {{Auth::user()->name}}</strong></h5></div>
+            <div class="card-header">Cambiar Contraseña:&nbsp; <strong>{{Auth::user()->name}}</strong>
+            </div>
             <div class="card-body card-block">
 
                <div class="form-group">
