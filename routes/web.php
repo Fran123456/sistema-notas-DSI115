@@ -35,3 +35,8 @@ Route::post('user/save/password/{id}', 'User\userController@savePassword')->name
 Route::resource('roles', 'Role\RoleController');
 //
 /*ROLES*/
+
+/*RUTAS DEMO*/
+Route::get('secretary', 'User\userController@demoSecretary')->name('secretaryurl');
+Route::get('teacher', 'User\userController@demoTeacher')->name('teacherurl');
+Route::get('administrator', 'User\userController@demoAdmin')->name('adminurl');

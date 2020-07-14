@@ -21,5 +21,23 @@ class UserTableSeeder extends Seeder
         $user->photo = 'default.png';
         $user->save();
         $user->roles()->attach(Role::where('name', 'Administrador')->first());
+
+
+        $user2 = new User();
+        $user2->name = 'Margarita de Cruz';
+        $user2->email = 'margaritacruz@mail.com';
+        $user2->password = Hash::make('secretaria123');
+        $user2->photo = 'default.png';
+        $user2->save();
+        $user2->roles()->attach(Role::where('name', 'Secretaria')->first());
+
+
+        $user3 = new User();
+        $user3->name = 'Daniela Fernandez Canto';
+        $user3->email = 'danielafernandez@mail.com';
+        $user3->password = Hash::make('docente123');
+        $user3->photo = 'default.png';
+        $user3->save();
+        $user3->roles()->attach(Role::where('name', 'Docente')->first());
     }
 }

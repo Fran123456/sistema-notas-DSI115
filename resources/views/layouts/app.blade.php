@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Sistema de notas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="Wide selection of cards with multiple styles, borders, actions and hover effects.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -185,12 +185,25 @@
                                     </ul>
                                 </li>
 
-                                <!--<li>
-                                  <a href=""><i class="metismenu-icon fa fa-bell"></i>Notificaciones</a>
-                                </li>
+                                @if (Auth::user()->roles()->first()->name =="Secretaria")
                                 <li>
-                                  <a href=""><i class="metismenu-icon fa fa-envelope"></i>Mensajes(Tormenta Tropical)</a>
-                               </li>-->
+                                  <a href="{{ route('secretaryurl') }}"><i class="metismenu-icon fa fa-desktop"></i>Secretaria</a>
+                                </li>
+                                @endif
+
+                                @if (Auth::user()->roles()->first()->name =="Docente")
+                                <li>
+                                  <a href="{{ route('teacherurl') }}"><i class="metismenu-icon fa fa-book"></i>Docente</a>
+                               </li> 
+                               @endif
+
+                                @if (Auth::user()->roles()->first()->name =="Administrador")
+                                <li>
+                                  <a href="{{ route('adminurl') }}"><i class="metismenu-icon fa fa-star"></i>Administrador</a>
+                               </li>
+                               @endif
+
+                               
                               <!--GENERAL-->
 
                               <!--PUBLICACIONES-->

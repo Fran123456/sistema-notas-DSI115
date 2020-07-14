@@ -21,9 +21,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {        
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['administrador']);
         $users = User::all();
         return view('users.users', compact('users'));
     }
@@ -33,9 +33,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {        
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['administrador']);
         $roles = Role::all();
         return view('users.userCreate', compact('roles'));
     }
@@ -78,9 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {    
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $created_at = Help::dateFormatter($user->created_at);
         return view('users.user', compact('user','created_at'));
@@ -92,9 +92,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {    
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $roles = Role::all();
         return view('users.userUpdate',compact('user','roles'));
@@ -148,7 +148,7 @@ class UserController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['administrador']);
+        //$request->user()->authorizeRoles(['administrador']);
         $user= User::find($id);
        return view('users.updatePassword', compact('user'));
     }
@@ -163,7 +163,7 @@ class UserController extends Controller
 
     public function savePassword(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['administrador']);
+        //$request->user()->authorizeRoles(['administrador']);
         $user= User::find($id);
 
         if( $this->checkCurrentPassword($request->currentPassword,$user->password) == false ){
@@ -180,12 +180,21 @@ class UserController extends Controller
                );
         return back()->with('edit', 'Actualizado Correctamente');
        }
+    }
 
+    public function demoSecretary(){
+        auth()->user()->authorizeRoles(['secretaria']);
+        return view('users.demo');
+    }
 
+    public function demoTeacher(){
+        auth()->user()->authorizeRoles(['Docente']);
+        return view('users.demo');
+    }
 
-
-
-
+     public function demoAdmin(){
+        auth()->user()->authorizeRoles(['Administrador']);
+        return view('users.demo');
     }
 
 

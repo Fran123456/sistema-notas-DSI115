@@ -43,9 +43,16 @@
                         {{$value->name}}
                      </td>
 
+
+                     @if (Auth::user()->roles()->first()->name =="Administrador")
                       <td>
                         <a href="{{ route('roles.edit', $value->id) }}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
+                     @else
+                     <td> <button class="btn btn-warning" disabled=""><i class="fa fa-edit" aria-hidden="true"></i></button> </td>
+                     @endif
+
+                      
                     
                   </tr>
                 @endforeach
