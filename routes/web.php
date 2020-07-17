@@ -23,9 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 /*USERS*/
 //
-Route::resource('users', 'User\userController');
-Route::get('user/update/password/{id}', 'User\userController@updatePassword')->name('updatePassword');
-Route::post('user/save/password/{id}', 'User\userController@savePassword')->name('savePassword');
+Route::resource('users', 'User\UserController');
+Route::get('user/update/password/{id}', 'User\UserController@updatePassword')->name('updatePassword');
+Route::post('user/save/password/{id}', 'User\UserController@savePassword')->name('savePassword');
 //
 /*USERS*/
 
