@@ -37,6 +37,6 @@ Route::resource('roles', 'Role\RoleController');
 /*ROLES*/
 
 /*RUTAS DEMO*/
-Route::get('secretary', 'User\userController@demoSecretary')->name('secretaryurl');
-Route::get('teacher', 'User\userController@demoTeacher')->name('teacherurl');
-Route::get('administrator', 'User\userController@demoAdmin')->name('adminurl');
+Route::get('secretary', 'User\UserController@demoSecretary')->name('secretaryurl');
+Route::get('teacher', 'User\UserController@demoTeacher')->name('teacherurl');
+Route::get('administrator', 'User\UserController@demoAdmin')->name('adminurl');
