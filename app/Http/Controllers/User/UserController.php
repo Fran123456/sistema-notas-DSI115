@@ -53,7 +53,8 @@ class UserController extends Controller
         if(count($user)>0){
             return back()->with('delete','<strong>Error el correo ya existe</strong>');
         }else{
-             $file = null;
+            
+            $file = null;
              if($request->photo!=null){
                 $file =  Help::uploadFile($request, 'images/users/','photo');
              }else{
@@ -61,14 +62,17 @@ class UserController extends Controller
              }
 
              // Storage::disk('public')->delete('imagen-tipos-mas/'.$tipoAux->imagen);
-             $user = User::create([
+             $userN = User::create([
              'name' => $request->name,
              'email' => $request->email,
              'password' => Hash::make($request->password),
              'photo' => $file,
+             'phone' => $request->phone,
+             'address'=> $request->address,
+             'role_id'=> $request->role
              ]);
-             $user->roles()->attach(Role::where('id', $request->role)->first());
-             return redirect()->route('users.index')->with('success','<strong>El usuario '.$user->name.' fue creado correctamente</strong>');
+             $userN->roles()->attach(Role::where('id', $request->role)->first());
+             return redirect()->route('users.index')->with('success','<strong>El usuario '.$userN->name.' fue creado correctamente</strong>');
         }
     }
 

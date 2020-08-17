@@ -38,6 +38,20 @@
                   <h5>Nombre: <strong> {{$user->name}}</strong></h5>
                   <h5>Rol: <strong> {{Auth::user()->roles()->first()->name}}</strong></h5>
                   <h5>Correo: <strong> {{$user->email}}</strong></h5>
+                  @if ($user->phone != null)
+                    <h5>Telefono: <strong> {{$user->phone}}</strong></h5>
+                  @else
+                   <h5>Telefono: -</h5>
+                  @endif
+
+                  @if ($user->address != null)
+                    <h5>Dirección: <strong> {{$user->address}}</strong></h5>
+                  @else
+                   <h5>Dirección: -</h5>
+                  @endif
+                 
+                  
+                  
                   <h5>Fecha de creación: <strong> {{$created_at}}</strong></h5>
                 </p>
             </div>

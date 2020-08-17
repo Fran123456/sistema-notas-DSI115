@@ -39,6 +39,7 @@
                   <th scope="col">Nombre</th>
                   <th scope="col">Correo</th>
                   <th scope="col" width="160">Rol</th>
+                  <th scope="col" width="160">Activo</th>
                   <th width="40" scope="col"> Ver </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
@@ -56,6 +57,14 @@
                      </td>
                      <td>
                         {{$value->roles()->first()->name}}
+                     </td>
+                     <td>
+                        @if ($value->active)
+                         Activo
+                        @else
+                        No activo
+                        @endif
+                        
                      </td>
                      <td>
                         <a href="{{ route('users.show', $value->id) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>

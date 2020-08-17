@@ -31,14 +31,35 @@
         <div class="card-header"><strong>Crear un nuevo usuario </strong></div>
         <div class="card-body card-block">
 
-           <div class="form-group">
-            <label  class=" form-control-label">Nombre</label>
-              <input type="text" name="name" value="{{old('name')}}" required  class="form-control">
+           <div class="row">
+             <div class="col-md-6">
+                 <div class="form-group">
+                  <label  class=" form-control-label">Nombre</label>
+                    <input type="text" name="name" value="{{old('name')}}" required  class="form-control">
+                 </div>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                      <label  class=" form-control-label">Correo </label>
+                      <input type="email" name="email" value="{{old('email')}}" required  class="form-control">             
+                 </div>
+             </div>
            </div>
 
-           <div class="form-group">
-                <label  class=" form-control-label">Correo </label>
-                <input type="email" name="email" value="{{old('email')}}" required  class="form-control">             
+
+           <div class="row">
+             <div class="col-md-6">
+                 <div class="form-group">
+                  <label  class=" form-control-label">Telefono</label>
+                    <input type="number" min="0" name="phone" value="{{old('name')}}" required  class="form-control">
+                 </div>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                      <label  class=" form-control-label">Dirección </label>
+                      <input type="text" name="address" value="{{old('email')}}" required  class="form-control">             
+                 </div>
+             </div>
            </div>
 
            <div class="row">
