@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
+            $table->string('curriculum')->nullable();
             $table->boolean('active')->default(true);
             $table->unsignedBigInteger('role_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
@@ -27,12 +28,11 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-
             $table->foreign('role_id')
                 ->references('id')
                 ->on('roles')
                 ->onDelete('cascade');
-        });
+          });
     }
 
     /**

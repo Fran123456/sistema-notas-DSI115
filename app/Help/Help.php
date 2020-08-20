@@ -39,18 +39,18 @@ class Help
    }
 
 	 public static function Today(){
-		 $hoy = getdate();
-     return $hoy['mday'].'-'.$hoy['mon'].'-'.$hoy['year'];
+		 $today = getdate();
+     return $today['mday'].'-'.$today['mon'].'-'.$today['year'];
 	 }
 
 	 public static function fechaHoyPorYear(){
-		 $hoy = getdate();
-     return $hoy['year'].'-'.$hoy['mon'].'-'.$hoy['mday'];
+		 $today = getdate();
+     return $today['year'].'-'.$today['mon'].'-'.$today['mday'];
 	 }
 
 	 public static function yearActual(){
-	 	$hoy = getdate();
-	 	return $hoy['year'];
+	 	$today = getdate();
+	 	return $today['year'];
 	 }
 
 	 public static function dateFormatter($date){
@@ -64,13 +64,13 @@ class Help
 		 return $code;
 	 }
 
-	 public static function crearJson($nombreArchivo, $modo, $json){
+	 public static function MakeJson($filename, $mode, $json){
 		 $json = json_encode($json);
-		 $fp = fopen($nombreArchivo,$modo);
+		 $fp = fopen($filename,$mode);
 		 fwrite($fp, $json);
 	 }
 
-	 public static function leerJson($path){
+	 public static function ReadJson($path){
         $data = file_get_contents($path);
         $data = json_decode($data, true);
         return $data;
