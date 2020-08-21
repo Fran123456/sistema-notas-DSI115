@@ -81,7 +81,7 @@ trait AuthenticatesUsers
     {
         return $this->guard()->attempt(
             $this->credentials($request), $request->filled('remember')
-        );
+        );        
     }
 
     /**
@@ -92,7 +92,12 @@ trait AuthenticatesUsers
      */
     protected function credentials(Request $request)
     {
-        return $request->only($this->username(), 'password');
+        //return $request->only($this->username(), 'password');
+
+        $credentials = $request->only($this->username(), 'password');
+        $credentials['active'] = 1;
+
+        return $credentials;
     }
 
     /**

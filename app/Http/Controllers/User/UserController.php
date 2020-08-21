@@ -201,5 +201,26 @@ class UserController extends Controller
         return view('users.demo');
     }
 
+    public function cambiarEstado(Request $request, $id){
+        $request->user()->authorizeRoles(['administrador']);
+        $backUser=User::find($id);
+        $valorCambio=2;
+        $stringCambio="";
+        if($backUser->active==0){
+            $valorCambio=1;
+        }
+        else{
+            $valorCambio=0;
+        }
+        User::where('id',$id)->update(['active'=>$valorCambio]);
+        if($valorCambio==1){
+            $stringCambio=" activado ";
+        }
+        else{            
+            $stringCambio=" desactivado ";
+        }
+        return redirect()->route('users.index')->with('edit','<strong>El usuario '.$request->name.' fue'.$stringCambio.'correctamente</strong>');
+        
+    }
 
 }
