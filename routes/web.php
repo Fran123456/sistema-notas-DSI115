@@ -40,3 +40,7 @@ Route::resource('roles', 'Role\RoleController');
 Route::get('secretary', 'User\UserController@demoSecretary')->name('secretaryurl');
 Route::get('teacher', 'User\UserController@demoTeacher')->name('teacherurl');
 Route::get('administrator', 'User\UserController@demoAdmin')->name('adminurl');
+
+/*DEGREES*/
+//
+Route::resource('degrees', 'Degree\DegreeController');
