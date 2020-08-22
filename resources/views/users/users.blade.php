@@ -21,7 +21,7 @@
 
 <div class="row ">
     <div class="col-md-12 col-sm-12 col-xs-12 text-right">
-       <a class="btn btn-info mb-1" href="{{ route('users.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+       <a class="btn btn-info mb-1" href="{{ route('users.create') }}"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
     </div>
 </div>
 
@@ -40,6 +40,7 @@
                   <th scope="col">Correo</th>
                   <th scope="col" width="160">Rol</th>
                   <th scope="col" width="160">Activo</th>
+                  <th scope="col" width="160">Estado</th>
                   <th width="40" scope="col"> Ver </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
@@ -62,9 +63,16 @@
                         @if ($value->active)
                          Activo
                         @else
-                        No activo
+                        No Activo
                         @endif
                         
+                     </td>
+                     <td>
+                     @if(Auth::user()->id==$value->id)                      
+                      <button disabled="" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></button>
+                     @else
+                      <a href="{{ route('cambiarEstado', $value->id) }}" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
+                     @endif                                         
                      </td>
                      <td>
                         <a href="{{ route('users.show', $value->id) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
