@@ -17,7 +17,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear un año escolar</li>
+        <li class="breadcrumb-item active" aria-current="page">Crear grado, docente para año escolar</li>
       </ol>
     </nav>
   </div>
@@ -28,12 +28,20 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-        <div class="card-header"><strong>Crear un año escolar </strong></div>
+        <div class="card-header"><strong>Crear salones y docentes para año escolar </strong></div>
         <div class="card-body card-block">
 
+          <div class="row">
+            <div class="col-md-12">
+              <h6> <strong>Fecha de finalización: </strong> {{$year->end_date}}</h6>
+              <h6> <strong>Fecha de inicio: </strong> {{$year->start_date}} </h6>
+              <h6> <strong>Año: </strong> {{$year->year}}</h6>
+              <h6> <strong>Estado: </strong> {{Help::status($year->active)}}</h6>
+            </div>
+            <br>
+          </div>
+
            <div class="row">
-
-
              <div class="col-md-4">
                <div class="form-group">
                 <label>Docente</label>

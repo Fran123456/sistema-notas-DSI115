@@ -89,6 +89,12 @@ class Help
 		 return $value;
 	 }
 
+	 public static function status($status){
+		 $value = "Activo";
+		 if(!$status) $value = "No activo";
+		 return $value;
+	 }
+
 	 public function GetYear($date){
        $dateAsInt = strtotime($date);
 	 }

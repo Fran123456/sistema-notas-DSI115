@@ -65,14 +65,14 @@
                         @else
                         No Activo
                         @endif
-                        
+
                      </td>
                      <td>
-                     @if(Auth::user()->id==$value->id)                      
+                     @if(Auth::user()->id==$value->id)
                       <button disabled="" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></button>
                      @else
-                      <a href="{{ route('cambiarEstado', $value->id) }}" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
-                     @endif                                         
+                      <a href="{{ route('changeStatus', $value->id) }}" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
+                     @endif
                      </td>
                      <td>
                         <a href="{{ route('users.show', $value->id) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>

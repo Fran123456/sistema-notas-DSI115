@@ -26,7 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('users', 'User\UserController');
 Route::get('user/update/password/{id}', 'User\UserController@updatePassword')->name('updatePassword');
 Route::post('user/save/password/{id}', 'User\UserController@savePassword')->name('savePassword');
-Route::get('user/active/{id}', 'User\UserController@changeStatus')->name('cambiarEstado');
+Route::get('user/active/{id}', 'User\UserController@changeStatus')->name('changeStatus');
 //
 /*USERS*/
 
@@ -51,5 +51,5 @@ Route::resource('degrees', 'Degree\DegreeController');
 
 /*SCHOOL YEAR*/
 Route::resource('years', 'SchoolYear\SchoolYearController');
-Route::get('year/teacher/grade', 'SchoolYear\SchoolYearController@createYearTeacher')->name('teacher-grade');
+Route::get('year/teacher/grade/{id}', 'SchoolYear\SchoolYearController@createYearTeacher')->name('teacher-grade');
 /*SCHOOL YEAR*/

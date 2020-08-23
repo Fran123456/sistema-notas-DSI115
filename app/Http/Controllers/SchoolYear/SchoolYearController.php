@@ -34,10 +34,11 @@ class SchoolYearController extends Controller
 
 
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
-    public function createYearTeacher(){
+    public function createYearTeacher($id){
+      $year = SchoolYear::find($id);
        $degrees = Degree::where('active', true)->orderBy('turn')->get();
        $teachers = User::where('role_id', 2)->get();
-       return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers'));
+       return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers','year'));
     }
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
 
