@@ -15,14 +15,13 @@ class CreateDegreeSchoolYearTable extends Migration
     {
         Schema::create('degree_school_year', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('degree_id')->nullable();
             $table->unsignedBigInteger('school_year_id')->nullable();
             $table->integer('capacity')->nullable();
-            $table->boolean('active')->nullable();
-            $table->timestamps();
+           //  $table->timestamps();
 
-            $table->foreign('teacher_id')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade')
@@ -38,7 +37,7 @@ class CreateDegreeSchoolYearTable extends Migration
                 ->references('id')
                 ->on('school_years')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');  
+                ->onUpdate('cascade');
         });
     }
 

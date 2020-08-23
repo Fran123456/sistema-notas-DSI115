@@ -19,9 +19,19 @@ class Degree extends Model
                     ->withPivot([
                             'created_by',
                             'updated_by',
-                    ]);;
+                    ]);
     }
 
+
+    public function teachers()
+    {
+        return $this->belongsToMany('App\Usew')
+                    ->using('App\DegreeShoolYear')
+                    ->withPivot([
+                            'created_by',
+                            'updated_by',
+                    ]);
+   }
 
 
 }

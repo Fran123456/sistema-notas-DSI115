@@ -2,9 +2,13 @@
 @section('content')
 @include('alerts.dataTable')
 
-@push('scripts')
-    <script src="{!! asset('js/teacher.js') !!}"></script>
-@endpush
+<style media="screen">
+.bg-success {
+  background-color: #3ac47d52 !important;
+}
+</style>
+
+
 
 <div class="row">
   @include('alerts.alerts')
@@ -44,13 +48,16 @@
                   <th width="200" scope="col">Fecha de finalización</th>
                   <th scope="col">Año</th>
                   <th scope="col">Estado</th>
+                  <th width="40" scope="col"> Administrar </th>
                   <th width="40" scope="col"> Editar </th>
-                    <th width="40" scope="col"> Eliminar </th>
+                  <th width="40" scope="col"> Eliminar </th>
                 </tr>
               </thead>
               <tbody>
                  @foreach ($years as $key => $value)
-                  <tr>
+                  <tr @if ($value->active)
+                    class="bg-success"
+                  @endif>
                     <th scope="row">{{$key+1}}</th>
 
                      <td>{{Help::dateFormatter($value->start_date)}}</td>
@@ -64,8 +71,11 @@
                       @endif
 
                      </td>
+                     <td>
+                       <a href="{!! route('teacher-grade') !!}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </td>
                       <td>
-                        <a href=# class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
                       <td>
                          <form method="POST" action="">

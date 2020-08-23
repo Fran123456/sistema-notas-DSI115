@@ -9,6 +9,8 @@ class DegreeShoolYear extends Pivot
     protected $table = 'degree_school_year';
     public $incrementing = true;
     protected $fillable = [
-      'id','teacher_id','degree_id','school_year_id','capacity','active','created_at','updated_at'
+      'id','user_id','degree_id','school_year_id','capacity','active','created_at','updated_at'
     ];
+
+
 }

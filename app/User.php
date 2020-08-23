@@ -47,7 +47,7 @@ class User extends Authenticatable
         abort_unless($this->hasAnyRole($roles), 401);
         return true;
     }
-    
+
     public function hasAnyRole($roles)
     {
         if (is_array($roles)) {
@@ -58,17 +58,23 @@ class User extends Authenticatable
             }
         } else {
             if ($this->hasRole($roles)) {
-                 return true; 
-            }   
+                 return true;
+            }
         }
         return false;
     }
-    
+
     public function hasRole($role)
     {
         if ($this->roles()->where('name', $role)->first()) {
             return true;
         }
         return false;
+    }
+
+    public function degrees()
+    {
+        return $this->belongsToMany('App\Degree')
+                        ->using('App\DegreeShoolYear','user_id');
     }
 }
