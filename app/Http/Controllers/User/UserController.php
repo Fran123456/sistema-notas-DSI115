@@ -22,7 +22,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         auth()->user()->authorizeRoles(['administrador']);
         $users = User::all();
         return view('users.users', compact('users'));
@@ -34,7 +34,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
+    {
         auth()->user()->authorizeRoles(['administrador']);
         $roles = Role::all();
         return view('users.userCreate', compact('roles'));
@@ -47,13 +47,13 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {
         $request->user()->authorizeRoles(['administrador']);
         $user = User::where('email', $request->email)->get();
         if(count($user)>0){
             return back()->with('delete','<strong>Error el correo ya existe</strong>');
         }else{
-            
+
             $file = null;
              if($request->photo!=null){
                 $file =  Help::uploadFile($request, 'images/users/','photo');
@@ -83,7 +83,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {    
+    {
         auth()->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $created_at = Help::dateFormatter($user->created_at);
@@ -97,7 +97,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {    
+    {
         auth()->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $roles = Role::all();
@@ -112,7 +112,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {        
+    {
         $request->user()->authorizeRoles(['administrador']);
         $backUser = User::find($id);
         $backUser->roles()->where('role_id', $backUser->roles()->first()->id)
@@ -201,7 +201,7 @@ class UserController extends Controller
         return view('users.demo');
     }
 
-    public function cambiarEstado(Request $request, $id){
+    public function changeStatus(Request $request, $id){
         $request->user()->authorizeRoles(['administrador']);
         $backUser=User::find($id);
         $valorCambio=2;
@@ -216,11 +216,11 @@ class UserController extends Controller
         if($valorCambio==1){
             $stringCambio=" activado ";
         }
-        else{            
+        else{
             $stringCambio=" desactivado ";
         }
-        return redirect()->route('users.index')->with('edit','<strong>El usuario '.$request->name.' fue'.$stringCambio.'correctamente</strong>');
-        
+        return redirect()->route('users.index')->with('edit','<strong>El usuario '.$request->name.' fue '.$stringCambio.' correctamente</strong>');
+
     }
 
 }
