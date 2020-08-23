@@ -184,38 +184,16 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="">
-                                    <a href="#" aria-expanded="false">
-                                        <i class="metismenu-icon fa fa-users"></i>
-                                        Grados y secciones
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul class="mm-collapse" style="height: 7.04px;">
-                                    @if(Auth::user()->roles()->first()->name == "Administrador")
-                                        <li>
-                                            <a href="{{ route('degrees.index') }}"><i class="metismenu-icon"></i>Grados</a>
-                                        </li>
-                                    @endif
-                                    </ul>
+                               
+                                <li>
+                                      <a href="{{ route('degrees.index') }}"><i  class="metismenu-icon fa fa-graduation-cap"></i>Grado escolar</a>
                                 </li>
 
-                                @if (Auth::user()->roles()->first()->name =="Secretaria")
                                 <li>
-                                  <a href="{{ route('secretaryurl') }}"><i class="metismenu-icon fa fa-desktop"></i>Secretaria</a>
+                                      <a href="{{ route('years.index') }}"><i  class="metismenu-icon fa fa-calendar"></i>Año escolar</a>
                                 </li>
-                                @endif
 
-                                @if (Auth::user()->roles()->first()->name =="Docente")
-                                <li>
-                                  <a href="{{ route('teacherurl') }}"><i class="metismenu-icon fa fa-book"></i>Docente</a>
-                               </li> 
-                               @endif
-
-                                @if (Auth::user()->roles()->first()->name =="Administrador")
-                                <li>
-                                  <a href="{{ route('adminurl') }}"><i class="metismenu-icon fa fa-star"></i>Administrador</a>
-                               </li>
-                               @endif
+                             
 
                                
                               <!--GENERAL-->
