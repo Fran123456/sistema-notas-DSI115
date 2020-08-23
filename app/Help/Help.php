@@ -76,6 +76,14 @@ class Help
         return $data;
 	 }
 
+	 public static function ordinal($number){
+	 	$locale = 'en_US';
+		$nf = new NumberFormatter($locale, NumberFormatter::ORDINAL);
+		return $nf->format($number);
+	 }
+
+
+
 	
 }
  ?>

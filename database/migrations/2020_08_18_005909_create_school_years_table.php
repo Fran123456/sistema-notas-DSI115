@@ -18,7 +18,7 @@ class CreateSchoolYearsTable extends Migration
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('year')->nullable();
-            $table->string('active')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
