@@ -26,7 +26,8 @@ class SchoolYearController extends Controller
      */
     public function create()
     {
-       return view('schoolYear.schoolYearsCreate');
+
+       return view('schoolYear.schoolYearCreate');
     }
 
     /**
@@ -37,7 +38,9 @@ class SchoolYearController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       $year = SchoolYear::create($request->all());
+       return redirect()->route('years.index')->with('success','<strong>Año escolar creado correctamente</strong>');
     }
 
     /**

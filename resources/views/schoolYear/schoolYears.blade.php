@@ -38,8 +38,8 @@
               <thead>
                 <tr>
                   <th width="40" scope="col">#</th>
-                  <th scope="col">Fecha inicio</th>
-                  <th scope="col">Fecha de finalización</th>
+                  <th width="200" scope="col">Fecha inicio</th>
+                  <th width="200" scope="col">Fecha de finalización</th>
                   <th scope="col">Año</th>
                   <th scope="col">Estado</th>
                   <th width="40" scope="col"> Editar </th>
@@ -49,13 +49,19 @@
                  @foreach ($years as $key => $value)
                   <tr>
                     <th scope="row">{{$key+1}}</th>
-                     <td>
-                        {{ Help::ordinal($value->degree)}}
-                     </td>
+
                      <td>{{$value->start_date}}</td>
                      <td>{{$value->end_date}}</td>
                      <td>{{$value->year}}</td>
-                     <td>{{$value->active}}</td>
+                     <td>
+                      @if ($value->active)
+                        Activado
+                      @else
+                        No Activo
+                      @endif
+                        
+                     </td>
+
                      @if (Auth::user()->roles()->first()->name =="Administrador")
                       <td>
                         <a href=# class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

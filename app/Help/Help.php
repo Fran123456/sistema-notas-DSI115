@@ -43,12 +43,12 @@ class Help
      return $today['mday'].'-'.$today['mon'].'-'.$today['year'];
 	 }
 
-	 public static function fechaHoyPorYear(){
+	 public static function TodayByYear(){
 		 $today = getdate();
      return $today['year'].'-'.$today['mon'].'-'.$today['mday'];
 	 }
 
-	 public static function yearActual(){
+	 public static function ActuallyYear(){
 	 	$today = getdate();
 	 	return $today['year'];
 	 }
@@ -80,6 +80,10 @@ class Help
 	 	$locale = 'en_US';
 		$nf = new \NumberFormatter($locale, \NumberFormatter::ORDINAL);
 		return $nf->format($number);
+	 }
+
+	 public function GetYear($date){
+       $dateAsInt = strtotime($date);
 	 }
 
 

@@ -23,67 +23,43 @@
   </div>
 </div>
 
-<form method="post" action="{{ route('users.store') }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('years.store') }}" enctype="multipart/form-data">
 @csrf
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-        <div class="card-header"><strong>Crear un nuevo usuario </strong></div>
+        <div class="card-header"><strong>Crear un año escolar </strong></div>
         <div class="card-body card-block">
 
            <div class="row">
-             <div class="col-md-6">
+             <div class="col-md-3">
                  <div class="form-group">
-                  <label  class=" form-control-label">Nombre</label>
-                    <input type="text" name="name" value="{{old('name')}}" required  class="form-control">
+                  <label  class=" form-control-label">Fecha de inicio</label>
+                    <input type="date" name="start_date" value="{{old('start_date')}}" required  class="form-control">
                  </div>
              </div>
-             <div class="col-md-6">
+             <div class="col-md-3">
                  <div class="form-group">
-                      <label  class=" form-control-label">Correo </label>
-                      <input type="email" name="email" value="{{old('email')}}" required  class="form-control">             
+                      <label  class=" form-control-label">Fecha de inición </label>
+                      <input type="date" name="end_date" value="{{old('end_date')}}" required  class="form-control">             
                  </div>
              </div>
-           </div>
 
-
-           <div class="row">
-             <div class="col-md-6">
+             <div class="col-md-3">
                  <div class="form-group">
-                  <label  class=" form-control-label">Telefono</label>
-                    <input type="number" min="0" name="phone" value="{{old('name')}}" required  class="form-control">
+                  <label  class=" form-control-label">Año</label>
+                    <input type="number" min="1000" max="9999" name="year" value="{{old('year')}}" required  class="form-control">
                  </div>
              </div>
-             <div class="col-md-6">
+             <div class="col-md-3">
                  <div class="form-group">
-                      <label  class=" form-control-label">Dirección </label>
-                      <input type="text" name="address" value="{{old('email')}}" required  class="form-control">             
+                  <label>Activo</label>
+                  <select name="active" required="" class="form-control">
+                    <option value="1">Activo</option>
+                     <option value="0">No activo</option>
+                  </select>    
                  </div>
              </div>
-           </div>
-
-           <div class="row">
-             <div class="col-md-6">
-               <div class="form-group">
-                 <label  class=" form-control-label">Contraseña </label>
-                 <input type="password" name="password" value="{{old('password')}}" required  class="form-control">             
-               </div>
-             </div>
-             <div class="col-md-6">
-               <div class="form-group">
-                  <label  class=" form-control-label">Roles</label>
-                  <select class="form-control" name="role">
-                  @foreach ($roles as $role)
-                    <option value="{{$role->id}}">{{$role->name}}</option>
-                  @endforeach
-                 </select>          
-               </div>
-             </div>
-           </div>
-
-           <div class="form-group">
-             <label for="file-multiple-input" class=" form-control-label">Foto de perfil</label>
-             <input  type="file" id="file-multiple-input" accept="image/*" name="photo"  class="form-control-file">
            </div>
 
             <div class="row form-group">
