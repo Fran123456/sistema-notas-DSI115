@@ -41,7 +41,7 @@
              <div class="col-md-3">
                  <div class="form-group">
                       <label  class=" form-control-label">Fecha de inición </label>
-                      <input type="date" name="end_date" value="{{old('end_date')}}" required  class="form-control">             
+                      <input type="date" name="end_date" value="{{old('end_date')}}" required  class="form-control">
                  </div>
              </div>
 
@@ -57,8 +57,30 @@
                   <select name="active" required="" class="form-control">
                     <option value="1">Activo</option>
                      <option value="0">No activo</option>
-                  </select>    
+                  </select>
                  </div>
+             </div>
+
+             <div class="col-md-4">
+               <div class="form-group">
+                <label>Docente</label>
+                <select name="teacher" required="" class="form-control">
+                  @foreach ($teachers as $key => $value)
+                      <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach
+                </select>
+               </div>
+             </div>
+
+             <div class="col-md-4">
+               <div class="form-group">
+                <label>Grado</label>
+                <select name="teacher" required="" class="form-control">
+                  @foreach ($degrees as $key => $value)
+                      <option value="{{$value->id}}">{{Help::ordinal($value->degree)}} {{$value->section}} - {{Help::turn($value->turn)}}</option>
+                  @endforeach
+                </select>
+               </div>
              </div>
            </div>
 

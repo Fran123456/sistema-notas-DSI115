@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
-
 @include('alerts.dataTable')
+
+@push('scripts')
+    <script src="{!! asset('js/teacher.js') !!}"></script>
+@endpush
 
 <div class="row">
   @include('alerts.alerts')
@@ -26,7 +29,6 @@
 </div>
 
 
-
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
@@ -43,6 +45,7 @@
                   <th scope="col">Año</th>
                   <th scope="col">Estado</th>
                   <th width="40" scope="col"> Editar </th>
+                    <th width="40" scope="col"> Eliminar </th>
                 </tr>
               </thead>
               <tbody>
@@ -50,8 +53,8 @@
                   <tr>
                     <th scope="row">{{$key+1}}</th>
 
-                     <td>{{$value->start_date}}</td>
-                     <td>{{$value->end_date}}</td>
+                     <td>{{Help::dateFormatter($value->start_date)}}</td>
+                     <td>{{Help::dateFormatter($value->end_date)}}</td>
                      <td>{{$value->year}}</td>
                      <td>
                       @if ($value->active)
@@ -59,16 +62,19 @@
                       @else
                         No Activo
                       @endif
-                        
-                     </td>
 
-                     @if (Auth::user()->roles()->first()->name =="Administrador")
+                     </td>
                       <td>
                         <a href=# class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
-                     @else
-                     <td> <button class="btn btn-warning" disabled=""><i class="fa fa-edit" aria-hidden="true"></i></button> </td>
-                     @endif
+                      <td>
+                         <form method="POST" action="">
+                          @csrf
+                          <input type="hidden" name="_method" value="delete" />
+                          <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </form>
+                      </td>
+
                   </tr>
                 @endforeach
             </tbody>
@@ -77,5 +83,7 @@
     </div>
   </div>
 </div>
+
+
 
 @endsection
