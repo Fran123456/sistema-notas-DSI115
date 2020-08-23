@@ -5,7 +5,8 @@ namespace App\Http\Controllers\SchoolYear;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\SchoolYear;
-
+use App\Degree;
+use App\User;
 class SchoolYearController extends Controller
 {
     /**
@@ -16,6 +17,7 @@ class SchoolYearController extends Controller
     public function index()
     {
         $years = SchoolYear::orderBy('year','asc')->get();
+
         return view('schoolYear.schoolYears', compact('years'));
     }
 
@@ -26,8 +28,9 @@ class SchoolYearController extends Controller
      */
     public function create()
     {
-
-       return view('schoolYear.schoolYearCreate');
+      $degrees = Degree::where('active', true)->orderBy('turn')->get();
+      $teachers = User::where('role_id', 2)->get();
+       return view('schoolYear.schoolYearCreate', compact('degrees','teachers'));
     }
 
     /**
