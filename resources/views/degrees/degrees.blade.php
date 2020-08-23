@@ -43,11 +43,24 @@
                   <tr>
                     <th scope="row">{{$key+1}}</th>
                      <td>
-                        {{$value->degree}}
+                        {{ Help::ordinal($value->degree)}}
                      </td>
                      <td>{{$value->section}}</td>
-                     <td>{{$value->turn}}</td>
-                     <td>{{$value->active}}</td>
+                     <td>
+                      @if ($value->turn =="m")
+                       Matutino
+                      @else
+                       Vespertino
+                      @endif
+                     </td>
+                     <td>
+                      @if ($value->active)
+                       Activo
+                      @else
+                       No activo
+                      @endif
+                      
+                     </td>
 
 
                      @if (Auth::user()->roles()->first()->name =="Administrador")

@@ -17,7 +17,7 @@ class DegreeController extends Controller
     public function index()
     {
        // auth()->user()->authorizeRoles(['administrador']);
-        $degrees = Degree::all();
+        $degrees = Degree::orderBy('turn')->get();
         return view('degrees.degrees',["degrees"=>$degrees]);
     }
     /**

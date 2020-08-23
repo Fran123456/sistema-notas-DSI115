@@ -18,7 +18,7 @@ class CreateDegreesTable extends Migration
             $table->string('degree')->nullable();
             $table->string('section')->nullable();
             $table->string('turn')->nullable();
-            $table->string('active')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
