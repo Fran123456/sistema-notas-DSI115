@@ -82,12 +82,19 @@ class Help
 		return $nf->format($number);
 	 }
 
+	 public static function turn($turn){
+		 $value = "Vespertino";
+		 if($turn == "m") $value = "Matutino";
+
+		 return $value;
+	 }
+
 	 public function GetYear($date){
        $dateAsInt = strtotime($date);
 	 }
 
 
 
-	
+
 }
  ?>
