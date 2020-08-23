@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\SchoolYear;
 use App\Degree;
 use App\User;
-use App\DegreeShoolYear;
+use App\DegreeSchoolYear;
 class SchoolYearController extends Controller
 {
     /**
@@ -41,6 +41,15 @@ class SchoolYearController extends Controller
        return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers','year'));
     }
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
+
+    /*STORE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
+    public function storeYearTeacher(Request $request){
+       $year = DegreeSchoolYear::create($request->all());
+
+       //return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers','year'));
+    }
+    /*STORE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
+
 
     /**
      * Store a newly created resource in storage.

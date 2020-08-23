@@ -52,4 +52,6 @@ Route::resource('degrees', 'Degree\DegreeController');
 /*SCHOOL YEAR*/
 Route::resource('years', 'SchoolYear\SchoolYearController');
 Route::get('year/teacher/grade/{id}', 'SchoolYear\SchoolYearController@createYearTeacher')->name('teacher-grade');
+Route::post('year/teacher/grade/store', 'SchoolYear\SchoolYearController@storeYearTeacher')->name('storeYearTeacher');
+
 /*SCHOOL YEAR*/

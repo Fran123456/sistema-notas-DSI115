@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<form method="post" action="{{ route('years.store') }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('storeYearTeacher') }}" enctype="multipart/form-data">
 @csrf
 <div class="row">
   <div class="col-lg-12">
@@ -63,6 +63,8 @@
                 </select>
                </div>
              </div>
+
+             <input type="hidden" name="school_year_id" value="{{$year->id}}">
 
               <div class="col-md-4">
                  <div class="form-group">

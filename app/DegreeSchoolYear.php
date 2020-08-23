@@ -4,10 +4,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Model;
 
-class DegreeShoolYear extends Pivot
+class DegreeSchoolYear extends Pivot
 {
     protected $table = 'degree_school_year';
-    public $incrementing = true;
+    public $timestamps = false;
     protected $fillable = [
       'id','user_id','degree_id','school_year_id','capacity','active','created_at','updated_at'
     ];

@@ -15,7 +15,7 @@ class Degree extends Model
     public function shoolYear()
     {
         return $this->belongsToMany('App\ShoolYear')
-                    ->using('App\DegreeShoolYear')
+                    ->using('App\DegreeSchoolYear')
                     ->withPivot([
                             'created_by',
                             'updated_by',
@@ -26,7 +26,7 @@ class Degree extends Model
     public function teachers()
     {
         return $this->belongsToMany('App\Usew')
-                    ->using('App\DegreeShoolYear')
+                    ->using('App\DegreeSchoolYear')
                     ->withPivot([
                             'created_by',
                             'updated_by',
