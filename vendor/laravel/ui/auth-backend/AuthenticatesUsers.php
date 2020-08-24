@@ -46,13 +46,21 @@ trait AuthenticatesUsers
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
+        
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
+        
+        $query=User::where('email',$request->only($this->username()))->where('active',1)->count();
+        if($query==1){
+            return $this->sendFailedLoginResponse($request,1);
+        }
+        else{
+            return $this->sendFailedLoginResponse($request,0);
+        }
+        
     }
 
     /**
@@ -141,11 +149,22 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        throw ValidationException::withMessages([
+    protected function sendFailedLoginResponse(Request $request, $error)
+    {        
+
+        if($error == 1){
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.failed')],
+            ]);
+        }
+        else{
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.deactivated')],
+            ]);
+        }
+        /*throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
-        ]);
+        ]);*/
     }
 
     /**

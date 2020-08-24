@@ -13,8 +13,10 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'deactivated' => 'User deactivated. Please contact the administrator.',
+    //ESPAÑOL
+
+    'failed' => 'Error en las credenciales ingresadas.',
+    'throttle' => 'Demasiados intentos de ingreso. Por favor intente de nuevo en : seconds segundos.',
+    'deactivated' => 'Usuario desactivado. Por favor contacte al administrador.',
 
 ];
