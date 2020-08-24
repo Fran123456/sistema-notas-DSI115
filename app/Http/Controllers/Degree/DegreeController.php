@@ -95,4 +95,26 @@ class DegreeController extends Controller
     {
         //
     }
+
+    public function changeStatus(Request $request, $id){
+        $request->user()->authorizeRoles(['administrador']);
+        $backDegree=Degree::find($id);
+        $valorCambio=1;
+        $stringCambio="";
+        if($backDegree->active==0){
+            $valorCambio=1;
+        }
+        else{
+            $valorCambio=0;
+        }
+        Degree::where('id',$id)->update(['active'=>$valorCambio]);
+        if($valorCambio==1){
+            $stringCambio=" activado ";
+        }
+        else{
+            $stringCambio=" desactivado ";
+        }        
+        return redirect()->route('degrees.index')->with('edit','<strong>El grado '.$backDegree->degree.' sección '.$backDegree->section.' turno '.$backDegree->turn.' ha sido '.$stringCambio.' correctamente</strong>');
+
+    }
 }
