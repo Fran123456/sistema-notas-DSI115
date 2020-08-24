@@ -18,5 +18,6 @@ return [
     'failed' => 'Error en las credenciales ingresadas.',
     'throttle' => 'Demasiados intentos de ingreso. Por favor intente de nuevo en : seconds segundos.',
     'deactivated' => 'Usuario desactivado. Por favor contacte al administrador.',
+    'notfound' => 'No existe usuario registrado con el correo ingresado.',
 
 ];

@@ -34,6 +34,7 @@
                   <th scope="col">Grado</th>
                   <th scope="col">Seccion</th>
                   <th scope="col">Turno</th>
+                  <th scope="col">Activo</th>
                   <th scope="col">Estado</th>
                   <th width="40" scope="col"> Editar </th>
                 </tr>
@@ -61,8 +62,9 @@
                       @endif
                       
                      </td>
-
-
+                     <td>
+                     <a href="{{ route('changeStatusDegree', $value->id) }}" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
+                     </td>                     
                      @if (Auth::user()->roles()->first()->name =="Administrador")
                       <td>
                         <a href=# class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

@@ -53,13 +53,20 @@ trait AuthenticatesUsers
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
         
-        $query=User::where('email',$request->only($this->username()))->where('active',1)->count();
-        if($query==1){
-            return $this->sendFailedLoginResponse($request,1);
+        $query=User::where('email',$request->only($this->username()))->count();
+        if($query==0){
+            return $this->sendFailedLoginResponse($request,2);
         }
         else{
-            return $this->sendFailedLoginResponse($request,0);
+            $query=User::where('email',$request->only($this->username()))->where('active',1)->count();
+            if($query==1){
+                return $this->sendFailedLoginResponse($request,1);
+            }
+            else{
+                return $this->sendFailedLoginResponse($request,0);
+            }
         }
+        
         
     }
 
@@ -152,12 +159,17 @@ trait AuthenticatesUsers
     protected function sendFailedLoginResponse(Request $request, $error)
     {        
 
+        if($error == 2){
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.notfound')],
+            ]);
+        }
         if($error == 1){
             throw ValidationException::withMessages([
                 $this->username() => [trans('auth.failed')],
             ]);
         }
-        else{
+        if($error==0){
             throw ValidationException::withMessages([
                 $this->username() => [trans('auth.deactivated')],
             ]);

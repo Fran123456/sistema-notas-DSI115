@@ -46,6 +46,8 @@ Route::get('administrator', 'User\UserController@demoAdmin')->name('adminurl');
 
 /*DEGREES*/
 Route::resource('degrees', 'Degree\DegreeController');
+Route::get('degree/active/{id}', 'Degree\DegreeController@changeStatus')->name('changeStatusDegree');
+
 /*DEGREES*/
 
 
