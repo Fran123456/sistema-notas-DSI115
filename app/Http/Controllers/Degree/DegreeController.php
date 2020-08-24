@@ -60,7 +60,8 @@ class DegreeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $degree= Degree::where("id",$id)->first();
+        return view('degrees.edit', compact('degree'));
     }
 
     /**
@@ -72,7 +73,16 @@ class DegreeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Degree::where('id',$id)
+        ->update([
+
+            'degree' =>$request->degree,
+            'section' =>$request->section,
+            'turn' =>$request->turn,
+            'active' =>$request->active,
+        ]);
+
+        return $this->index()->with('info','Editado Correctamente');
     }
 
     /**

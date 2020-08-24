@@ -59,20 +59,20 @@
                       @else
                        No activo
                       @endif
-                      
+
                      </td>
 
 
                      @if (Auth::user()->roles()->first()->name =="Administrador")
                       <td>
-                        <a href=# class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        <a href="{{route('degrees.edit',$value->id)}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
                      @else
                      <td> <button class="btn btn-warning" disabled=""><i class="fa fa-edit" aria-hidden="true"></i></button> </td>
                      @endif
 
-                      
-                    
+
+
                   </tr>
                 @endforeach
             </tbody>
