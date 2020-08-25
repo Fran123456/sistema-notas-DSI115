@@ -34,7 +34,7 @@
         <div class="card-header"><strong>Edita rol </strong></div>
         <div class="card-body card-block">
 
-           
+
            <div class="row">
              <div class="col-md-6">
                 <div class="form-group">
@@ -42,11 +42,11 @@
                   <input type="text" name="name" value="{{$role->name}}" required  class="form-control">
                </div>
              </div>
-            
 
-             <div class="col-md-6 mb-1">
-              <br>
-               <button type="submit" class="btn btn-info mb-1" name="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+             <div class="col-md-12">
+              
+               <button type="submit" class="btn btn-warning mb-1" name="button"><i class="fa fa-edit" aria-hidden="true"></i></button>
              </div>
            </div>
 

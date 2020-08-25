@@ -41,11 +41,11 @@
 
            <div class="form-group">
                 <label  class=" form-control-label">Correo </label>
-                <input type="email" readonly="" name="email" value="{{$user->email}}" required  class="form-control">             
+                <input type="email" readonly="" name="email" value="{{$user->email}}" required  class="form-control">
            </div>
 
            <div class="row">
-             
+
              <div class="col-md-3">
               <p>Foto actual</p>
               <img height="200" width="200" src="{{ asset('images/users/'.$user->photo) }}">
@@ -62,7 +62,7 @@
                      <option value="{{$role->id}}">{{$role->name}}</option>
                    @endif
                   @endforeach
-                 </select>    
+                 </select>
                </div>
              </div>
 
@@ -75,7 +75,7 @@
 
              <div class="col-md-12">
               <br>
-               <button type="submit" class="btn btn-info mb-1" name="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+               <button type="submit" class="btn btn-warning mb-1" name="button"><i class="fa fa-edit" aria-hidden="true"></i></i></button>
              </div>
            </div>
 

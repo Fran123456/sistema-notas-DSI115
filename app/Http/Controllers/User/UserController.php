@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        //auth()->user()->authorizeRoles(['administrador']);
         $users = User::all();
         return view('users.users', compact('users'));
     }
@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        auth()->user()->authorizeRoles(['administrador']);
+      //  auth()->user()->authorizeRoles(['administrador']);
         $roles = Role::all();
         return view('users.userCreate', compact('roles'));
     }
@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->user()->authorizeRoles(['administrador']);
+      //  $request->user()->authorizeRoles(['administrador']);
         $user = User::where('email', $request->email)->get();
         if(count($user)>0){
             return back()->with('delete','<strong>Error el correo ya existe</strong>');
@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        auth()->user()->authorizeRoles(['administrador']);
+      //  auth()->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $created_at = Help::dateFormatter($user->created_at);
         return view('users.user', compact('user','created_at'));
@@ -98,7 +98,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        //auth()->user()->authorizeRoles(['administrador']);
         $user = User::find($id);
         $roles = Role::all();
         return view('users.userUpdate',compact('user','roles'));
@@ -113,7 +113,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['administrador']);
+      //  $request->user()->authorizeRoles(['administrador']);
         $backUser = User::find($id);
         $backUser->roles()->where('role_id', $backUser->roles()->first()->id)
         ->where('user_id',$backUser->id)
@@ -144,7 +144,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['administrador']);
+      //  $request->user()->authorizeRoles(['administrador']);
        User::destroy($id);
        return back()->with('delete', '<strong>Usuario eliminado correctamente');
     }
