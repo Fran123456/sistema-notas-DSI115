@@ -8,8 +8,6 @@
 }
 </style>
 
-
-
 <div class="row">
   @include('alerts.alerts')
 </div>
@@ -71,9 +69,19 @@
                       @endif
 
                      </td>
+
+
+
                      <td>
-                       <a href="{!! route('teacher-grade', $value->id) !!}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                       @if ($value->active)
+                         <a href="{!! route('teacher-grade', $value->id) !!}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                       @else
+                         <button disabled class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                       @endif
+
                      </td>
+
+
                       <td>
                         <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>

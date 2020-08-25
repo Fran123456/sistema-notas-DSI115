@@ -12,5 +12,7 @@ class DegreeSchoolYear extends Pivot
       'id','user_id','degree_id','school_year_id','capacity','active','created_at','updated_at'
     ];
 
+    
+
 
 }

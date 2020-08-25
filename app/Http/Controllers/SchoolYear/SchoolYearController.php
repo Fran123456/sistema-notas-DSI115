@@ -36,17 +36,26 @@ class SchoolYearController extends Controller
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
     public function createYearTeacher($id){
       $year = SchoolYear::find($id);
-       $degrees = Degree::where('active', true)->orderBy('turn')->get();
+       //$degrees = Degree::where('active', true)->orderBy('turn')->get();
+       //$degrees = SchoolYear::where('active', true)->first();
+       //return $degrees->degrees;
+       $degrees = Degree::whereDoesntHave('shoolYear')
+                  ->where('active', true)->orderBy('turn')
+                  ->get();
        $teachers = User::where('role_id', 2)->get();
-       return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers','year'));
+
+       $degreesTeacher = SchoolYear::where('active', true)->first();
+       //return $degreesTeacher->degrees[0]->pivot->capacity;
+      //return count($degreesTeacher->degrees);
+
+       return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers','year','degreesTeacher'));
     }
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
 
     /*STORE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
     public function storeYearTeacher(Request $request){
        $year = DegreeSchoolYear::create($request->all());
-
-       //return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers','year'));
+       return back()->with('success', 'Grado asignado correctamente al año escolar actual');
     }
     /*STORE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
 
