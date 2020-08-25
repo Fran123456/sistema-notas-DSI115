@@ -27,7 +27,8 @@ class DegreeController extends Controller
      */
     public function create()
     {
-        //
+               return view('degrees.degreesCreate');
+
     }
 
     /**
