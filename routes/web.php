@@ -1,5 +1,6 @@
 <?php
 
+use App\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +48,7 @@ Route::get('administrator', 'User\UserController@demoAdmin')->name('adminurl');
 /*DEGREES*/
 Route::resource('degrees', 'Degree\DegreeController');
 Route::post('degree/update/{id}', 'Degree\DegreeController@update')->name('degree_update');
-Route::get('degree/active/{id}', 'Degree\DegreeController@changeStatus')->name('changeStatusDegree');
+Route::get('degree/active/{id}', 'Degree\DegreeController@changeStatusDegree')->name('changeStatusDegree');
 
 /*DEGREES*/
 
@@ -56,5 +57,6 @@ Route::get('degree/active/{id}', 'Degree\DegreeController@changeStatus')->name('
 Route::resource('years', 'SchoolYear\SchoolYearController');
 Route::get('year/teacher/grade/{id}', 'SchoolYear\SchoolYearController@createYearTeacher')->name('teacher-grade');
 Route::post('year/teacher/grade/store', 'SchoolYear\SchoolYearController@storeYearTeacher')->name('storeYearTeacher');
+Route::get('year/active/{id}', 'SchoolYear\SchoolYearController@changeStatusSchoolYear')->name('changeStatusSchoolYear');
 
 /*SCHOOL YEAR*/

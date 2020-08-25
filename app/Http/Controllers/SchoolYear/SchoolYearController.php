@@ -129,4 +129,12 @@ class SchoolYearController extends Controller
     {
         //
     }
+
+    public function changeStatusSchoolYear(Request $request, $id){
+      $request->user()->authorizeRoles(['administrador']);      
+      $backSchoolYear=SchoolYear::find($id);          
+      SchoolYear::where('active',1)->update(['active'=>0]);
+      SchoolYear::where('id',$id)->update(['active'=>1]);      
+      return redirect()->route('years.index')->with('edit','<strong>El año escolar '.$backSchoolYear->year.' ha sido activado correctamente</strong>');
+    }
 }
