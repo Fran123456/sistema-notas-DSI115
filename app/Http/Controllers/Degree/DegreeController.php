@@ -108,7 +108,7 @@ class DegreeController extends Controller
         //
     }
 
-    public function changeStatus(Request $request, $id){
+    public function changeStatusDegree(Request $request, $id){
         $request->user()->authorizeRoles(['administrador']);
         $backDegree=Degree::find($id);
         $valorCambio=1;

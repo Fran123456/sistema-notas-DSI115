@@ -14,24 +14,17 @@ class Degree extends Model
 
     public function shoolYear()
     {
-        return $this->belongsToMany('App\ShoolYear')
-                    ->using('App\DegreeSchoolYear')
-                    ->withPivot([
-                            'created_by',
-                            'updated_by',
-                    ]);
+        return $this->belongsToMany('App\SchoolYear')
+                    ->using('App\DegreeSchoolYear','school_year_id');
     }
 
-
-    public function teachers()
+    public function teacher()
     {
-        return $this->belongsToMany('App\Usew')
-                    ->using('App\DegreeSchoolYear')
-                    ->withPivot([
-                            'created_by',
-                            'updated_by',
+        return $this->belongsToMany('App\User','degree_school_year','degree_id','user_id')
+                    ->using('App\DegreeSchoolYear')->withPivot([
+                      'capacity'
                     ]);
-   }
+    }
 
 
 }

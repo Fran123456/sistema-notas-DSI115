@@ -74,7 +74,15 @@ class User extends Authenticatable
 
     public function degrees()
     {
-        return $this->belongsToMany('App\Degree')
-                        ->using('App\DegreeSchoolYear','user_id');
+        return $this->belongsToMany('App\Degree','degree_school_year','user_id','degree_id')
+                        ->using('App\DegreeSchoolYear')->withPivot([
+                          'capacity'
+                        ]);
+    }
+
+
+    public function teacher()
+    {
+
     }
 }
