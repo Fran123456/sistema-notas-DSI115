@@ -39,7 +39,18 @@ class DegreeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //  $d = Degree::where('degree', $request->degree and 'section', $request->seccion)->get();
+      //  if(count($d)>0){
+      //      return back()->with('delete', 'Error');
+      //  }else{      
+        $newDegree = Degree::create([
+            'degree'   => $request->degree,
+            'section'  => $request->seccion,
+            'turn'     => $request->turn,
+            'active'   => $request->active 
+        ]);
+        return redirect()->route('degrees.index')->with('success', 'El grado ha sido agregado correctamente');
+      //  }
     }
 
     /**
