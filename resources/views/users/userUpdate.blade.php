@@ -67,40 +67,40 @@
                </div>
              </div>
 
-           
+
 
               <div class="col-md-5">
-               <div class="form-group">
-                     <label  class=" form-control-label">Currículum</label>
-                     <input  type="file" id="file-multiple-input" accept="application/pdf" name="cv"  class="form-control-file">
-                   </div>
-             </div>
 
-               <div class="col-md-5">
-               <div class="form-group">
-                     <label  class=" form-control-label">Foto de perfil</label>
-                     <input  type="file" id="file-multiple-input" accept="pdf/*" name="photo"  class="form-control-file">
-                   </div>
                    <div class="form-group">
+                    <label  class=" form-control-label">Foto de perfil</label>
+                    <input  type="file" id="file-multiple-input" accept="pdf/*" name="photo"  class="form-control-file">
+                  </div>
+                  <div class="form-group">
 
                     <label for="file-multiple-input" class="form-control-label">Actualizar Hoja de Vida en formato PDF</label>
                     <input type="file" accept="application/pdf" name="pdf" class="form-control-file" >
                   </div>
-                 <ul>
-                     @if ( is_null($user->curriculum) )
-                     <li>
-                        <label for="">Sin Hoja de Vida Anexada</label>
+                  <ul>
+                    @if ( is_null($user->curriculum) )
+                    <li>
+                       <label for="">Sin Hoja de Vida Anexada</label>
+                    </li>
+                    @else
+                    <li>
+                       <label for="">Hoja de Vida Actual</label>
+                    </li>
+                    <li class="list-group-item">
+                       <a target="_blank" href="{{asset('files/cv/'.$user->curriculum)}}">{{$user->curriculum}}</a>
                      </li>
-                     @else
-                     <li>
-                        <label for="">Hoja de Vida Actual</label>
-                     </li>
-                     <li class="list-group-item">
-                        <a target="_blank" href="{{asset('files/cv/'.$user->curriculum)}}">{{$user->curriculum}}</a>
-                      </li>
-                     @endif
+                    @endif
 
-                 </ul>
+                </ul>
+             </div>
+
+               <div class="col-md-5">
+
+
+
 
              </div>
 
