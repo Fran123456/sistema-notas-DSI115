@@ -58,7 +58,7 @@
                         {{$value->email}}
                      </td>
                      <td>
-                      {{$value->roles()->first()->name}}                   
+                     j
                      </td>
                      <td>
                         @if ($value->active)
