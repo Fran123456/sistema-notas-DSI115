@@ -81,10 +81,32 @@
              </div>
            </div>
 
-           <div class="form-group">
+          <div class="row">
+
+            <div class="col-md-6">
+
+            <div class="form-group">
              <label for="file-multiple-input" class=" form-control-label">Foto de perfil</label>
              <input  type="file" id="file-multiple-input" accept="image/*" name="photo"  class="form-control-file">
            </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+            <div class="form-group">
+             <label for="file-multiple-input" class=" form-control-label">Currículum</label>
+             <input  type="file" id="file-multiple-input" accept="application/pdf" name="cv"  class="form-control-file">
+           </div>
+
+            </div>
+
+          </div>
+
+
+         
+
+          
 
             <div class="row form-group">
                <div class="col-12 col-md-12 col-sx-12">

@@ -70,7 +70,7 @@
 
               <div class="col-md-5">
                <div class="form-group">
-                     <label  class=" form-control-label">CV</label>
+                     <label  class=" form-control-label">Currículum</label>
                      <input  type="file" id="file-multiple-input" accept="application/pdf" name="cv"  class="form-control-file">
                    </div>
              </div>
