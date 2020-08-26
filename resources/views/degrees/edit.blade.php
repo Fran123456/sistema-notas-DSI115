@@ -17,7 +17,7 @@
 
                                 <div class="form-group">
                                   <label  class=" form-control-label">Grado</label>
-                                  <input type="text" name="degree" required value="{{$degree->degree}}" class="form-control">
+                                  <input type="text" name="degree" required value="{{$degree->degree}}" class="form-control" >
                                 </div>
 
                                 <div class="form-group">

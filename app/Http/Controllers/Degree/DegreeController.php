@@ -82,7 +82,8 @@ class DegreeController extends Controller
             'active' =>$request->active,
         ]);
 
-        return $this->index()->with('info','Editado Correctamente');
+
+        return redirect()->route('degrees.index')->with('edit','Editado Correctamente');
     }
 
     /**
@@ -113,7 +114,7 @@ class DegreeController extends Controller
         }
         else{
             $stringCambio=" desactivado ";
-        }        
+        }
         return redirect()->route('degrees.index')->with('edit','<strong>El grado '.$backDegree->degree.' sección '.$backDegree->section.' turno '.$backDegree->turn.' ha sido '.$stringCambio.' correctamente</strong>');
 
     }

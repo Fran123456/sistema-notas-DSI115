@@ -41,11 +41,12 @@
 
            <div class="form-group">
                 <label  class=" form-control-label">Correo </label>
-                <input type="email" readonly="" name="email" value="{{$user->email}}" required  class="form-control">             
+                <input type="email" readonly="" name="email" value="{{$user->email}}" required  class="form-control">
            </div>
 
+
            <div class="row">
-             
+
              <div class="col-md-3">
               <p>Foto actual</p>
               <img height="200" width="200" src="{{ asset('images/users/'.$user->photo) }}">
@@ -62,7 +63,7 @@
                      <option value="{{$role->id}}">{{$role->name}}</option>
                    @endif
                   @endforeach
-                 </select>    
+                 </select>
                </div>
              </div>
 
@@ -71,6 +72,27 @@
                      <label  class=" form-control-label">Foto de perfil</label>
                      <input  type="file" id="file-multiple-input" accept="image/*" name="photo"  class="form-control-file">
                    </div>
+                   <div class="form-group">
+
+                    <label for="file-multiple-input" class="form-control-label">Actualizar Hoja de Vida en formato PDF</label>
+                    <input type="file" accept="application/pdf" name="pdf" class="form-control-file" >
+                  </div>
+                 <ul>
+                     @if ( is_null($user->curriculum) )
+                     <li>
+                        <label for="">Sin Hoja de Vida Anexada</label>
+                     </li>
+                     @else
+                     <li>
+                        <label for="">Hoja de Vida Actual</label>
+                     </li>
+                     <li class="list-group-item">
+                        <a target="_blank" href="{{asset('files/cv/'.$user->curriculum)}}">{{$user->curriculum}}</a>
+                      </li>
+                     @endif
+
+                 </ul>
+
              </div>
 
              <div class="col-md-12">

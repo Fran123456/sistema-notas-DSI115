@@ -60,6 +60,11 @@ class UserController extends Controller
              }else{
                 $file = 'default.png';
              }
+             $nameCV= null;
+             if($request->hasFile('pdf')){
+                $nameCV= Help::uploadFile($request, 'files/cv/','pdf');
+
+                 }
 
              // Storage::disk('public')->delete('imagen-tipos-mas/'.$tipoAux->imagen);
              $userN = User::create([
@@ -69,7 +74,8 @@ class UserController extends Controller
              'photo' => $file,
              'phone' => $request->phone,
              'address'=> $request->address,
-             'role_id'=> $request->role
+             'role_id'=> $request->role,
+             'curriculum' => $nameCV,
              ]);
              $userN->roles()->attach(Role::where('id', $request->role)->first());
              return redirect()->route('users.index')->with('success','<strong>El usuario '.$userN->name.' fue creado correctamente</strong>');
@@ -113,7 +119,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $request->user()->authorizeRoles(['administrador']);
+        if($request->hasFile('pdf')){
+            $nameCV= Help::uploadFile($request, 'files/cv/','pdf');
+            User::where('id', $id)
+            ->update([
+                'curriculum' => $nameCV
+              ]);
+             }
         $backUser = User::find($id);
         $backUser->roles()->where('role_id', $backUser->roles()->first()->id)
         ->where('user_id',$backUser->id)
