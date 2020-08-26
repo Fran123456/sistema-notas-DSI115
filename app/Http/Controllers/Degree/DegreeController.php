@@ -39,18 +39,23 @@ class DegreeController extends Controller
      */
     public function store(Request $request)
     {
-      //  $d = Degree::where('degree', $request->degree and 'section', $request->seccion)->get();
-      //  if(count($d)>0){
-      //      return back()->with('delete', 'Error');
-      //  }else{      
+
+        $d = Degree::where([
+            'degree' => $request->degree,
+            'section' => $request->seccion
+        ])->get();
+
+      if(count($d)>0){
+          return back()->with('delete', '<strong>El grado '.$request->degree.' sección '.$request->seccion.' ya existe.</strong>');
+       }else{      
         $newDegree = Degree::create([
             'degree'   => $request->degree,
             'section'  => $request->seccion,
             'turn'     => $request->turn,
             'active'   => $request->active 
         ]);
-        return redirect()->route('degrees.index')->with('success', 'El grado ha sido agregado correctamente');
-      //  }
+        return redirect()->route('degrees.index')->with('success', '<strong>El grado '.$request->degree.' sección '.$request->seccion.' ha sido guardado correctamente.</strong>');
+        }
     }
 
     /**
