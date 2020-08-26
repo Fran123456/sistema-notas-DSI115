@@ -66,10 +66,19 @@
                </div>
              </div>
 
-             <div class="col-md-5">
+           
+
+              <div class="col-md-5">
+               <div class="form-group">
+                     <label  class=" form-control-label">CV</label>
+                     <input  type="file" id="file-multiple-input" accept="application/pdf" name="cv"  class="form-control-file">
+                   </div>
+             </div>
+
+               <div class="col-md-5">
                <div class="form-group">
                      <label  class=" form-control-label">Foto de perfil</label>
-                     <input  type="file" id="file-multiple-input" accept="image/*" name="photo"  class="form-control-file">
+                     <input  type="file" id="file-multiple-input" accept="pdf/*" name="photo"  class="form-control-file">
                    </div>
              </div>
 
