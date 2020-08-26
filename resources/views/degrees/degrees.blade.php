@@ -53,7 +53,7 @@
                   <tr>
                     <th scope="row">{{$key+1}}</th>
                      <td>
-
+                        {{ Help::ordinal($value->degree)}}
                      </td>
                      <td>{{$value->section}}</td>
                      <td>

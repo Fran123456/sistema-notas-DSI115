@@ -61,6 +61,8 @@ class UserController extends Controller
                 $file = 'default.png';
              }
 
+      
+
              // Storage::disk('public')->delete('imagen-tipos-mas/'.$tipoAux->imagen);
              $userN = User::create([
              'name' => $request->name,
@@ -69,7 +71,7 @@ class UserController extends Controller
              'photo' => $file,
              'phone' => $request->phone,
              'address'=> $request->address,
-             'role_id'=> $request->role
+             'role_id'=> $request->role,
              ]);
              $userN->roles()->attach(Role::where('id', $request->role)->first());
              return redirect()->route('users.index')->with('success','<strong>El usuario '.$userN->name.' fue creado correctamente</strong>');
