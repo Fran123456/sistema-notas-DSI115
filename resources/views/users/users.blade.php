@@ -44,6 +44,7 @@
                   <th width="40" scope="col"> Ver </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
+                  <th width="40" scope="col"> Curriculum </th>
                 </tr>
               </thead>
               <tbody>
@@ -90,6 +91,14 @@
                         </form>
                         @endif
                       </td>
+                      <td>
+                      @if ( is_null($value->curriculum) )
+                      <button disabled="" class="btn btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>
+                      @else
+                        <a target="_blank" href="{{asset('files/cv/'.$value->curriculum)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                      @endif
+                    </td>
+
                   </tr>
                 @endforeach
             </tbody>

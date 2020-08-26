@@ -41,7 +41,7 @@
              <div class="col-md-6">
                  <div class="form-group">
                       <label  class=" form-control-label">Correo </label>
-                      <input type="email" name="email" value="{{old('email')}}" required  class="form-control">             
+                      <input type="email" name="email" value="{{old('email')}}" required  class="form-control">
                  </div>
              </div>
            </div>
@@ -57,7 +57,7 @@
              <div class="col-md-6">
                  <div class="form-group">
                       <label  class=" form-control-label">Dirección </label>
-                      <input type="text" name="address" value="{{old('email')}}" required  class="form-control">             
+                      <input type="text" name="address" value="{{old('email')}}" required  class="form-control">
                  </div>
              </div>
            </div>
@@ -66,7 +66,7 @@
              <div class="col-md-6">
                <div class="form-group">
                  <label  class=" form-control-label">Contraseña </label>
-                 <input type="password" name="password" value="{{old('password')}}" required  class="form-control">             
+                 <input type="password" name="password" value="{{old('password')}}" required  class="form-control">
                </div>
              </div>
              <div class="col-md-6">
@@ -76,7 +76,7 @@
                   @foreach ($roles as $role)
                     <option value="{{$role->id}}">{{$role->name}}</option>
                   @endforeach
-                 </select>          
+                 </select>
                </div>
              </div>
            </div>
@@ -89,6 +89,11 @@
              <label for="file-multiple-input" class=" form-control-label">Foto de perfil</label>
              <input  type="file" id="file-multiple-input" accept="image/*" name="photo"  class="form-control-file">
            </div>
+           <div class="form-group">
+
+            <label for="file-multiple-input" class="form-control-label">Agregar Hoja de Vida en formato PDF</label>
+            <input type="file" accept="application/pdf" name="pdf" class="form-control-file" >
+          </div>
 
             </div>
 
