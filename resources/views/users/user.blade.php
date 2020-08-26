@@ -56,7 +56,7 @@
 
                   <h5>Ver currículum: 
 
-                    <a href="#" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                   <a href="#" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
                   </h5>
 
                 </p>
