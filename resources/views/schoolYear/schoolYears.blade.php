@@ -46,7 +46,7 @@
                   <th width="200" scope="col">Fecha de finalización</th>
                   <th scope="col">Año</th>
                   <th scope="col">Activo</th>
-                  <th scope="col" width="160">Estado</th>
+                  <th scope="col" width="40">Estado</th>
                   <th width="40" scope="col"> Administrar </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
@@ -83,7 +83,6 @@
                        @else
                          <button disabled class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
                        @endif
-
                      </td>
 
 

@@ -32,5 +32,7 @@ class School_YearTableSeeder extends Seeder
       $year3->year = "2018";
       $year3->active = false;
       $year3->save();
+
+      
     }
 }

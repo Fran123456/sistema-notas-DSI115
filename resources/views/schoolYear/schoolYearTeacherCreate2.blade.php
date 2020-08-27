@@ -55,9 +55,9 @@
 
           <div class="row">
 
-            <div class="col-md-12">
+            <div class="col-md-5">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
                    <label>Docente</label>
                    <select name="user_id" required="" class="form-control">
@@ -68,7 +68,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
                    <label>Grado</label>
                    <select name="degree_id" required="" class="form-control">
@@ -81,7 +81,7 @@
 
                 <input type="hidden" name="school_year_id" value="{{$year->id}}">
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                      <label  class="">Capacidad del salon</label>
                        <input type="number" min="1" max="100" name="capacity" value="{{old('capacity')}}" required  class="form-control">
@@ -99,7 +99,7 @@
             </div>
 
 
-            <div class="col-md-12">
+            <div class="col-md-7">
               <div class="col-md-12">
                 @include('schoolYear.div.gradeTable')
               </div>
