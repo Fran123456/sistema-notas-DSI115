@@ -61,3 +61,8 @@ Route::post('year/teacher/grade/store', 'SchoolYear\SchoolYearController@storeYe
 Route::get('year/active/{id}', 'SchoolYear\SchoolYearController@changeStatusSchoolYear')->name('changeStatusSchoolYear');
 
 /*SCHOOL YEAR*/
+
+
+/*SUBJECTS*/
+Route::resource('subjects', 'Subject\SubjectController');
+Route::get('subject/active/{id}', 'Subject\SubjectController@changeStatusSubject')->name('changeStatusSubject');

@@ -192,6 +192,9 @@
                                 <li>
                                       <a href="{{ route('years.index') }}"><i  class="metismenu-icon fa fa-calendar"></i>Año escolar</a>
                                 </li>
+                                <li>
+                                      <a href="{{ route('subjects.index') }}"><i  class="metismenu-icon fa fa-book"></i>Materias</a>
+                                </li>
 
                              
 
