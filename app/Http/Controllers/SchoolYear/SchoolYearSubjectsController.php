@@ -20,11 +20,11 @@ class SchoolYearSubjectsController extends Controller
       $degree = Degree::find($year->degree_id);
       $schoolYear = SchoolYear::find($year->school_year_id);
 
-      //$subjects = Subject::all();
+      $subjects = Subject::all();
       $teachers = User::where('role_id', 2)->get();
-      $subjects = Subject::whereDoesntHave('degrees', function(Builder $query) use($schoolYear){
+      /*$subjects = Subject::whereDoesntHave('degrees', function(Builder $query) use($schoolYear){
         $query->whereNotIn('school_year_id', [$schoolYear->id]);
-      })->get();
+      })->get();*/
 
 
 
