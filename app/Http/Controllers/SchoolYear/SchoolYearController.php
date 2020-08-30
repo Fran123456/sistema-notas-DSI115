@@ -8,6 +8,8 @@ use App\SchoolYear;
 use App\Degree;
 use App\User;
 use App\DegreeSchoolYear;
+use Illuminate\Database\Eloquent\Builder;
+use Superglobals;
 class SchoolYearController extends Controller
 {
     /**
@@ -39,12 +41,18 @@ class SchoolYearController extends Controller
        //$degrees = Degree::where('active', true)->orderBy('turn')->get();
        //$degrees = SchoolYear::where('active', true)->first();
        //return $degrees->degrees;
-       $degrees = Degree::whereDoesntHave('shoolYear')
-                  ->where('active', true)->orderBy('turn')
-                  ->get();
+       //$GLOBALS["yearid"] = $id;
+
+       $degrees = Degree::whereDoesntHave('shoolYear', function(Builder $query) use($year)  {
+         $query->where('school_year_id', $year->id );
+       })
+      ->where('active', true)->orderBy('turn')
+      ->get();
+
        $teachers = User::where('role_id', 2)->get();
 
        $degreesTeacher = SchoolYear::where('active', true)->first();
+
        //return $degreesTeacher->degrees[0]->pivot->capacity;
       //return count($degreesTeacher->degrees);
 
@@ -131,10 +139,10 @@ class SchoolYearController extends Controller
     }
 
     public function changeStatusSchoolYear(Request $request, $id){
-      $request->user()->authorizeRoles(['administrador']);      
-      $backSchoolYear=SchoolYear::find($id);          
+      $request->user()->authorizeRoles(['administrador']);
+      $backSchoolYear=SchoolYear::find($id);
       SchoolYear::where('active',1)->update(['active'=>0]);
-      SchoolYear::where('id',$id)->update(['active'=>1]);      
+      SchoolYear::where('id',$id)->update(['active'=>1]);
       return redirect()->route('years.index')->with('edit','<strong>El año escolar '.$backSchoolYear->year.' ha sido activado correctamente</strong>');
     }
 }

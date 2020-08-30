@@ -59,6 +59,8 @@ Route::resource('years', 'SchoolYear\SchoolYearController');
 Route::get('year/teacher/grade/{id}', 'SchoolYear\SchoolYearController@createYearTeacher')->name('teacher-grade');
 Route::post('year/teacher/grade/store', 'SchoolYear\SchoolYearController@storeYearTeacher')->name('storeYearTeacher');
 Route::get('year/active/{id}', 'SchoolYear\SchoolYearController@changeStatusSchoolYear')->name('changeStatusSchoolYear');
+Route::get('year/subjects/{id}', 'SchoolYear\SchoolYearSubjectsController@storeSubjects')->name('storeSubjects');
+Route::post('year/subjects/save', 'SchoolYear\SchoolYearSubjectsController@saveSubjectsDegree')->name('saveSubjectsDegree');
 
 /*SCHOOL YEAR*/
 

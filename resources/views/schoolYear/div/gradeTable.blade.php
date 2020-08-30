@@ -19,17 +19,17 @@
        </tr>
   </thead>
   <tbody>
-         @foreach ($degreesTeacher->degrees as $key => $degree)
+         @foreach ($degreesTeacher->degrees as $key => $degreex)
             <tr>
                 <th scope="row">{{$key+1}}</th>
-                <td>{{Help::ordinal($degree->degree)}} {{$degree->section}} </td>
-                <td>{{Help::turn($degree->turn)}}  </td>
-                <td>{{$degree->teacher[0]->name}}  </td>
-                <td>{{$degree->pivot->capacity}}  </td>
+                <td>{{Help::ordinal($degreex->degree)}} {{$degreex->section}}  {{$degreex->id}} </td>
+                <td>{{Help::turn($degreex->turn)}}  </td>
+                <td>{{$degreex->teacher[0]->name}}  </td>
+                <td>{{$degreex->pivot->capacity}}  </td>
                 <td> 0 </td>
                 <td> 0 </td>
-                <td> 
-                   <a href="" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>  
+                <td>
+                   <a href="{!! route('storeSubjects', $degreex->pivot->id) !!}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </td>
                 <td>
                     <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

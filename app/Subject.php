@@ -10,5 +10,19 @@ class Subject extends Model
   	protected $fillable = [
   	  'id','name','active','created_at','updated_at'
   	];
+
+    public function shoolYear()
+    {
+        return $this->belongsToMany('App\SchoolYear')
+                    ->using('App\DegreeSchoolYear','school_year_id');
+    }
+
+
+    public function degrees()
+    {
+        return $this->belongsToMany('App\Degree','degree_subject_year','degree_id','degree_id')
+                    ->using('App\DegreeSchoolSubject','degree_id');
+    }
+
+
 }
-	
