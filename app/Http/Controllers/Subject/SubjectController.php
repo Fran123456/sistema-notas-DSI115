@@ -87,33 +87,33 @@ class SubjectController extends Controller
     }
 
     public function changeStatusSubject(Request $request, $id){
-        $request->user()->authorizeRoles(['administrador']);
+      //  $request->user()->authorizeRoles(['administrador']);
         $backSubject=Subject::find($id);
-        $valorCambio=1;        
+        $valorCambio=1;
         if($backSubject->active==0){
             $valorCambio=1;
         }
-        else{            
+        else{
             $queryYearActive=DB::table('school_years')
             ->select(['id'])
             ->where('id','=',1)
-            ->get();            
-            $query=DB::select("select count(degree_school_year_id) as conteo from degree_subject_year where degree_school_year_id= ? and subject_id=?",[$queryYearActive[0]->id,$backSubject->id]);            
+            ->get();
+            $query=DB::select("select count(degree_school_year_id) as conteo from degree_subject_year where degree_school_year_id= ? and subject_id=?",[$queryYearActive[0]->id,$backSubject->id]);
             if($query[0]->conteo>0){
-                $valorCambio=$backSubject->active;                
+                $valorCambio=$backSubject->active;
             }
             else{
                 $valorCambio=0;
             }
-            
-        }        
+
+        }
         if($valorCambio!=$backSubject->active){
-            Subject::where('id',$id)->update(['active'=>$valorCambio]);            
+            Subject::where('id',$id)->update(['active'=>$valorCambio]);
             return redirect()->route('subjects.index')->with('edit','<strong>La materia '.$backSubject->name.' ha sido modificada correctamente</strong>');
         }
         else{
             return redirect()->route('subjects.index')->with('edit','<strong>La materia '.$backSubject->name.' no puede ser desactivada</strong>');
-            //Porque tiene una relación con el año activo        
-        }    
+            //Porque tiene una relación con el año activo
+        }
     }
 }
