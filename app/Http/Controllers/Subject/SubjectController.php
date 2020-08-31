@@ -28,6 +28,7 @@ class SubjectController extends Controller
     public function create()
     {
         //
+        return view('subjects.subjectsCreate');
     }
 
     /**
@@ -39,6 +40,19 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         //
+        $s = Subject::where([
+            'name' => $request->nombre
+        ])->get();
+
+        if(count($s)>0){
+            return back()->with('delete', '<strong>La materia '.$request->nombre.' ya existe.</strong>');
+        }else{
+             $newSubject = Subject::create([
+             'name'   => $request->nombre, 
+             'active' => $request->active
+        ]);
+        return redirect()->route('subjects.index')->with('success', '<strong>La materia '.$request->nombre.' ha sido guardada correctamente.</strong>');
+        }
     }
 
     /**

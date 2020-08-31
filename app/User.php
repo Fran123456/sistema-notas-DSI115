@@ -76,7 +76,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Degree','degree_school_year','user_id','degree_id')
                         ->using('App\DegreeSchoolYear')->withPivot([
-                          'capacity'
+                          'capacity',
+                          'id as k'
                         ]);
     }
 

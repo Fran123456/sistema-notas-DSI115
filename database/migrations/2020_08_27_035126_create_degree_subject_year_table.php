@@ -17,7 +17,8 @@ class CreateDegreeSubjectYearTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('subject_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('degree_school_year_id')->nullable();
+            $table->unsignedBigInteger('school_year_id')->nullable();
+            $table->unsignedBigInteger('degree_id')->nullable();
             $table->timestamps();
 
             $table->foreign('subject_id')
@@ -32,9 +33,15 @@ class CreateDegreeSubjectYearTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('degree_school_year_id')
+            $table->foreign('school_year_id')
                 ->references('id')
-                ->on('degree_school_year')
+                ->on('school_years')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('degree_id')
+                ->references('id')
+                ->on('degrees')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
