@@ -69,14 +69,19 @@
                      @else
                      <td> <button class="btn btn-warning" disabled=""><i class="fa fa-edit" aria-hidden="true"></i></button> </td>
                      @endif
+                     <td> 
                      @if (Auth::user()->roles()->first()->name =="Administrador")
-                      <td>
-                        <a href="{{route('subjects.destroy',$value->id)}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                      </td>
+                        <form method="POST" action="{{route('subjects.destroy', $value->id) }}">
+                           @csrf
+                           <input type="hidden" name="_method" value="delete" />
+                           <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </form>
                      @else
-                     <td> <button class="btn btn-warning" disabled=""><i class="fa fa-edit" aria-hidden="true"></i></button> </td>
+                     <button class="btn btn-danger" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button> 
                      @endif
+                     </td>
                   </tr>
+                  
                 @endforeach
             </tbody>
           </table>

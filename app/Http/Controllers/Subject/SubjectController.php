@@ -81,9 +81,20 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+      //  $request->user()->authorizeRoles(['administrador']);
+       $materia=Subject::find($id);
+       $relatedYears=DB::table('degree_subject_year as year')
+       ->join('subjects as sub','year.subject_id','=','sub.id')
+       ->where('sub.id','=',$id)
+       ->get();
+       if(count($relatedYears)>=1)
+            return back()->with('delete', '<strong>No se puede eliminar la materia '.$materia->name.' porque pertenece a uno o más años escolares</strong>');   
+       else
+            Subject::destroy($id);
+            return back()->with('success', '<strong>La materia '.$materia->name.' ha sido eliminada correctamente</strong>');
+            
     }
 
     public function changeStatusSubject(Request $request, $id){
