@@ -17,7 +17,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('teacher-grade', $year->id) }}">
+        <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$schoolYear->id) }}">
           {{Help::ordinal($degree->degree)}} {{$degree->section}} {{ Help::turn($degree->turn)}} {{$schoolYear->year}} -
           Capacidad: {{$year->capacity}}
         </a></li>
@@ -60,7 +60,6 @@
              <input type="hidden" name="school_year_id" value="{{$schoolYear->id}}">
              <input type="hidden" name="degree_id" value="{{$degree->id}}">
 
-
            </div>
             <div class="row form-group">
                <div class="col-12 col-md-12 col-sx-12">
@@ -69,6 +68,14 @@
                </div>
               </div>
             </div>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              @include('schoolYear.div.subjectTable')
+            </div>
+          </div>
         </div>
     </div>
   </div>

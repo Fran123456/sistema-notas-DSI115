@@ -1,10 +1,10 @@
 <?php
 
 namespace App;
-
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Model;
 
-class DegreeSchoolSubject extends Model
+class DegreeSchoolSubject extends Pivot
 {
   protected $table = 'degree_subject_year';
   protected $fillable = [

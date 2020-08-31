@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Help;
+use App\User;
 
 class Help
 {
@@ -99,6 +100,11 @@ class Help
        $dateAsInt = strtotime($date);
 	 }
 
+	 //helper de models
+	 public static function getTeacher($id){
+		 $user = User::select('name')->where('id', $id)->first();
+		 return $user->name;
+	 }
 
 
 

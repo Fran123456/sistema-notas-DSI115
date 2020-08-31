@@ -38,19 +38,18 @@ class SchoolYearController extends Controller
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
     public function createYearTeacher($id){
       $year = SchoolYear::find($id);
-       //$degrees = Degree::where('active', true)->orderBy('turn')->get();
+      $degrees = Degree::where('active', true)->orderBy('turn')->get();
        //$degrees = SchoolYear::where('active', true)->first();
        //return $degrees->degrees;
        //$GLOBALS["yearid"] = $id;
 
-       $degrees = Degree::whereDoesntHave('shoolYear', function(Builder $query) use($year)  {
+       /*$degrees = Degree::whereDoesntHave('shoolYear', function(Builder $query) use($year)  {
          $query->where('school_year_id', $year->id );
        })
       ->where('active', true)->orderBy('turn')
-      ->get();
+      ->get();*/
 
        $teachers = User::where('role_id', 2)->get();
-
        $degreesTeacher = SchoolYear::where('active', true)->first();
 
        //return $degreesTeacher->degrees[0]->pivot->capacity;

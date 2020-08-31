@@ -22,16 +22,14 @@ class SchoolYearSubjectsController extends Controller
 
       $subjects = Subject::all();
       $teachers = User::where('role_id', 2)->get();
+
+      $subjectsGrade = Degree::find($degree->id)->subjects;
+     //return $subjectsGrade;
       /*$subjects = Subject::whereDoesntHave('degrees', function(Builder $query) use($schoolYear){
         $query->whereNotIn('school_year_id', [$schoolYear->id]);
       })->get();*/
 
-
-
-
-
-
-      return view('schoolYear.schoolYearSubjectsCreate', compact('year','degree','schoolYear','subjects','teachers'));
+      return view('schoolYear.schoolYearSubjectsCreate', compact('year','degree','schoolYear','subjects','teachers','subjectsGrade'));
     }/*MUESTRA EL FORMULARIO PARA AGREGAR UNA MATERIA A UN GRADO*/
 
     /*AGREGA UNA MATERIA A UN AÑO Y AUN GRADO ESCOLAR*/

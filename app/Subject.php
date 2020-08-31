@@ -20,7 +20,7 @@ class Subject extends Model
 
     public function degrees()
     {
-        return $this->belongsToMany('App\Degree','degree_subject_year','degree_id','degree_id')
+        return $this->belongsToMany('App\Degree','degree_subject_year','subject_id','degree_id')
                     ->using('App\DegreeSchoolSubject','degree_id');
     }
 
