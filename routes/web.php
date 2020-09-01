@@ -63,7 +63,7 @@ Route::get('year/subjects/{id}', 'SchoolYear\SchoolYearSubjectsController@storeS
 Route::post('year/subjects/save', 'SchoolYear\SchoolYearSubjectsController@saveSubjectsDegree')->name('saveSubjectsDegree');
 
 /*SCHOOL YEAR*/
-
+Route::resource('yearsdegree', 'SchoolYear\SchoolYearDegreesController');
 
 /*SUBJECTS*/
 Route::resource('subjects', 'Subject\SubjectController');
