@@ -36,10 +36,10 @@
                 </td>
                 <td>
                   
-                <form action="{{ route('yearsdegree.destroy', $degreex->pivot)}}" method="post">
+                <form action="{{route('yearsdegree.destroy', $degreex->pivot)}}" method="post">
                   @csrf
                   @method('DELETE')
-                  <button class="btn btn-danger" type="submit">Delete</button>
+                  <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </form>
 
                </td>
