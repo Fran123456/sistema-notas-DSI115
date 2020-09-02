@@ -487,6 +487,7 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Degree' => __DIR__ . '/../..' . '/app/Degree.php',
+        'App\\DegreeSchoolSubject' => __DIR__ . '/../..' . '/app/DegreeSchoolSubject.php',
         'App\\DegreeSchoolYear' => __DIR__ . '/../..' . '/app/DegreeSchoolYear.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Help\\Help' => __DIR__ . '/../..' . '/app/Help/Help.php',
@@ -501,6 +502,9 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\Role\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Role/RoleController.php',
         'App\\Http\\Controllers\\SchoolYear\\SchoolYearController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolYear/SchoolYearController.php',
+        'App\\Http\\Controllers\\SchoolYear\\SchoolYearDegreesController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolYear/SchoolYearDegreesController.php',
+        'App\\Http\\Controllers\\SchoolYear\\SchoolYearSubjectsController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolYear/SchoolYearSubjectsController.php',
+        'App\\Http\\Controllers\\Subject\\SubjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/Subject/SubjectController.php',
         'App\\Http\\Controllers\\User\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

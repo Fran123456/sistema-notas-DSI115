@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Degree' => $baseDir . '/app/Degree.php',
+    'App\\DegreeSchoolSubject' => $baseDir . '/app/DegreeSchoolSubject.php',
     'App\\DegreeSchoolYear' => $baseDir . '/app/DegreeSchoolYear.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Help\\Help' => $baseDir . '/app/Help/Help.php',
@@ -22,6 +23,9 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\Role\\RoleController' => $baseDir . '/app/Http/Controllers/Role/RoleController.php',
     'App\\Http\\Controllers\\SchoolYear\\SchoolYearController' => $baseDir . '/app/Http/Controllers/SchoolYear/SchoolYearController.php',
+    'App\\Http\\Controllers\\SchoolYear\\SchoolYearDegreesController' => $baseDir . '/app/Http/Controllers/SchoolYear/SchoolYearDegreesController.php',
+    'App\\Http\\Controllers\\SchoolYear\\SchoolYearSubjectsController' => $baseDir . '/app/Http/Controllers/SchoolYear/SchoolYearSubjectsController.php',
+    'App\\Http\\Controllers\\Subject\\SubjectController' => $baseDir . '/app/Http/Controllers/Subject/SubjectController.php',
     'App\\Http\\Controllers\\User\\UserController' => $baseDir . '/app/Http/Controllers/User/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
