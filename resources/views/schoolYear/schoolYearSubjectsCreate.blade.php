@@ -73,7 +73,16 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              @include('schoolYear.div.subjectTable')
+              @if (count($subjectsGrade)>0)
+               @include('schoolYear.div.subjectTable')
+               @else
+                <div class="text-center">
+                  <br>
+                <h4>No hay materias asignadas por el momento</h4>
+                <br>
+                </div>
+              @endif
+              
             </div>
           </div>
         </div>

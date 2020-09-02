@@ -18,7 +18,7 @@
                 <td>{{$subject->name}}  </td>
                 <td>{{Help::getTeacher($subject->pivot->user_id) }} </td>
                 <td>
-                  <a href="" class="btn btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>  </td>
+                  <a href="{{ route('deleteSubjectsDegree', $subject->pivot->id) }}" class="btn btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>  </td>
                </td>
            </tr>
       @endforeach
