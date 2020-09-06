@@ -4,7 +4,12 @@ namespace App\Http\Controllers\SchoolYear;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\SchoolYear;
+use App\Degree;
+use App\User;
 use App\DegreeSchoolYear;
+use App\DegreeSchoolSubject;
+use App\Subject;
 
 class SchoolYearDegreesController extends Controller
 {
@@ -81,8 +86,16 @@ class SchoolYearDegreesController extends Controller
      */
     public function destroy($id)
     {
-        //
-      DegreeSchoolYear::destroy($id);
-      return back()->with('delete', '<strong>Grado eliminado correctamente</strong>');
+      
+      $year = DegreeSchoolYear::find($id);
+
+      $degree = Degree::find($year->degree_id);
+      $schoolYear = SchoolYear::find($year->school_year_id);
+
+      $subjects = Subject::all();
+      $teachers = User::where('role_id', 2)->get();
+      $subjectsGrade = Degree::find($degree->id)->subjects;
+      //DegreeSchoolYear::destroy($id);
+      return view('schoolYear.deleteGrade', compact('year','degree','schoolYear','subjects','teachers','subjectsGrade'));
     }
 }

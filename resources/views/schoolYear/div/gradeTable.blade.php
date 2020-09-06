@@ -1,6 +1,10 @@
 
 @include('alerts.dataTable')
 <!--bootstrap-data-table_length-->
+@if (count($degreesTeacher->degrees) >0)
+
+
+
 
 <h5 class="text-center">Grados asociados al año escolar {{$year->year}}</h5>
 <table class="table" id="">
@@ -26,7 +30,7 @@
                 <td>{{Help::turn($degreex->turn)}}  </td>
                 <td>{{$degreex->teacher[0]->name}}  </td>
                 <td>{{$degreex->pivot->capacity}}  </td>
-                <td> 0 </td>
+                <td> {{$materiasAnex[$key]}} </td>
                 <td> 0 </td>
                 <td>
                    <a href="{!! route('storeSubjects', $degreex->pivot->id) !!}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -35,7 +39,7 @@
                   <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                  
+
                 <form action="{{route('yearsdegree.destroy', $degreex->pivot)}}" method="post">
                   @csrf
                   @method('DELETE')
@@ -47,3 +51,7 @@
       @endforeach
   </tbody>
 </table>
+@else
+  <br>
+  <h5 class="text-center">No hay grados para el año escolar activo</h5>
+@endif
