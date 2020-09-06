@@ -83,6 +83,6 @@ class SchoolYearDegreesController extends Controller
     {
         //
       DegreeSchoolYear::destroy($id);
-      return back()->with('delete', '<strong>Usuario eliminado correctamente');
+      return back()->with('delete', '<strong>Grado eliminado correctamente</strong>');
     }
 }
