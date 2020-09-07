@@ -8,6 +8,7 @@ use App\SchoolYear;
 use App\Degree;
 use App\User;
 use App\DegreeSchoolYear;
+use App\DegreeSchoolSubject;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use SebastianBergmann\Diff\Diff;
@@ -54,10 +55,18 @@ class SchoolYearController extends Controller
        $teachers = User::where('role_id', 2)->get();
        $degreesTeacher = SchoolYear::where('active', true)->first();
 
+       $materiasAnex = array();
+
+       foreach ($degreesTeacher->degrees as $key => $value) {
+        $aux = DegreeSchoolSubject::where('school_year_id', $value->pivot->school_year_id)
+        ->where('degree_id', $value->id)->get();
+        array_push($materiasAnex, count($aux));
+       }
+
        //return $degreesTeacher->degrees[0]->pivot->capacity;
       //return count($degreesTeacher->degrees);
 
-       return view('schoolYear.schoolYearTeacherCreate',compact('degrees','teachers','year','degreesTeacher'));
+       return view('schoolYear.schoolYearTeacherCreate',compact('degrees','materiasAnex','teachers','year','degreesTeacher'));
     }
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
 

@@ -29,7 +29,7 @@ class SchoolYearSubjectsController extends Controller
         $query->whereNotIn('school_year_id', [$schoolYear->id]);
       })->get();*/
 
-      return view('schoolYear.schoolYearSubjectsCreate', compact('year','degree','schoolYear','subjects','teachers','subjectsGrade'));
+     return view('schoolYear.schoolYearSubjectsCreate', compact('year','degree','schoolYear','subjects','teachers','subjectsGrade'));
     }/*MUESTRA EL FORMULARIO PARA AGREGAR UNA MATERIA A UN GRADO*/
 
     /*AGREGA UNA MATERIA A UN AÑO Y AUN GRADO ESCOLAR*/
