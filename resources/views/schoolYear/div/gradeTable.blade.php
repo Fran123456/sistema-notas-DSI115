@@ -32,10 +32,10 @@
                    <a href="{!! route('storeSubjects', $degreex->pivot->id) !!}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                  <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                  <a href="{{route('editYear_grade',$degreex->pivot->id )}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                  
+
                 <form action="{{route('yearsdegree.destroy', $degreex->pivot)}}" method="post">
                   @csrf
                   @method('DELETE')

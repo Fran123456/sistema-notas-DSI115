@@ -62,6 +62,8 @@ Route::get('year/active/{id}', 'SchoolYear\SchoolYearController@changeStatusScho
 Route::get('year/subjects/{id}', 'SchoolYear\SchoolYearSubjectsController@storeSubjects')->name('storeSubjects');
 Route::post('year/subjects/save', 'SchoolYear\SchoolYearSubjectsController@saveSubjectsDegree')->name('saveSubjectsDegree');
 Route::get('year/subjects/destroy/{id}', 'SchoolYear\SchoolYearSubjectsController@deleteSubjectsDegree')->name('deleteSubjectsDegree');
+Route::get('year/teacher/grade/{id}/edit', 'SchoolYear\SchoolYearController@editYear_grade')->name('editYear_grade');
+Route::post('year/teacher/grade/{id}/edit/save', 'SchoolYear\SchoolYearController@save_editYear_grade')->name('save_editYear_grade');
 
 
 

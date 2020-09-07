@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mockery\Matcher\Subset;
 
 class SubjectController extends Controller
 {
@@ -48,7 +49,7 @@ class SubjectController extends Controller
             return back()->with('delete', '<strong>La materia '.$request->nombre.' ya existe.</strong>');
         }else{
              $newSubject = Subject::create([
-             'name'   => $request->nombre, 
+             'name'   => $request->nombre,
              'active' => $request->active
         ]);
         return redirect()->route('subjects.index')->with('success', '<strong>La materia '.$request->nombre.' ha sido guardada correctamente.</strong>');
@@ -74,7 +75,8 @@ class SubjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subject= Subject::where('id',$id)->first();
+        return view('subjects.edit', compact('subject'));
     }
 
     /**
@@ -86,7 +88,13 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Subject::where('id',$id)
+        ->update([
+            'name' =>$request->name,
+            'active' =>$request->state,
+
+        ]);
+        return redirect()->route('subjects.index')->with('edit','Registro Editado Correctamente');
     }
 
     /**
@@ -104,11 +112,11 @@ class SubjectController extends Controller
        ->where('sub.id','=',$id)
        ->get();
        if(count($relatedYears)>=1)
-            return back()->with('delete', '<strong>No se puede eliminar la materia '.$materia->name.' porque pertenece a uno o más años escolares</strong>');   
+            return back()->with('delete', '<strong>No se puede eliminar la materia '.$materia->name.' porque pertenece a uno o más años escolares</strong>');
        else
             Subject::destroy($id);
             return back()->with('success', '<strong>La materia '.$materia->name.' ha sido eliminada correctamente</strong>');
-            
+
     }
 
     public function changeStatusSubject(Request $request, $id){

@@ -9,6 +9,8 @@ use App\Degree;
 use App\User;
 use App\DegreeSchoolYear;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
+use SebastianBergmann\Diff\Diff;
 use Superglobals;
 class SchoolYearController extends Controller
 {
@@ -143,5 +145,39 @@ class SchoolYearController extends Controller
       SchoolYear::where('active',1)->update(['active'=>0]);
       SchoolYear::where('id',$id)->update(['active'=>1]);
       return redirect()->route('years.index')->with('edit','<strong>El año escolar '.$backSchoolYear->year.' ha sido activado correctamente</strong>');
+    }
+    public function editYear_grade($id_year_grade)
+    {
+
+       //id año-grado
+        $year_grade= DegreeSchoolYear::find($id_year_grade);
+
+        //grado seleccionado
+        $degreeSelected= Degree::find($year_grade->degree_id);
+
+        //año escolar
+        $year= SchoolYear::find($year_grade->school_year_id);
+
+        //grados disponobles
+        $availableDegrees = Degree::whereDoesntHave('shoolYear')
+                  ->where('active', true)->orderBy('turn')
+                  ->get();
+
+        //docentes
+        $teachers= User::join('role_user','role_user.user_id','users.id')
+        ->select('users.name','users.id')
+        ->where('role_user.role_id','=','2')->get();
+
+       return view('schoolYear.grade.edit', compact('year_grade','degreeSelected','year','availableDegrees','teachers'));
+    }
+    public function save_editYear_grade(Request $request, $id_year_grade)
+    {
+        DegreeSchoolYear::where('id',$id_year_grade)->update([
+            'user_id' =>$request->teacher,
+            'degree_id' =>$request->degree,
+
+            'capacity' =>$request->capacity,
+        ]);
+        return redirect()->route('teacher-grade',$request->school_year_id)->with('success','Registro Modificado Correctamente');
     }
 }
