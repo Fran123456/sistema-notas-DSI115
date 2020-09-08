@@ -36,6 +36,8 @@
       <div class="card-header">
         <strong class="card-title">Eliminar el grado {{Help::ordinal($degree->degree)}} {{$degree->section}} {{ Help::turn($degree->turn)}}</strong>
       </div>
+       <form method="POST" action="{{route('yearsdegree_delete',$year->id)}}">
+           @csrf
         <div class="card-body">
             <div class="row">
               <div class="col-md-6">
@@ -51,10 +53,11 @@
                 grado escolar.
                 <br><br>
 
-                <a href="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <button href="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
               </div>
             </div>
       </div>
+       </form>
     </div>
   </div>
 </div>

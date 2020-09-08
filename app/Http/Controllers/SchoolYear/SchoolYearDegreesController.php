@@ -9,6 +9,7 @@ use App\Degree;
 use App\User;
 use App\DegreeSchoolYear;
 use App\DegreeSchoolSubject;
+use App\Help\Help;
 use App\Subject;
 
 class SchoolYearDegreesController extends Controller
@@ -86,7 +87,7 @@ class SchoolYearDegreesController extends Controller
      */
     public function destroy($id)
     {
-      
+
       $year = DegreeSchoolYear::find($id);
 
       $degree = Degree::find($year->degree_id);
@@ -97,5 +98,13 @@ class SchoolYearDegreesController extends Controller
       $subjectsGrade = Degree::find($degree->id)->subjects;
       //DegreeSchoolYear::destroy($id);
       return view('schoolYear.deleteGrade', compact('year','degree','schoolYear','subjects','teachers','subjectsGrade'));
+    }
+    public function delete(Request $request, $id)
+    {
+       $year_degree= DegreeSchoolYear::find($id);
+       $degree = Degree::find($year_degree->degree_id);
+       DegreeSchoolYear::destroy($year_degree->id);
+       DegreeSchoolSubject::where('degree_id',$year_degree->degree_id)->delete();
+       return redirect()->route('teacher-grade',$year_degree->school_year_id)->with('delete',' <strong> '.Help::ordinal($degree->degree). $degree->section.'-'.  Help::turn($degree->turn).' Eliminado Correctamente </strong>');
     }
 }

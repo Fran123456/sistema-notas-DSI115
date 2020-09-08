@@ -69,6 +69,7 @@ Route::post('year/teacher/grade/{id}/edit/save', 'SchoolYear\SchoolYearControlle
 
 /*SCHOOL YEAR*/
 Route::resource('yearsdegree', 'SchoolYear\SchoolYearDegreesController');
+Route::post('yearsdegree/delete/{id}', 'SchoolYear\SchoolYearDegreesController@delete')->name('yearsdegree_delete');
 
 /*SUBJECTS*/
 Route::resource('subjects', 'Subject\SubjectController');
