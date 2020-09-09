@@ -75,3 +75,5 @@ Route::post('yearsdegree/delete/{id}', 'SchoolYear\SchoolYearDegreesController@d
 Route::resource('subjects', 'Subject\SubjectController');
 Route::get('subject/active/{id}', 'Subject\SubjectController@changeStatusSubject')->name('changeStatusSubject');
 
+/*STUDENTS*/
+Route::resource('students', 'Student\StudentController');

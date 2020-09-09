@@ -195,6 +195,9 @@
                                 <li>
                                       <a href="{{ route('subjects.index') }}"><i  class="metismenu-icon fa fa-book"></i>Materias</a>
                                 </li>
+                                <li>
+                                      <a href="{{ route('students.index') }}"><i  class="metismenu-icon fa fa-users"></i>Alumnos</a>
+                                </li>
 
                              
 
