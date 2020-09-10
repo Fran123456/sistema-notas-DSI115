@@ -130,8 +130,8 @@ class SubjectController extends Controller
             $queryYearActive=DB::table('school_years')
             ->select(['id'])
             ->where('id','=',1)
-            ->get();
-            $query=DB::select("select count(degree_school_year_id) as conteo from degree_subject_year where degree_school_year_id= ? and subject_id=?",[$queryYearActive[0]->id,$backSubject->id]);
+            ->get();            
+            $query=DB::select("select count(school_year_id) as conteo from degree_subject_year where school_year_id= ? and subject_id=?",[$queryYearActive[0]->id,$backSubject->id]);
             if($query[0]->conteo>0){
                 $valorCambio=$backSubject->active;
             }
@@ -145,8 +145,7 @@ class SubjectController extends Controller
             return redirect()->route('subjects.index')->with('edit','<strong>La materia '.$backSubject->name.' ha sido modificada correctamente</strong>');
         }
         else{
-            return redirect()->route('subjects.index')->with('edit','<strong>La materia '.$backSubject->name.' no puede ser desactivada</strong>');
-            //Porque tiene una relación con el año activo
+            return redirect()->route('subjects.index')->with('edit','<strong>La materia '.$backSubject->name.' no puede ser desactivada</strong>');            
         }
     }
 }

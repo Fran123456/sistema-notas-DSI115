@@ -64,7 +64,7 @@ Route::post('year/subjects/save', 'SchoolYear\SchoolYearSubjectsController@saveS
 Route::get('year/subjects/destroy/{id}', 'SchoolYear\SchoolYearSubjectsController@deleteSubjectsDegree')->name('deleteSubjectsDegree');
 Route::get('year/teacher/grade/{id}/edit', 'SchoolYear\SchoolYearController@editYear_grade')->name('editYear_grade');
 Route::post('year/teacher/grade/{id}/edit/save', 'SchoolYear\SchoolYearController@save_editYear_grade')->name('save_editYear_grade');
-
+Route::get('year/deleting/{id}', 'SchoolYear\SchoolYearController@deletingSchoolYear')->name('deletingSchoolYear');
 
 
 /*SCHOOL YEAR*/

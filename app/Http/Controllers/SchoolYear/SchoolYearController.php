@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use SebastianBergmann\Diff\Diff;
 use Superglobals;
+use Illuminate\Support\Facades\DB;
 class SchoolYearController extends Controller
 {
     /**
@@ -145,7 +146,9 @@ class SchoolYearController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $backSchoolYear=SchoolYear::find($id);
+      SchoolYear::destroy($id);      
+      return redirect()->route('years.index')->with('success','<strong>El año escolar '.$backSchoolYear->year.' fue eliminado correctamente</strong>');
     }
 
     public function changeStatusSchoolYear(Request $request, $id){
@@ -188,5 +191,20 @@ class SchoolYearController extends Controller
             'capacity' =>$request->capacity,
         ]);
         return redirect()->route('teacher-grade',$request->school_year_id)->with('success','Registro Modificado Correctamente');
+    }
+
+    public function deletingSchoolYear(Request $request, $id){
+      
+      $backSchoolYear=SchoolYear::find($id);      
+      if($backSchoolYear->active){
+        return redirect()->route('years.index')->with('delete',' <strong> No es posible eliminar un año activo </strong>');
+      }
+      
+      $querySchoolYear=DB::select("SELECT degrees.degree, degrees.section, degrees.turn, users.name, degree_school_year.capacity from ((users inner join degree_school_year on users.id = degree_school_year.user_id) inner join degrees on degrees.id = degree_school_year.degree_id) where degree_school_year.school_year_id = ?",[$id]);      
+      $sizeQuerySchoolYear=sizeof($querySchoolYear);
+      $querySubjectYear=DB::select("SELECT subjects.name as subjectName, degrees.degree, degrees.section, degrees.turn, users.name from (((users inner join degree_subject_year on users.id = degree_subject_year.user_id) inner join degrees on degrees.id = degree_subject_year.degree_id) inner join subjects on subjects.id = degree_subject_year.subject_id) where degree_subject_year.school_year_id = ?",[$id]);      
+      $sizeQuerySubjectYear=sizeof($querySubjectYear);
+
+      return view('schoolYear.schoolYearDeleting', compact('querySchoolYear','querySubjectYear','backSchoolYear','sizeQuerySchoolYear','sizeQuerySubjectYear'));
     }
 }

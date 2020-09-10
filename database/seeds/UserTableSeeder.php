@@ -43,7 +43,7 @@ class UserTableSeeder extends Seeder
         $user3->save();
         $user3->roles()->attach(Role::where('name', 'Docente')->first());
 
-        factory(App\User::class , 10)->create()->each(function(User $user){
+        factory(App\User::class , 11)->create()->each(function(User $user){
             $user->roles()->attach(Role::where('name', 'Docente')->first());
         });
 

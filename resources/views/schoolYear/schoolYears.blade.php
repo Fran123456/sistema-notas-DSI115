@@ -90,11 +90,11 @@
                         <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
                       <td>
-                         <form method="POST" action="">
-                          @csrf
-                          <input type="hidden" name="_method" value="delete" />
-                          <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                        </form>
+                      @if (!$value->active)                         
+                        <a href="{{ route('deletingSchoolYear', $value->id) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      @else
+                        <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                      @endif
                       </td>
 
                   </tr>
