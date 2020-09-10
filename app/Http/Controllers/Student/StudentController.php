@@ -13,5 +13,6 @@ class StudentController extends Controller
         $students = Student::orderBy('status')->get();
         return view('students.students',["students"=>$students]);
     }
-}
 
+
+}

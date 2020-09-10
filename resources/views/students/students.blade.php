@@ -18,6 +18,13 @@
   </div>
 </div>
 
+<div class="row ">
+    <div class="col-md-12 col-sm-12 col-xs-12 text-right">
+       <a class="btn btn-info mb-1" href="{!! route('addStudent') !!}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    </div>
+</div>
+
+
 <div class="row">
   <div class="col-lg-12">
     <div class="card">

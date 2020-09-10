@@ -100,6 +100,17 @@ class Help
        $dateAsInt = strtotime($date);
 	 }
 
+	 public  static function getTypeStudent(){
+		 $type = array(
+      array("AI","antiguo ingreso"),
+			 array("NI","nuevo ingreso"),
+			 array("EG","egresado"),
+			 array("AB","abandonó"),
+			 array("EE","En espera"),
+		 );
+		 return $type;
+	 }
+
 	 //helper de models
 	 public static function getTeacher($id){
 		 $user = User::select('name')->where('id', $id)->first();

@@ -77,3 +77,4 @@ Route::get('subject/active/{id}', 'Subject\SubjectController@changeStatusSubject
 
 /*STUDENTS*/
 Route::resource('students', 'Student\StudentController');
+Route::get('new-student', 'Student\StudentGradeController@addStudent')->name('addStudent');
