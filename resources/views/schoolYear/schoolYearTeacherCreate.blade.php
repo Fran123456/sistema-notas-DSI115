@@ -73,7 +73,7 @@
                    <label>Grado</label>
                    <select name="degree_id" required="" class="form-control">
                      @foreach ($degrees as $key => $value)
-                         <option value="{{$value->id}}">{{Help::ordinal($value->degree)}} {{$value->section}} - {{Help::turn($value->turn)}}</option>
+                         <option value="{{$value->id}}">{{Help::ordinal($value->degree)}} {{$value->section}} - {{Help::turn($value->turn)}} Capacidad: {{$value->capacity}}</option>
                      @endforeach
                    </select>
                   </div>

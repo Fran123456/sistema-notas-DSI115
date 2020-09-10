@@ -26,7 +26,7 @@
          @foreach ($degreesTeacher->degrees as $key => $degreex)
             <tr>
                 <th scope="row">{{$key+1}}</th>
-                <td>{{Help::ordinal($degreex->degree)}} {{$degreex->section}}  {{$degreex->id}} </td>
+                <td>{{Help::ordinal($degreex->degree)}} {{$degreex->section}} </td>
                 <td>{{Help::turn($degreex->turn)}}  </td>
                 <td>{{$degreex->teacher[0]->name}}  </td>
                 <td>{{$degreex->pivot->capacity}}  </td>

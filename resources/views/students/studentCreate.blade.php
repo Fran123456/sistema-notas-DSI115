@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
-        <div class="card-header"><strong>Crear un nuevo estudiante</strong></div>
+        <div class="card-header"><strong>Crear un nuevo estudiante - periodo: {{$actually->year}}</strong></div>
 
         <div class="card-body card-block">
           <div class="row">
@@ -37,14 +37,14 @@
               <hr>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-5">
               <div class="form-group">
                 <label  class=" form-control-label">Nombre</label>
                 <input type="text"  name="name" required  class="form-control">
               </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-5">
               <div class="form-group">
                 <label  class=" form-control-label">Apellido</label>
                 <input type="text" name="lastname" required  class="form-control">
@@ -68,7 +68,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="form-group">
                 <label  class=" form-control-label">Telefono</label>
                    <input type="tel" min="1" name="phone" required  class="form-control">
@@ -76,6 +76,18 @@
             </div>
 
             <div class="col-md-4">
+              <div class="form-group">
+                <label  class=" form-control-label">Grado escolar</label>
+                  <select class="form-control" name="">
+                    @foreach ($degrees as $key => $value)
+                      <option value="{{$value->degree->id}}">{{Help::ordinal($value->degree->degree)}} {{$value->degree->section}} {{ Help::turn($value->degree->degree)}}</option>
+                    @endforeach
+                  </select>
+              </div>
+            </div>
+
+
+            <div class="col-md-3">
               <div class="form-group">
                 <label  class=" form-control-label">Estado</label>
                 <select class="form-control" name="status">
