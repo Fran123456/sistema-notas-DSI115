@@ -73,7 +73,7 @@
                       @endif
                      </td>
                      <td>
-                        <a href=# class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        <a href="{{route('students.edit', $value->id)}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                      </td>
                      <td><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                   </tr>
