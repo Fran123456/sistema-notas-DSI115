@@ -102,10 +102,10 @@ class Help
 
 	 public  static function getTypeStudent(){
 		 $type = array(
-      array("AI","antiguo ingreso"),
-			 array("NI","nuevo ingreso"),
-			 array("EG","egresado"),
-			 array("AB","abandonó"),
+      array("AI","Antiguo ingreso"),
+			 array("NI","Nuevo ingreso"),
+			 array("EG","Egresado"),
+			 array("AB","Abandonó"),
 			 array("EE","En espera"),
 		 );
 		 return $type;

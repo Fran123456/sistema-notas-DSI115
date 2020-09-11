@@ -41,6 +41,7 @@
                   <th scope="col">Edad</th>
                   <th scope="col">Género</th>
                   <th scope="col">Teléfono</th>
+                  <th scope="col">Dirección</th>
                   <th scope="col">Encargado</th>
                   <th scope="col">Estado</th>
                   <th width="40" scope="col"> Editar </th>
@@ -58,6 +59,7 @@
                      <td>{{$value->age}}</td>
                      <td>{{$value->gender}}</td>
                      <td>{{$value->phone}}</td>
+                     <td>{{$value->address}}</td>
                      <td>{{$value->parent_name}}</td>
                      <td>
                       @if ($value->status =="AI")
