@@ -18,7 +18,7 @@ class CreateStudentsHistoryTable extends Migration
             $table->unsignedBigInteger('student_id')->nullable();
             $table->unsignedBigInteger('degree_id')->nullable();
             $table->unsignedBigInteger('school_year_id')->nullable();
-            $table->unsignedBigInteger('status')->nullable();
+            $table->boolean('status')->default(true);
             $table->unsignedBigInteger('upgrade')->nullable();
 
             $table->foreign('student_id')
@@ -38,7 +38,7 @@ class CreateStudentsHistoryTable extends Migration
                 ->on('school_years')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 

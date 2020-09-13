@@ -11,7 +11,7 @@ class StudentTableSeeder extends Seeder
      */
     public function run()
     {
-        $student = new Student();
+        /*$student = new Student();
         $student->name = 'Salvador Enrique';
         $student->lastname='Jovel Alfaro';
         $student->age = 10;
@@ -93,6 +93,6 @@ class StudentTableSeeder extends Seeder
         $student->parent_name='Juan Antonio Huezo Mártir';
         $student->parent_DUI='07825674-7';
         $student->status='EE';
-        $student->save();
+        $student->save();*/
     }
 }

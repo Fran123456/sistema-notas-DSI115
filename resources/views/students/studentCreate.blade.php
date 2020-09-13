@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <form method="post" action="{{ route('degrees.store') }}" enctype="multipart/form-data">
+  <form method="post" action="{{ route('studentCreate') }}" enctype="multipart/form-data">
   @csrf
   <div class="row">
     <div class="col-lg-12">
@@ -36,6 +36,8 @@
               <h4>Información del alumno</h4>
               <hr>
             </div>
+
+            <input type="hidden" name="school_year_id" value="{{$actually->id}}">
 
             <div class="col-md-5">
               <div class="form-group">
@@ -78,7 +80,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label  class=" form-control-label">Grado escolar</label>
-                  <select class="form-control" name="">
+                  <select class="form-control" name="degree_id">
                     @foreach ($degrees as $key => $value)
                       <option value="{{$value->degree->id}}">{{Help::ordinal($value->degree->degree)}} {{$value->degree->section}} {{ Help::turn($value->degree->degree)}}</option>
                     @endforeach
@@ -95,6 +97,13 @@
                     <option value="{{$value[0]}}">{{$value[1]}}</option>
                   @endforeach
                 </select>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label  class=" form-control-label">Dirección</label>
+                <textarea name="address" class="form-control" rows="3" cols="80"></textarea>
               </div>
             </div>
 
