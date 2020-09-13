@@ -9,7 +9,7 @@ class DegreeSchoolYear extends Pivot
     protected $table = 'degree_school_year';
     public $timestamps = false;
     protected $fillable = [
-      'id','user_id','degree_id','school_year_id','capacity','active','created_at','updated_at'
+      'id','user_id','degree_id','school_year_id','capacity','active','full','created_at','updated_at'
     ];
 
     public function degree(){

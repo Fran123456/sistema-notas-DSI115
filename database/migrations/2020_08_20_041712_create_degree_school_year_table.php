@@ -19,6 +19,7 @@ class CreateDegreeSchoolYearTable extends Migration
             $table->unsignedBigInteger('degree_id')->nullable();
             $table->unsignedBigInteger('school_year_id')->nullable();
             $table->integer('capacity')->nullable();
+            $table->integer('full')->default(0);
            //  $table->timestamps();
 
             $table->foreign('user_id')
