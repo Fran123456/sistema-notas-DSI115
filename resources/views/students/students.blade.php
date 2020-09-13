@@ -35,13 +35,12 @@
             <table class="table" id="bootstrap-data-table_length">
               <thead>
                 <tr>
-                  <th width="40" scope="col">#</th>
+                  <th width="30" scope="col">#</th>
                   <th scope="col">Apellidos</th>
                   <th scope="col">Nombres</th>
                   <th scope="col">Edad</th>
                   <th scope="col">Género</th>
                   <th scope="col">Teléfono</th>
-                  <th scope="col">Dirección</th>
                   <th scope="col">Encargado</th>
                   <th scope="col">Estado</th>
                   <th width="40" scope="col"> Editar </th>
@@ -57,9 +56,8 @@
                      </td>
                      <td>{{$value->name}}</td>
                      <td>{{$value->age}}</td>
-                     <td>{{$value->gender}}</td>
+                     <td>{{Help::getGender($value->gender)}}</td>
                      <td>{{$value->phone}}</td>
-                     <td>{{$value->address}}</td>
                      <td>{{$value->parent_name}}</td>
                      <td>
                       @if ($value->status =="AI")

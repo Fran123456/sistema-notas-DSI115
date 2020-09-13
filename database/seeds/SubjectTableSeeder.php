@@ -16,7 +16,7 @@ class SubjectTableSeeder extends Seeder
          );
 
     	  foreach ($subjects as $key => $value) {
-    	  	$year = new Subject();
+    	 	$year = new Subject();
 	     	$year->name = $value;
 	     	$year->active = true;
 	     	$year->save();

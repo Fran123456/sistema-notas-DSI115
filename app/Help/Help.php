@@ -111,6 +111,13 @@ class Help
 		 return $type;
 	 }
 
+	 public static function  getGender($gender){
+		 $g = "Masculino";
+		 if($gender == "F") $g = "Femenino";
+
+		 return $g;
+	 }
+
 	 //helper de models
 	 public static function getTeacher($id){
 		 $user = User::select('name')->where('id', $id)->first();
