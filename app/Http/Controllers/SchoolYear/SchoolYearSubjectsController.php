@@ -24,7 +24,23 @@ class SchoolYearSubjectsController extends Controller
       $teachers = User::where('role_id', 2)->get();
 
       $subjectsGrade = Degree::find($degree->id)->subjects()->where('school_year_id', $year->school_year_id)->get();
+      $moment = $subjects;
+      $subjects= array();
+      $c = 0;
+      foreach ($moment as $key => $value) {
+        $c =0;
+        foreach ($subjectsGrade as $key => $subjectsActually) {
+          if ($subjectsActually->id == $value->id) {
+            $c++;
+          }
+        }
 
+        if($c == 0){
+          array_push($subjects, $value);
+        }
+
+      }
+    //  return $subjects;
 
      //return $subjectsGrade[0]->pivot->id;
       /*$subjects = Subject::whereDoesntHave('degrees', function(Builder $query) use($schoolYear){
