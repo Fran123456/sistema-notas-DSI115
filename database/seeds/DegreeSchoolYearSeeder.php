@@ -5,7 +5,7 @@ use App\SchoolYear;
 use App\Degree;
 use App\User;
 use App\DegreeSchoolYear;
-
+use App\StudentHistory;
 class DegreeSchoolYearSeeder extends Seeder
 {
     /**
@@ -13,22 +13,38 @@ class DegreeSchoolYearSeeder extends Seeder
      *
      * @return void
      */
-    
+
     public function run()
     {
+
         $degrees=Degree::all();
         $schoolYears=SchoolYear::all();
-        $users=User::where('role_id',2)->get();    
 
-        foreach($schoolYears as $year){
-            foreach($degrees as $degree){
-                $degreeSchoolYear=new DegreeSchoolYear();                
+
+        foreach($schoolYears as $year)
+        {
+            foreach($degrees as $degree)
+            {
+                $userIn=User::where('role_id',2)->inRandomOrder()->first();
+                $degreeSchoolYear=new DegreeSchoolYear();
                 $degreeSchoolYear->school_year_id=$year->id;
-                $degreeSchoolYear->user_id=$degree->id+2;
+                $degreeSchoolYear->user_id=$userIn->id;
                 $degreeSchoolYear->degree_id=$degree->id;
                 $degreeSchoolYear->capacity=random_int(25,35);
                 $degreeSchoolYear->save();
+
+                for ($i=0; $i <$degreeSchoolYear->capacity ; $i++)
+                {
+                  $studenti = factory(App\Student::class, 1)->create();
+                  $history = StudentHistory::create([
+                    'student_id' =>$studenti[0]->id,
+                    'degree_id' => $degree->id,
+                    'school_year_id'=> $year->id,
+                    'status' => true
+                  ]);
+                }
             }
         }
-    }          
+
+    }
 }

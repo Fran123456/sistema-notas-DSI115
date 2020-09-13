@@ -33,7 +33,8 @@
                 <td> {{$materiasAnex[$key]}} </td>
                 <td> {{$studentAnex[$key]}} </td>
                 <td>
-                   <a href="{!! route('storeSubjects', $degreex->pivot->id) !!}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                      <a href="{!! route('storeSubjects', $degreex->pivot->id) !!}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+
                 </td>
                 <td>
                   <a href="{{route('editYear_grade',$degreex->pivot->id )}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

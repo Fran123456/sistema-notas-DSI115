@@ -54,6 +54,7 @@
           <hr>
 
           <div class="row">
+            @if (count($degrees) > 0)
 
             <div class="col-md-12">
               <div class="row">
@@ -97,7 +98,13 @@
                 </div>
               </div>
             </div>
-</form>
+              @else
+                <div class="col-md-12">
+                  <h5 class="text-center">Ya no hay grados escolares para distribuir</h5>
+                  <br>
+                </div>
+              @endif
+        </form>
 
             <div class="col-md-12">
               <div class="col-md-12">

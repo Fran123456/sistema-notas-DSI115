@@ -19,7 +19,7 @@ class School_YearTableSeeder extends Seeder
       $year->active = true;
       $year->save();
 
-      $year2 = new SchoolYear();
+    /*  $year2 = new SchoolYear();
       $year2->start_date = '2019-01-01';
       $year2->end_date = '2019-12-31';
       $year2->year = "2019";
@@ -31,8 +31,8 @@ class School_YearTableSeeder extends Seeder
       $year3->end_date = '2018-12-31';
       $year3->year = "2018";
       $year3->active = false;
-      $year3->save();
+      $year3->save();*/
 
-      
+
     }
 }
