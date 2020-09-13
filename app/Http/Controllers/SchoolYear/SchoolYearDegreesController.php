@@ -95,7 +95,12 @@ class SchoolYearDegreesController extends Controller
 
       $subjects = Subject::all();
       $teachers = User::where('role_id', 2)->get();
-      $subjectsGrade = Degree::find($degree->id)->subjects;
+      $subjectsGrade = Degree::find($degree->id)->subjects()
+      ->where('school_year_id', $year->school_year_id)->get();
+
+
+
+
       //DegreeSchoolYear::destroy($id);
       return view('schoolYear.deleteGrade', compact('year','degree','schoolYear','subjects','teachers','subjectsGrade'));
     }

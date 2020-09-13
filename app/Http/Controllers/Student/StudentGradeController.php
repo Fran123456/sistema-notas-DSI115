@@ -26,6 +26,15 @@ class StudentGradeController extends Controller
        'school_year_id'=>$request->school_year_id,
        'status' => true
      ]);
+
+     $ds = DegreeSchoolYear::where('school_year_id', $request->school_year_id)
+     ->where('degree_id',$request->degree_id)->first();
+
+     DegreeSchoolYear::where('school_year_id', $request->school_year_id)
+     ->where('degree_id',$request->degree_id)->update([
+       'full' =>  $ds->full+1
+     ]);
+
      return back()->with('success','El alumno: ' . $student->name . ' ' . $student->lastname . ' ha sido registrado correctamente');
    }
 }

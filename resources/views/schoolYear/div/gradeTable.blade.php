@@ -31,7 +31,7 @@
                 <td>{{$degreex->teacher[0]->name}}  </td>
                 <td>{{$degreex->pivot->capacity}}  </td>
                 <td> {{$materiasAnex[$key]}} </td>
-                <td> 0 </td>
+                <td> {{$studentAnex[$key]}} </td>
                 <td>
                    <a href="{!! route('storeSubjects', $degreex->pivot->id) !!}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </td>
