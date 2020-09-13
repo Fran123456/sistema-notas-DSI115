@@ -210,9 +210,10 @@ class SchoolYearController extends Controller
         return redirect()->route('years.index')->with('delete',' <strong> No es posible eliminar un año activo </strong>');
       }
 
-      $querySchoolYear=DB::select("SELECT degrees.degree, degrees.section, degrees.turn, users.name, degree_school_year.capacity from ((users inner join degree_school_year on users.id = degree_school_year.user_id) inner join degrees on degrees.id = degree_school_year.degree_id) where degree_school_year.school_year_id = ?",[$id]);
+      $querySchoolYear=DB::select("SELECT degrees.id, degrees.degree, degrees.section, degrees.turn, users.name, degree_school_year.capacity from ((users inner join degree_school_year on users.id = degree_school_year.user_id) inner join degrees on degrees.id = degree_school_year.degree_id) where degree_school_year.school_year_id = ?",[$id]);
       $sizeQuerySchoolYear=sizeof($querySchoolYear);
-      $querySubjectYear=DB::select("SELECT subjects.name as subjectName, degrees.degree, degrees.section, degrees.turn, users.name from (((users inner join degree_subject_year on users.id = degree_subject_year.user_id) inner join degrees on degrees.id = degree_subject_year.degree_id) inner join subjects on subjects.id = degree_subject_year.subject_id) where degree_subject_year.school_year_id = ?",[$id]);
+                  
+      $querySubjectYear=DB::select("SELECT subjects.name as subjectName, users.name, degree_subject_year.degree_id, degree_subject_year.subject_id from (((users inner join degree_subject_year on users.id = degree_subject_year.user_id) inner join degrees on degrees.id = degree_subject_year.degree_id) inner join subjects on subjects.id = degree_subject_year.subject_id) where degree_subject_year.school_year_id = ?",[$id]);      
       $sizeQuerySubjectYear=sizeof($querySubjectYear);
 
       return view('schoolYear.schoolYearDeleting', compact('querySchoolYear','querySubjectYear','backSchoolYear','sizeQuerySchoolYear','sizeQuerySubjectYear'));
