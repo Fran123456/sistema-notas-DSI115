@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="confirmElimination" tabindex="-1" role="dialog" aria-labelledby="processConfirmElimination" aria-hidden="true">
-<div class="modal-dialog role="document">
+<div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="confirmElimination">Eliminar año escolar {{$backSchoolYear->year}}</h5>
@@ -18,7 +18,7 @@
         <form method="POST" action="{{route('years.destroy', $backSchoolYear->id) }}">
             @csrf
             <input type="hidden" name="_method" value="delete" />
-            <button class="btn btn-danger">Eliminar</button>            
+            <button class="btn btn-danger">Eliminar</button>
         </form>
       </div>
     </div>

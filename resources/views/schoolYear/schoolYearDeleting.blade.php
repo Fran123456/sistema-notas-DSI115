@@ -30,6 +30,7 @@
 <!--BODY-->
 <div class="card">
         <div class="card-body">
+          ¿Eliminar año escolar?
             <button class="btn btn-danger" data-toggle="modal" data-target="#confirmElimination"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
 
