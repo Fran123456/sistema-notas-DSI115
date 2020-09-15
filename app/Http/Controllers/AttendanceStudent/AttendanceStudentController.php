@@ -29,7 +29,7 @@ class AttendanceStudentController extends Controller
         $attendanceDates= array();
         foreach($userAsignedDegree as $degree){            
 
-            $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degree->id,$activedYear]);            
+            $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degree->id,$activedYear]);            
             foreach($query as $element){
                 array_push($attendanceDates,$element);
             }

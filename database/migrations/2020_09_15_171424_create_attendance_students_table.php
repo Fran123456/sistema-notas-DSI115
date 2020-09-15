@@ -17,7 +17,7 @@ class CreateAttendanceStudentsTable extends Migration
             
             $table->bigIncrements('id');
             $table->date('attendance_date');
-            $table->unsignedBigInteger('student_history_id')->nullable();
+            $table->unsignedBigInteger('student_history_id');
             $table->boolean('active')->default(false);     
             $table->timestamps();
 
