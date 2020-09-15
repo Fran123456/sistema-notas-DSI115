@@ -15,4 +15,8 @@ class StudentHistory extends Model
       'status',
       'upgrade'
   ];
+
+  public function attendance(){
+    return $this->belongsTo('App\AttendanceStudent');
+  }
 }

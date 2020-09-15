@@ -485,12 +485,14 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
     );
 
     public static $classMap = array (
+        'App\\AttendanceStudent' => __DIR__ . '/../..' . '/app/AttendanceStudent.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Degree' => __DIR__ . '/../..' . '/app/Degree.php',
         'App\\DegreeSchoolSubject' => __DIR__ . '/../..' . '/app/DegreeSchoolSubject.php',
         'App\\DegreeSchoolYear' => __DIR__ . '/../..' . '/app/DegreeSchoolYear.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Help\\Help' => __DIR__ . '/../..' . '/app/Help/Help.php',
+        'App\\Http\\Controllers\\AttendanceStudent\\AttendanceStudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/AttendanceStudent/AttendanceStudentController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -526,10 +528,12 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\SchoolYear' => __DIR__ . '/../..' . '/app/SchoolYear.php',
         'App\\Student' => __DIR__ . '/../..' . '/app/Student.php',
+        'App\\StudentHistory' => __DIR__ . '/../..' . '/app/StudentHistory.php',
         'App\\Subject' => __DIR__ . '/../..' . '/app/Subject.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
+        'AttendanceStudentSeeder' => __DIR__ . '/../..' . '/database/seeds/AttendanceStudentSeeder.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',

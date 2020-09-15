@@ -198,6 +198,18 @@
                                 <li>
                                       <a href="{{ route('students.index') }}"><i  class="metismenu-icon fa fa-users"></i>Alumnos</a>
                                 </li>
+                                <li>
+                                    <a href="#" aria-expanded="false">
+                                        <i class="metismenu-icon fa fa-users"></i>
+                                        Profesor
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul class="mm-collapse" style="height: 7.04px;">                                    
+                                        <li>
+                                            <a href="{{ route('attendances.index') }}"><i class="metismenu-icon"></i>Asistencias</a>
+                                        </li>                                                                            
+                                    </ul>
+                                </li>
 
                              
 

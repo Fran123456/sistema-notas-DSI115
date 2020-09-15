@@ -6,12 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\AttendanceStudent' => $baseDir . '/app/AttendanceStudent.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Degree' => $baseDir . '/app/Degree.php',
     'App\\DegreeSchoolSubject' => $baseDir . '/app/DegreeSchoolSubject.php',
     'App\\DegreeSchoolYear' => $baseDir . '/app/DegreeSchoolYear.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Help\\Help' => $baseDir . '/app/Help/Help.php',
+    'App\\Http\\Controllers\\AttendanceStudent\\AttendanceStudentController' => $baseDir . '/app/Http/Controllers/AttendanceStudent/AttendanceStudentController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -47,10 +49,12 @@ return array(
     'App\\Role' => $baseDir . '/app/Role.php',
     'App\\SchoolYear' => $baseDir . '/app/SchoolYear.php',
     'App\\Student' => $baseDir . '/app/Student.php',
+    'App\\StudentHistory' => $baseDir . '/app/StudentHistory.php',
     'App\\Subject' => $baseDir . '/app/Subject.php',
     'App\\User' => $baseDir . '/app/User.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
+    'AttendanceStudentSeeder' => $baseDir . '/database/seeds/AttendanceStudentSeeder.php',
     'Brick\\Math\\BigDecimal' => $vendorDir . '/brick/math/src/BigDecimal.php',
     'Brick\\Math\\BigInteger' => $vendorDir . '/brick/math/src/BigInteger.php',
     'Brick\\Math\\BigNumber' => $vendorDir . '/brick/math/src/BigNumber.php',
