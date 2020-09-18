@@ -67,9 +67,10 @@ Route::post('year/teacher/grade/{id}/edit/save', 'SchoolYear\SchoolYearControlle
 Route::get('year/deleting/{id}', 'SchoolYear\SchoolYearController@deletingSchoolYear')->name('deletingSchoolYear');
 
 
-/*SCHOOL YEAR*/
+/*SCHOOL YEAR DEGREES*/
 Route::resource('yearsdegree', 'SchoolYear\SchoolYearDegreesController');
 Route::post('yearsdegree/delete/{id}', 'SchoolYear\SchoolYearDegreesController@delete')->name('yearsdegree_delete');
+Route::get('yeardegree/{id}/students/','SchoolYear\SchoolYearDegreesController@showStudentsDegreeYear')->name('showStudentsDegreeYear');
 
 /*SUBJECTS*/
 Route::resource('subjects', 'Subject\SubjectController');
@@ -83,3 +84,6 @@ Route::post('new-student/create', 'Student\StudentGradeController@registerStuden
 
 /*ATTENDANCE*/
 Route::resource('attendances','AttendanceStudent\AttendanceStudentController');
+
+/*STUDENT HISTORY*/
+Route::resource('studenthistories','Student\StudentHistoryController');

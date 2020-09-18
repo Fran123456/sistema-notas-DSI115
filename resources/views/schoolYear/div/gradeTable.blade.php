@@ -18,6 +18,7 @@
           <th scope="col"># Materias</th>
           <th scope="col"># Alumnos</th>
           <th width="80" scope="col">Agregar materia</th>
+          <th width="80" scope="col">Ver alumnos</th>
           <th width="80" scope="col">Editar</th>
           <th width="80" scope="col">Eliminar</th>
        </tr>
@@ -36,6 +37,9 @@
                       <a href="{!! route('storeSubjects', $degreex->pivot->id) !!}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
                 </td>
+                <td>
+                        <a href="{{ route('showStudentsDegreeYear',$degreex->pivot) }}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                </td>                
                 <td>
                   <a href="{{route('editYear_grade',$degreex->pivot->id )}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                 </td>
