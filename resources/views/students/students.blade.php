@@ -43,6 +43,7 @@
                   <th scope="col">Teléfono</th>
                   <th scope="col">Encargado</th>
                   <th scope="col">Estado</th>
+                  <th width="40" scope="col"> Ver </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
@@ -71,6 +72,9 @@
                       @else
                        En espera
                       @endif
+                     </td>
+                     <td>
+                        <a href="{{ route('students.show', $value->id) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                      </td>
                      <td>
                         <a href="{{route('students.edit', $value->id)}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
