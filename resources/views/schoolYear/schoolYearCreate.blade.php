@@ -40,7 +40,7 @@
              </div>
              <div class="col-md-3">
                  <div class="form-group">
-                      <label  class=" form-control-label">Fecha de inición </label>
+                      <label  class=" form-control-label">Fecha de finalización </label>
                       <input type="date" name="end_date" value="{{old('end_date')}}" required  class="form-control">
                  </div>
              </div>
@@ -60,6 +60,9 @@
                   </select>
                  </div>
              </div>
+
+
+            
 
              <!--<div class="col-md-4">
                <div class="form-group">

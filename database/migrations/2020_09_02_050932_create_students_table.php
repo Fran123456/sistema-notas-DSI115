@@ -25,6 +25,9 @@ class CreateStudentsTable extends Migration
             $table->string('parent_DUI')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
+
+
+            
         });
     }
 
