@@ -71,30 +71,53 @@
             </div>     
           </div>
 
-          <!--A mejorar*-->
+        @foreach ($studentrecord as $key => $value)
+
           <div class="row">
             <div class="col-md-12">
               <table class="table table-bordered" align="center">
               <tbody>
                 <thead>
-               <tr>
-                <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:6px;">{{$year->year}}</th>
-              </tr>
-              <tr>
-                <th class="center">Grado</th>
-                <th class="center">Estado</th>            
-              </tr>
-            </thead>
-              <tr>
-                <td>{{Help::ordinal($degree->degree)}}</td>
-                <td>{{Help::status($student->status)}}</td>
-                </tr>
+                  <tr>
+                    @if ($value->status)
+                      <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:1px;">ACTUALMENTE EN CURSO</th>
+                    @endif 
+                  </tr>            
+                  <tr>
+                    <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:6px;">
+                      @foreach ($years as $key2 => $value2)
+                        @if ($value->school_year_id == $value2->id)
+                          {{$value2->year}}
+                        @endif
+                      @endforeach
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="center">Grado</th>
+                    <th class="center">Estado</th>            
+                  </tr>
+                </thead>
+              
+                  <tr>
+                    <td>
+                     @foreach ($degrees as $key3 => $value3)
+                      @if ($value->degree_id == $value3->id)        
+                        {{Help::ordinal($value3->degree)}}
+                      @endif
+                    @endforeach
+                    </td>
+                  <td>
+                    <!--A editar-->   
+                    Aprobado
+                    </td>
+                  </tr>
               </tbody>
               </table>
-
             </div>
           </div>
-          
+        
+        @endforeach          
+        
           </div>
         </div>
       </div>
