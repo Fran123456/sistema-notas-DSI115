@@ -54,14 +54,28 @@ class StudentController extends Controller
     public function show($id)
     {
         //
+
         $student = Student::where("id", $id)->first();
         $history = StudentHistory::where("student_id", $id)->first();
         $year    = SchoolYear::where("id", $history->school_year_id)->first(); 
         $degree = Degree::where("id", $history->degree_id)->first();
 
-
         return view('students.history', compact('student', 'year', 'degree'));
     }
+
+    public function beforedeleting($id)
+    {
+        //
+
+        $currentyear = SchoolYear::where('active', true)->first();
+        $student = Student::where("id", $id)->first();
+        $history = StudentHistory::where("student_id", $id)->first();
+        $degree = Degree::where("id", $history->degree_id)->first();
+
+        return view('students.delete', compact('student', 'currentyear', 'degree'));
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -114,5 +128,13 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+
+        $history = StudentHistory::where("student_id", $id)->first();   
+
+        StudentHistory::destroy($history->id);     
+        Student::destroy($id); 
+
+          
+        return redirect()->route('students.index')->with('delete','<strong>El alumno/a fue eliminado correctamente</strong>');
     }
 }

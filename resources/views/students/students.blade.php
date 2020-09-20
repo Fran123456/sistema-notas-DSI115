@@ -79,7 +79,9 @@
                      <td>
                         <a href="{{route('students.edit', $value->id)}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                      </td>
-                     <td><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                     <td>
+                      <a href="{{route('beforedeleting', $value->id)}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
                   </tr>
                 @endforeach
             </tbody>
