@@ -16,12 +16,14 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('degrees.index') }}">Grados</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Crear grado</li>
+          <li class="breadcrumb-item"><a href="{{ route('scoreTypeList') }}">Tipo de notas</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Crear tipo de notas</li>
         </ol>
       </nav>
     </div>
   </div>
+
+
 
   <form method="post" action="{{ route('degrees.store') }}" enctype="multipart/form-data">
   @csrf
@@ -33,13 +35,7 @@
         <div class="card-body card-block">
           <div class="row">
 
-            <div class="col-md-3">
-              <div class="form-group">
-                <label  class=" form-control-label">Grado</label>
-                <input type="number" min="1" max="12" name="degree" required  class="form-control">
-                {!! Form::radio('uno', 'uno', $checked, ['uno']) !!}
-              </div>
-            </div>
+            
 
             <div class="col-md-3">
               <div class="form-group">
@@ -86,7 +82,6 @@
       </div>
     </div>
   </div>
-
   </form>
 
   @endsection

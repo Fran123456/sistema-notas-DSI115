@@ -85,6 +85,17 @@ Route::get('student/deleting/{id}', 'Student\StudentController@beforedeleting')-
 
 /*ATTENDANCE*/
 Route::resource('attendances','AttendanceStudent\AttendanceStudentController');
+Route::get('attendance/record/{idDegreeSchoolYear}', 'AttendanceStudent\AttendanceStudentController@record')->name('attendanceRecord');
+Route::post('attendance/record/save', 'AttendanceStudent\AttendanceStudentController@saveRecord')->name('saveAttendanceRecord');
 
 /*STUDENT HISTORY*/
 Route::resource('studenthistories','Student\StudentHistoryController');
+
+/*SCORE TYPES*/
+Route::get('score-types', 'Score\ScoreTypeController@scoreType')->name('scoreTypeList');
+Route::get('score-types/create/{}', 'Score\ScoreTypeController@crateScoreType')->name('crateScoreType');
+
+/*SCORE TYPES*/
+Route::get('grades-teacher/{id}', 'Teacher\TeacherController@grades')->name('gradesTeacher');
+
+
