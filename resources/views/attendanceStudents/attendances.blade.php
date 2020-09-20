@@ -17,20 +17,22 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Asistencias</li>
+        <li class="breadcrumb-item"><a href="{{ route('gradesTeacher',Auth::user()->id) }}">Administración de docente - Año escolar {{Help::getSchoolYear()->year}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Asistencias Grado {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </li>
       </ol>
     </nav>
   </div>
 </div>
-<small>*se tomara la fecha de sistema para el registro de asistencia diaria</small>
+<small>*Se tomará la fecha de sistema para el registro de asistencia diaria</small>
 <div class="row">
-    @foreach($userAsignedDegree as $degree)
-                      <div class="col-sm-6">
+    
+                      <div class="col-sm-12">
 
                       <!--col-lg 3 col-md-3 col-sm-12 col-xs-12-->
                         <div class="card-body">
 
-                          <div class="card" style="width: auto;">
+                          <!--<div class="card" style="width: auto;">-->
+                          <div class="card">
 
                             <div class="card-body">
                                 @php
@@ -57,7 +59,7 @@
                                     <tr>
                                       <td><strong>Grado</strong></td>
 
-                                      <td> {{Help::ordinal($degree->degree->degree)}} {{$degree->degree->section}} - {{Help::turn($degree->degree->turn)}}</td>
+                                      <td> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}</td>
 
                                     </tr>
                                   </table>
@@ -90,7 +92,7 @@
                         </div>
                       </div>
 
-    @endforeach
+    
 </div>
 
 
