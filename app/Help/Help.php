@@ -2,7 +2,7 @@
 
 namespace App\Help;
 use App\User;
-
+use App\SchoolYear;
 class Help
 {
 
@@ -122,6 +122,11 @@ class Help
 	 public static function getTeacher($id){
 		 $user = User::select('name')->where('id', $id)->first();
 		 return $user->name;
+	 }
+
+	 public static function getSchoolYear(){
+	 	$p = SchoolYear::where('active', true)->first();
+	 	return $p;
 	 }
 
 

@@ -207,7 +207,12 @@
                                     <ul class="mm-collapse" style="height: 7.04px;">                                    
                                         <li>
                                             <a href="{{ route('attendances.index') }}"><i class="metismenu-icon"></i>Asistencias</a>
-                                        </li>                                                                            
+                                        </li>    
+
+                                        <li>
+                                            <a href="{{ route('gradesTeacher',Auth::user()->id) }}"><i class="metismenu-icon"></i>Grados</a>
+                                        </li>
+                                                                                                                
                                     </ul>
                                 </li>
 

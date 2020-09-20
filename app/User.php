@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Help\Help;
+use Illuminate\Support\Facades\Auth;
+use App\Degree;
+
 
 class User extends Authenticatable
 {
@@ -82,8 +86,29 @@ class User extends Authenticatable
     }
 
 
-    public function teacher()
+    public static  function teacher()//obtiene los grados que esta acargo un docente por periodo activo
     {
+      $p = Help::getSchoolYear();
+      $d = DegreeSchoolYear::where('school_year_id',$p->id)
+      ->where('user_id',Auth::user()->id)->get();
+      $compile = array();
+      foreach ($d as $key => $value) {
+         $user = User::find($value->user_id);
+         $grade = Degree::find($value->degree_id);
+         $aux = array($user, $grade);
+
+         $complement = array(
+          'year'=>$p->year,
+          'capacity'=> $value->capacity,
+          'full'=> $value->full,
+          'id_degreeSchoolYear'=> $value->id,
+         );
+         
+         $compile[$key][0]=$user;
+         $compile[$key][1]=$grade;
+         $compile[$key][2]=$complement;
+      }
+      return $compile;
 
     }
 }
