@@ -44,6 +44,7 @@
                   <th width="200" scope="col">Año</th>
                   <th scope="col">Capacidad</th>
                   <th scope="col">Inscritos</th>
+                  <th scope="col">Asistencia</th>
                   <th width="60" scope="col">Tipos</th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
@@ -64,6 +65,9 @@
                      <td>{{$value[2]['year']}}</td>
                      <td>{{$value[2]['capacity']}}</td>
                      <td>{{$value[2]['full']}}</td>
+                     <td>
+                      <a href="{{ route('attendancesDates',$value[1]['id']) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                     </td>
                      <td>
                          <a href="" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </td>
