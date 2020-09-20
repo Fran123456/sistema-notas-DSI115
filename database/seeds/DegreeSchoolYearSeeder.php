@@ -31,6 +31,7 @@ class DegreeSchoolYearSeeder extends Seeder
                 $degreeSchoolYear->user_id=$userIn->id;
                 $degreeSchoolYear->degree_id=$degree->id;
                 $degreeSchoolYear->capacity=random_int(25,35);
+                $degreeSchoolYear->full=$degreeSchoolYear->capacity;
                 $degreeSchoolYear->save();
 
                 for ($i=0; $i <$degreeSchoolYear->capacity ; $i++)

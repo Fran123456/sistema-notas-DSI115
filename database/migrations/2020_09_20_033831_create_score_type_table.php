@@ -15,8 +15,9 @@ class CreateScoreTypeTable extends Migration
     {
         Schema::create('score_type', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('school_period_id');
-            $table->unsignedBigInteger('school_year_id');
+            $table->unsignedBigInteger('school_period_id')->nullable();
+            $table->unsignedBigInteger('school_year_id')->nullable();
+            $table->unsignedBigInteger('degree_id')->nullable();
             $table->string('percentage')->nullable();
             $table->string('activity')->nullable();
             $table->text('description')->nullable();
@@ -24,7 +25,13 @@ class CreateScoreTypeTable extends Migration
             $table->boolean('state')->default(false);
            // $table->timestamps();
 
-            $table->foreign('school_period_id')
+            $table->foreign('degree_id')
+              ->references('id')
+              ->on('degrees')
+              ->onDelete('cascade')
+              ->onUpdate('cascade');
+
+              $table->foreign('school_period_id')
               ->references('id')
               ->on('school_period')
               ->onDelete('cascade')

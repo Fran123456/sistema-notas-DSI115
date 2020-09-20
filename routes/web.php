@@ -92,7 +92,7 @@ Route::resource('studenthistories','Student\StudentHistoryController');
 
 /*SCORE TYPES*/
 Route::get('score-types', 'Score\ScoreTypeController@scoreType')->name('scoreTypeList');
-Route::get('score-types/create', 'Score\ScoreTypeController@crateScoreType')->name('crateScoreType');
+Route::get('score-types/create/{}', 'Score\ScoreTypeController@crateScoreType')->name('crateScoreType');
 
 /*SCORE TYPES*/
 Route::get('grades-teacher/{id}', 'Teacher\TeacherController@grades')->name('gradesTeacher');

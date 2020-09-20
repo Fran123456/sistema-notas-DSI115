@@ -44,7 +44,7 @@
                   <th width="200" scope="col">Año</th>
                   <th scope="col">Capacidad</th>
                   <th scope="col">Inscritos</th>
-                  <th width="40" scope="col"> Administrar </th>
+                  <th width="60" scope="col">Tipos</th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
