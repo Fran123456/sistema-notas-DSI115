@@ -66,7 +66,7 @@
                                 </div>
                               <!--</h5>-->
                                 <div class="table-responsive">
-                                  <table class="table">
+                                  <table class="table" table-hover" id="bootstrap-data-table_length">
                                     <thead>
                                       <tr>
                                         <th width="150" scope="col">Fecha</th>
@@ -79,8 +79,16 @@
                                         @if($value->degree_id == $degree->id )
                                           <tr>
                                             <td>{{$value->attendance_date}}</td>
-                                            <td>{{$value->asistencia}}</td>
-                                            <td><a href=""><i class="fa fa-eye"></i></a></td>
+                                            <td>{{$value->asistencia}}</td>                                            
+                                            <!-- IMPORTANTE-->
+                                            <td>
+                                              <form  method="get" action="{{ route('attendance.show',$value->degree_id)}}">
+                                                <input type="hidden" name="degreeId" value="{{ $value->degree_id }}" />
+                                                <input type="hidden" name="attendanceDate" value="{{ $value->attendance_date }}"/>
+                                                <button  class="btn btn-info" type="submit"><i class="fa fa-eye"></i></button>                                                
+                                               </form>
+                                            </td>
+                                          <!--Cerrado IMPORTANTE -->
                                           </tr>
                                         @endif
                                       @endforeach

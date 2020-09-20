@@ -94,11 +94,21 @@ class AttendanceStudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Request $request)
+    {     
+        
+        //dd($request);
+        //dd($request->request);
+        $attendance = DB::select("SELECT * FROM attendance_students INNER JOIN (students_history INNER JOIN students ON students_history.student_id = students.id) ON attendance_students.student_history_id = students_history.id WHERE students_history.degree_id= ? AND attendance_students.attendance_date = ?", [$request->degreeId, $request->attendanceDate]);
+        //$attendance=DB::select("SELECT * FROM attendance_students INNER JOIN (students_history INNER JOIN students ON students_history.student_id = students.id) ON attendance_students.student_history_id = students_history.id WHERE students_history.degree_id= ? AND attendance_students.attendance_date = ?", );        
+        //dd($attendance);
+        
+        $degree=Degree::where('id',$request->degreeId)->get()->first();        
+        $date=$request->attendanceDate;        
+        
+        return view('attendanceStudents.attendance', compact('attendance','degree','date'));
     }
-
+        
     /**
      * Show the form for editing the specified resource.
      *
