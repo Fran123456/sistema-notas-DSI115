@@ -204,10 +204,11 @@
                                         Profesor
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul class="mm-collapse" style="height: 7.04px;">                                    
+                                    <ul class="mm-collapse" style="height: 7.04px;">                                                                            
                                         <li>
-                                            <a href="{{ route('attendances.index') }}"><i class="metismenu-icon"></i>Asistencias</a>
-                                        </li>                                                                            
+                                            <a href="{{ route('gradesTeacher',Auth::user()->id) }}"><i class="metismenu-icon"></i>Grados</a>
+                                        </li>
+                                                                                                                
                                     </ul>
                                 </li>
 

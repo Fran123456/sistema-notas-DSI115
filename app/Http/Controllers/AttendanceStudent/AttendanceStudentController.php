@@ -22,8 +22,29 @@ class AttendanceStudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function attendancesDates($degreeId){
+        
+        $activedYear=SchoolYear::where('active',1)->get()->first()->id;
+
+        $attendanceDates= array();
+
+        $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degreeId,$activedYear]);
+            foreach($query as $element){
+                array_push($attendanceDates,$element);
+            }
+
+        $degree=Degree::where('id',$degreeId)->get()->first();
+        //dd($degree);
+        ($attendanceDates);
+        $now = new \DateTime();
+        $now= $now->format('Y-m-d');
+
+        return view('attendanceStudents.attendances', compact('attendanceDates','degree','now'));
+    }
+
     public function index()
     {
+        /*
         $idUser=Auth::user()->id;
 
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
@@ -43,7 +64,7 @@ class AttendanceStudentController extends Controller
         $now = new \DateTime();
         $now= $now->format('Y-m-d');
 
-        return view('attendanceStudents.attendances', compact('attendanceDates','userAsignedDegree','now'));
+        return view('attendanceStudents.attendances', compact('attendanceDates','userAsignedDegree','now'));*/
     }
 
     /**
@@ -146,8 +167,8 @@ class AttendanceStudentController extends Controller
         }
 
 
-
-      return redirect()->route('attendances.index')->with('edit','<strong>'.count($data['date']).'  </strong> Asistencias Guardadas del
+      
+      return redirect()->route('attendancesDates',$grado->id)->with('edit','<strong>'.count($data['date']).'  </strong> Asistencias Guardadas del
       Grado:   <strong>  '.$mensaje.'</strong>  fecha: <strong> '.$now.'</strong> ');
     // return back()->with('edit','Registro Guardado');
     }

@@ -71,6 +71,7 @@
             </div>     
           </div>
 
+          <!--A mejorar*-->
           <div class="row">
             <div class="col-md-12">
               <table class="table table-bordered" align="center">
