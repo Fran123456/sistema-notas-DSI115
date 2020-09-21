@@ -20,7 +20,7 @@
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('gradesTeacher',Auth::user()->id) }}">Administración de docente - Año escolar {{Help::getSchoolYear()->year}}</a></li>
         <li class="breadcrumb-item"><a href="{{ route('attendancesDates', $degree->id) }}">Asistencias Grado {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Asistencia fecha: {{$date}} </li>
+        <li class="breadcrumb-item active" aria-current="page">Asistencia fecha: {{$attendanceDate}} </li>
       </ol>
     </nav>
   </div>
@@ -37,7 +37,7 @@
                             <tr>
                                 <td><strong>Fecha</strong></td>
 
-                                <td> {{$date}}</td>
+                                <td> {{$attendanceDate}}</td>
 
                             </tr>
                         </table>

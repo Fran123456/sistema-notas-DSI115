@@ -82,11 +82,7 @@
                                             <td>{{$value->asistencia}}</td>                                            
                                             <!-- IMPORTANTE-->
                                             <td>
-                                              <form  method="get" action="{{ route('attendance.show',$value->degree_id)}}">
-                                                <input type="hidden" name="degreeId" value="{{ $value->degree_id }}" />
-                                                <input type="hidden" name="attendanceDate" value="{{ $value->attendance_date }}"/>
-                                                <button  class="btn btn-info" type="submit"><i class="fa fa-eye"></i></button>                                                
-                                               </form>
+                                              <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             </td>
                                           <!--Cerrado IMPORTANTE -->
                                           </tr>
