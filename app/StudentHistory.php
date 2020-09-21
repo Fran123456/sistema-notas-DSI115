@@ -19,4 +19,7 @@ class StudentHistory extends Model
   public function attendance(){
     return $this->belongsTo('App\AttendanceStudent');
   }
+  public function students(){
+    return $this->belongsTo(Student::class);
+  }
 }

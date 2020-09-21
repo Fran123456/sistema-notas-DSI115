@@ -14,12 +14,12 @@ class CreateAttendanceStudentsTable extends Migration
     public function up()
     {
         Schema::create('attendance_students', function (Blueprint $table) {
-            
+
             $table->bigIncrements('id');
             $table->date('attendance_date');
             $table->unsignedBigInteger('student_history_id');
-            $table->boolean('active')->default(false);     
-            $table->timestamps();
+            $table->boolean('active')->default(false);
+           // $table->timestamps();
 
             $table->foreign('student_history_id')
                 ->references('id')

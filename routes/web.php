@@ -83,3 +83,5 @@ Route::post('new-student/create', 'Student\StudentGradeController@registerStuden
 
 /*ATTENDANCE*/
 Route::resource('attendances','AttendanceStudent\AttendanceStudentController');
+Route::get('attendance/record/{idDegreeSchoolYear}', 'AttendanceStudent\AttendanceStudentController@record')->name('attendanceRecord');
+Route::post('attendance/record/save', 'AttendanceStudent\AttendanceStudentController@saveRecord')->name('saveAttendanceRecord');

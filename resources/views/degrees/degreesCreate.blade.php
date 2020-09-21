@@ -30,24 +30,25 @@
       <div class="card">
         <div class="card-header"><strong>Crear un grado</strong></div>
 
-        <div class="card-body card-block">                                    
+        <div class="card-body card-block">
           <div class="row">
-            
-            <div class="col-md-3">  
+
+            <div class="col-md-3">
               <div class="form-group">
                 <label  class=" form-control-label">Grado</label>
                 <input type="number" min="1" max="12" name="degree" required  class="form-control">
+                {!! Form::radio('uno', 'uno', $checked, ['uno']) !!}
               </div>
             </div>
 
             <div class="col-md-3">
-              <div class="form-group">                     
+              <div class="form-group">
                 <label for="seccion">Seccion</label>
                   <select class="form-control" id="seccion" name="seccion">
                      <option value="A">A</option>
                      <option value="B">B</option>
                      <option value="C">C</option>
-                  </select>          
+                  </select>
                 </div>
              </div>
 
@@ -58,9 +59,9 @@
                     <option value="m">Turno Matutino </option>
                     <option value="t">Turno Vespertino </option>
                   </select>
-                </div>                              
+                </div>
               </div>
-              
+
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Estado</label>
@@ -69,8 +70,8 @@
                        <option value="0">No activo</option>
                     </select>
                    </div>
-               </div>   
-         
+               </div>
+
           </div>
 
           <div class="row form-group">
