@@ -45,7 +45,7 @@
                                 @endphp
                                @if ($bandera==1)
 
-                               <button  class="btn btn-danger" disabled>Tomar Asistencia <i class="fa fa-stop"></i></button>
+                               <button  class="btn btn-danger" disabled>Tomar Asistencia <i class="fa fa-ban"></i></button>
                                @else
                                <a href="{{route('attendanceRecord',$degree->id)}}" class="btn btn-success">Tomar Asistencia</a>
                                @endif
