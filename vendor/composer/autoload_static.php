@@ -508,6 +508,7 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'App\\Http\\Controllers\\SchoolYear\\SchoolYearSubjectsController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolYear/SchoolYearSubjectsController.php',
         'App\\Http\\Controllers\\Student\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/StudentController.php',
         'App\\Http\\Controllers\\Student\\StudentGradeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/StudentGradeController.php',
+        'App\\Http\\Controllers\\Student\\StudentHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/StudentHistoryController.php',
         'App\\Http\\Controllers\\Subject\\SubjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/Subject/SubjectController.php',
         'App\\Http\\Controllers\\User\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

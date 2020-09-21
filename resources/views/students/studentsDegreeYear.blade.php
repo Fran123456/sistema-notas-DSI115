@@ -12,24 +12,19 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Alumnos</li>
+        <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$schoolYear->id) }}">Crear grado, docente para año escolar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Estudiantes</li>
       </ol>
     </nav>
   </div>
 </div>
 
-<div class="row ">
-    <div class="col-md-12 col-sm-12 col-xs-12 text-right">
-       <a class="btn btn-info mb-1" href="{!! route('addStudent') !!}"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    </div>
-</div>
-
-
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">Alumnos</strong>
+        <strong class="card-title">Alumnos {{Help::ordinal($degree->degree)}} {{$degree->section}} - Año {{$schoolYear->year}}</strong>
       </div>
         <div class="card-body">
             <table class="table" id="bootstrap-data-table_length">
@@ -43,8 +38,6 @@
                   <th scope="col">Teléfono</th>
                   <th scope="col">Encargado</th>
                   <th scope="col">Estado</th>
-                  <th width="40" scope="col"> Ver </th>
-                  <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
               </thead>
@@ -73,13 +66,17 @@
                        En espera
                       @endif
                      </td>
-                     <td>
-                        <a href="{{ route('students.show', $value->id) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                     <td> 
+                     @if (Auth::user()->roles()->first()->name =="Administrador")
+                        <form method="POST" action="{{route('studenthistories.destroy', $value->id) }}">
+                           @csrf
+                           <input type="hidden" name="_method" value="delete" />
+                           <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </form>
+                     @else
+                     <button class="btn btn-danger" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button> 
+                     @endif
                      </td>
-                     <td>
-                        <a href="{{route('students.edit', $value->id)}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                     </td>
-                     <td><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                   </tr>
                 @endforeach
             </tbody>

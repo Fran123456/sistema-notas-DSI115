@@ -11,6 +11,7 @@ use App\DegreeSchoolYear;
 use App\DegreeSchoolSubject;
 use App\Help\Help;
 use App\Subject;
+use DB;
 
 class SchoolYearDegreesController extends Controller
 {
@@ -112,4 +113,18 @@ class SchoolYearDegreesController extends Controller
        DegreeSchoolSubject::where('degree_id',$year_degree->degree_id)->delete();
        return redirect()->route('teacher-grade',$year_degree->school_year_id)->with('delete',' <strong> '.Help::ordinal($degree->degree). $degree->section.'-'.  Help::turn($degree->turn).' Eliminado Correctamente </strong>');
     }
+    public function showStudentsDegreeYear($id)
+    {
+        $degree_school_year = DegreeSchoolYear::find($id);
+        $degree = Degree::find($degree_school_year->degree_id);
+        $schoolYear = SchoolYear::find($degree_school_year->school_year_id);
+        $students = DB::table('students as stu')
+        ->join('students_history as sh','stu.id','=','sh.student_id')
+        ->select('sh.id','stu.name','stu.lastname','stu.gender','stu.age','stu.address','stu.phone','stu.parent_name','stu.status')
+        ->where('sh.degree_id','=',$degree->id)
+        ->where('sh.school_year_id','=',$schoolYear->id)
+        ->get();
+        return view('students.studentsDegreeYear',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree]);
+    }
+
 }
