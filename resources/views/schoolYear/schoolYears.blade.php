@@ -48,6 +48,7 @@
                   <th scope="col">Activo</th>
                   <th scope="col" width="40">Estado</th>
                   <th width="40" scope="col"> Administrar </th>
+                  <th width="40" scope="col"> Periodos </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
@@ -73,7 +74,7 @@
                      <td>
                      @if (!($value->active))
                      <a href="{{ route('changeStatusSchoolYear', $value->id) }}" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
-                     @else                        
+                     @else
                      <button disabled="" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></button>
                      @endif
                      </td>
@@ -85,12 +86,15 @@
                        @endif
                      </td>
 
-
+                     <td>
+                        <a href="{!! route('periods-index',$value->id) !!}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                      </td>
                       <td>
                         <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
+
                       <td>
-                      @if (!$value->active)                         
+                      @if (!$value->active)
                         <a href="{{ route('deletingSchoolYear', $value->id) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                       @else
                         <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>

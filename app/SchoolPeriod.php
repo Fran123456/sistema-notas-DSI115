@@ -12,6 +12,8 @@ class SchoolPeriod extends Model
         'id',
         'start_date',
         'end_date',
+        'nperiodo',
+        'nuevo',
         'current',
         'school_year_id'
     ];

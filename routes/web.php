@@ -99,4 +99,12 @@ Route::get('score-types/create/{}', 'Score\ScoreTypeController@crateScoreType')-
 /*SCORE TYPES*/
 Route::get('grades-teacher/{id}', 'Teacher\TeacherController@grades')->name('gradesTeacher');
 
+/*PERIODOS */
+Route::resource('periods','Period\PeriodController');
+Route::get('year/{idyear}/periods','Period\PeriodController@index')->name('periods-index');
+Route::get('year/{idyear}/periods/edit','Period\PeriodController@edit')->name('periods-edit');
+Route::post('year/{idyear}/periods/edit/save','Period\PeriodController@update')->name('periods-update');
+Route::get('year/{idyear}/periods/create','Period\PeriodController@create')->name('periods-create');
+Route::post('year/{idyear}/periods/create/save','Period\PeriodController@store')->name('periods-store');
+Route::post('year/periods/delete','Period\PeriodController@destroy')->name('periods-delete');
 
