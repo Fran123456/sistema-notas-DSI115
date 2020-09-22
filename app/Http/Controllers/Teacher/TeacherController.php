@@ -11,6 +11,8 @@ use App\Degree;
 use App\DegreeSchoolYear;
 use App\Subject;
 use App\SchoolPeriod;
+use App\SchoolYear;
+use DB;
 
 class TeacherController extends Controller
 {
@@ -39,5 +41,18 @@ class TeacherController extends Controller
         ->where('school_year_id', Help::getSchoolYear()->id)->first();
 
     	return view('score.type.scoreTypesCreate', compact('grade','teacher','subject','period'));
+    }
+    public function showStudentsDegreeTeacher($idteacher,$iddegree)
+    {
+        $schoolYear = SchoolYear::where('active', true)->first();
+        $teacher=User::find($idteacher);
+        $degree= Degree::find($iddegree);
+        $students = DB::table('students as stu')
+        ->join('students_history as sh','stu.id','=','sh.student_id')
+        ->select('sh.id','stu.name','stu.lastname','stu.gender','stu.age','stu.address','stu.phone','stu.parent_name','stu.status')
+        ->where('sh.degree_id','=',$degree->id)
+        ->where('sh.school_year_id','=',$schoolYear->id)
+        ->get();
+        return view('students.studentsDegreeTeacher',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,"teacher"=>$teacher]);
     }
 }
