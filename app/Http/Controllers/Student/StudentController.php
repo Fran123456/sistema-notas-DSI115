@@ -56,23 +56,22 @@ class StudentController extends Controller
         //
 
         $student = Student::where("id", $id)->first();
-        $history = StudentHistory::where("student_id", $id)->first();
-        $year    = SchoolYear::where("id", $history->school_year_id)->first(); 
-        $degree = Degree::where("id", $history->degree_id)->first();
-
-        return view('students.history', compact('student', 'year', 'degree'));
+        $studentrecord = StudentHistory::where("student_id", $id)->get();
+        $years = SchoolYear::all();
+        $degrees = Degree::all();
+        return view('students.history', compact('student', 'studentrecord', 'years', 'degrees'));
     }
 
     public function beforedeleting($id)
     {
         //
 
-        $currentyear = SchoolYear::where('active', true)->first();
         $student = Student::where("id", $id)->first();
-        $history = StudentHistory::where("student_id", $id)->first();
-        $degree = Degree::where("id", $history->degree_id)->first();
+        $studentrecord = StudentHistory::where("student_id", $id)->get();
+        $years = SchoolYear::all();
+        $degrees = Degree::all();
 
-        return view('students.delete', compact('student', 'currentyear', 'degree'));
+        return view('students.delete', compact('student', 'studentrecord', 'years', 'degrees'));
     }
 
 

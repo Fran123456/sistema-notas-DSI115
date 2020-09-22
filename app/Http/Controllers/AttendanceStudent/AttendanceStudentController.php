@@ -44,27 +44,7 @@ class AttendanceStudentController extends Controller
 
     public function index()
     {
-        /*
-        $idUser=Auth::user()->id;
 
-        $activedYear=SchoolYear::where('active',1)->get()->first()->id;
-
-        $userAsignedDegree=DegreeSchoolYear::where('user_id',$idUser)->where('school_year_id',$activedYear)->get();
-
-        $attendanceDates= array();
-        foreach($userAsignedDegree as $degree){
-
-            $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degree->id,$activedYear]);
-            foreach($query as $element){
-                array_push($attendanceDates,$element);
-            }
-        }
-
-        ($attendanceDates);
-        $now = new \DateTime();
-        $now= $now->format('Y-m-d');
-
-        return view('attendanceStudents.attendances', compact('attendanceDates','userAsignedDegree','now'));*/
     }
 
     /**
@@ -94,11 +74,17 @@ class AttendanceStudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Request $request)
+    {     
+
     }
 
+    public function showAttendance($degreeId, $attendanceDate){
+        $attendance=DB::select("SELECT * FROM attendance_students INNER JOIN (students_history INNER JOIN students ON students_history.student_id = students.id) ON attendance_students.student_history_id = students_history.id WHERE students_history.degree_id= ? AND attendance_students.attendance_date = ?", [$degreeId, $attendanceDate]);
+        $degree=Degree::where('id',$degreeId)->get()->first();
+        return view('attendanceStudents.attendance', compact('attendance','degree','attendanceDate'));
+    }
+        
     /**
      * Show the form for editing the specified resource.
      *
