@@ -33,6 +33,7 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -157,6 +158,7 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'C' => 
         array (
             'Cron\\' => 5,
+            'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -445,6 +447,10 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Collective\\Html\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -502,6 +508,7 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Degree\\DegreeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Degree/DegreeController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\Period\\PeriodController' => __DIR__ . '/../..' . '/app/Http/Controllers/Period/PeriodController.php',
         'App\\Http\\Controllers\\Role\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Role/RoleController.php',
         'App\\Http\\Controllers\\SchoolYear\\SchoolYearController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolYear/SchoolYearController.php',
         'App\\Http\\Controllers\\SchoolYear\\SchoolYearDegreesController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolYear/SchoolYearDegreesController.php',
@@ -511,6 +518,7 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'App\\Http\\Controllers\\Student\\StudentGradeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/StudentGradeController.php',
         'App\\Http\\Controllers\\Student\\StudentHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/StudentHistoryController.php',
         'App\\Http\\Controllers\\Subject\\SubjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/Subject/SubjectController.php',
+        'App\\Http\\Controllers\\Teacher\\TeacherController' => __DIR__ . '/../..' . '/app/Http/Controllers/Teacher/TeacherController.php',
         'App\\Http\\Controllers\\User\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -530,6 +538,7 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\SchoolPeriod' => __DIR__ . '/../..' . '/app/SchoolPeriod.php',
         'App\\SchoolYear' => __DIR__ . '/../..' . '/app/SchoolYear.php',
+        'App\\ScoreType' => __DIR__ . '/../..' . '/app/ScoreType.php',
         'App\\Student' => __DIR__ . '/../..' . '/app/Student.php',
         'App\\StudentHistory' => __DIR__ . '/../..' . '/app/StudentHistory.php',
         'App\\Subject' => __DIR__ . '/../..' . '/app/Subject.php',
@@ -625,6 +634,13 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
         'Carbon\\Traits\\Units' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Units.php',
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
+        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
+        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
+        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
+        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
+        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
+        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
+        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',

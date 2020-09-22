@@ -17,4 +17,9 @@ class SchoolPeriod extends Model
         'current',
         'school_year_id'
     ];
+
+    public function year()
+    {
+        return $this->belongsTo('App\SchoolYear','school_year_id');
+    }
 }

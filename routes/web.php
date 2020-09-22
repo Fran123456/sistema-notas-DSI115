@@ -101,7 +101,7 @@ Route::get('score-types/create/{}', 'Score\ScoreTypeController@crateScoreType')-
 Route::get('grades-teacher/{id}', 'Teacher\TeacherController@grades')->name('gradesTeacher');
 Route::get('grades-teacher/types/{grade}/{teacher}', 'Teacher\TeacherController@types')->name('typesSubjectTeacher');
 
-Route::get('grades-teacher/percentage/{grade}/{teacher}/{subject}','Teacher\TeacherController@scorePercentage')->name('scorePercentage');
+Route::get('grades-teacher/percentage/{grade}/{teacher}/{subject}/{period}','Teacher\TeacherController@scorePercentage')->name('scorePercentage');
 
 /*PERIODOS */
 Route::resource('periods','Period\PeriodController');

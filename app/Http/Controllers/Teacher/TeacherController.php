@@ -10,6 +10,8 @@ use App\Help\Help;
 use App\Degree;
 use App\DegreeSchoolYear;
 use App\Subject;
+use App\SchoolPeriod;
+
 class TeacherController extends Controller
 {
     public function grades($id){//id del teacher
@@ -29,10 +31,13 @@ class TeacherController extends Controller
     }
     /*tipos de evaluacion que va tener una materia*/
 
-    public function scorePercentage($grade,$teacher, $subject){
+    public function scorePercentage($grade,$teacher, $subject, $period){
     	$grade = Degree::find($grade);
         $teacher = User::find($teacher);
         $subject = Subject::find($subject);
-    	return view('score.type.scoreTypesCreate', compact('grade','teacher','subject'));
+        $period = SchoolPeriod::where('nperiodo',$period)
+        ->where('school_year_id', Help::getSchoolYear()->id)->first();
+
+    	return view('score.type.scoreTypesCreate', compact('grade','teacher','subject','period'));
     }
 }

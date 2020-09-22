@@ -39,22 +39,34 @@
 
         <div class="card-body card-block">
           <div class="row">
-            <div class="col-md-4">
-              <div class="row">
-
-                <div class="col-md-12">
+  
+                <div class="col-md-3">
                   <div class="form-group">
-                   <label>Porcentaje</label>
-                    <input type="text" class="form-control" name="" >
+                   <label>Porcentaje %</label>
+                    <input type="number" min="0" required=""  class="form-control" name="percentage" >
+                   </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                   <label>Fecha</label>
+                    <input type="date" required="" class="form-control" name="date" >
+                   </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                   <label>Actividad</label>
+                    <input required="" type="text" class="form-control" name="activity" >
                    </div>
                 </div>
 
                 <div class="col-md-12">
                   <div class="form-group">
-                   <label>Periodo</label>
-                    <input type="text" class="form-control" name="" >
+                   <label>Descripción</label>
+                   <textarea required="" rows="3" class="form-control"></textarea>
                    </div>
                 </div>
+                <input type="" value="{{$period->id}}" name="period">
 
                 <div class="col-md-12">
                   <div class="form-group">
@@ -62,9 +74,9 @@
                   </div>
                </div>
 
-              </div>
-            </div>
-            <div class="col-md-8">
+
+            <div class="col-md-12">
+              <h5 class="text-center"><strong>Consolidado de % de notas</strong></h5>
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -92,8 +104,6 @@
             </div>
           </div>
 
-
-          
 
         
       </div>

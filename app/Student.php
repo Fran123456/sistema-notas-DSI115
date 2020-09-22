@@ -19,8 +19,8 @@ class Student extends Model
       'parent_DUI',
       'status'
     ];
-public function students_history()
-{
-    return $this->hasMany(StudentHistory::class);
-}
+  public function students_history()
+  {
+      return $this->hasMany(StudentHistory::class);
+  }
 }

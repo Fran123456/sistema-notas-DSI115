@@ -41,9 +41,9 @@
                   <th width="200" scope="col">Docente</th>
                   <th width="40" scope="col">Año</th>
                   <th width="120" scope="col">Grado</th>
-                  <th width="40" scope="col"> Asignar % </th>
-                
-                  
+                  <th width="60" scope="col"> Periodo 1 % </th>
+                  <th width="60" scope="col"> Periodo 2 % </th>
+                  <th width="60" scope="col"> Periodo 3 % </th>
                 </tr>
               </thead>
               <tbody>
@@ -57,12 +57,16 @@
                      </td>
                      
                      <td>
-                         <a href="{{ route('scorePercentage',[ $grade->id , $te->id , $value->subject->id]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                         <a href="{{ route('scorePercentage',[ $grade->id, $te->id, $value->subject->id,1]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </td>
 
-                     
-                     
+                     <td>
+                         <a href="{{ route('scorePercentage',[ $grade->id, $te->id, $value->subject->id,2]) }}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </td>
 
+                     <td>
+                         <a href="{{ route('scorePercentage',[ $grade->id , $te->id , $value->subject->id,3]) }}" class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </td>
                   </tr>
                 @endforeach
             </tbody>
