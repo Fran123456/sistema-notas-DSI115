@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\DegreeSchoolYear;
 use App\Help\Help;
 use App\Http\Controllers\Controller;
+use App\SchoolPeriod;
 use App\SchoolYear;
 use App\Student;
 use App\StudentHistory;
@@ -23,12 +24,15 @@ class AttendanceStudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function attendancesDates($degreeId){
-        
+
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
+        $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
+        $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
+        $periodoFiltrado=$periodoActual;
 
         $attendanceDates= array();
 
-        $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degreeId,$activedYear]);
+        $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degreeId,$activedYear,$periodoActual->nperiodo]);
             foreach($query as $element){
                 array_push($attendanceDates,$element);
             }
@@ -38,8 +42,13 @@ class AttendanceStudentController extends Controller
         ($attendanceDates);
         $now = new \DateTime();
         $now= $now->format('Y-m-d');
+        //filtrado
+         $total=StudentHistory::where('degree_id',$degreeId)
+         ->where('school_year_id',$activedYear)->get();
+         $total=count($total);
+         $control=0;
 
-        return view('attendanceStudents.attendances', compact('attendanceDates','degree','now'));
+       return view('attendanceStudents.attendances', compact('attendanceDates','degree','now','total','periodos','periodoActual','periodoFiltrado','control'));
     }
 
     public function index()
@@ -75,16 +84,20 @@ class AttendanceStudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {     
+    {
 
     }
 
     public function showAttendance($degreeId, $attendanceDate){
-        $attendance=DB::select("SELECT * FROM attendance_students INNER JOIN (students_history INNER JOIN students ON students_history.student_id = students.id) ON attendance_students.student_history_id = students_history.id WHERE students_history.degree_id= ? AND attendance_students.attendance_date = ?", [$degreeId, $attendanceDate]);
+        $activeYear= SchoolYear::where('active',1)->first();
+        $attendance=DB::select("SELECT * FROM attendance_students INNER JOIN
+         (students_history INNER JOIN students ON students_history.student_id = students.id) ON
+         attendance_students.student_history_id = students_history.id WHERE students_history.degree_id= ?
+         AND attendance_students.attendance_date = ? AND students_history.school_year_id= ?", [$degreeId, $attendanceDate,$activeYear->id]);
         $degree=Degree::where('id',$degreeId)->get()->first();
         return view('attendanceStudents.attendance', compact('attendance','degree','attendanceDate'));
     }
-        
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,6 +134,8 @@ class AttendanceStudentController extends Controller
 
     public function record($idDegreeSchoolYear)
     {
+        $activedYear=SchoolYear::where('active',1)->get()->first()->id;
+        $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
         $degSchoolYear= DegreeSchoolYear::find($idDegreeSchoolYear);
         $degree= Degree::find($degSchoolYear->degree_id);
         $students= StudentHistory::where('degree_id',$degree->id)->get();
@@ -128,11 +143,13 @@ class AttendanceStudentController extends Controller
 
         $now = new \DateTime();
         $now= $now->format('Y-m-d');
-       return view('attendanceStudents.dailyRecord', compact('degSchoolYear','degree','students','now','std'));
+       return view('attendanceStudents.dailyRecord', compact('degSchoolYear','degree','students','now','std','periodoActual'));
     }
 
     public function saveRecord(Request $request)
     {
+        $activedYear=SchoolYear::where('active',1)->get()->first()->id;
+        $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
 
         $data= $request->all();
 
@@ -147,15 +164,48 @@ class AttendanceStudentController extends Controller
         for ($i=0; $i <count($data['date']) ; $i++) {
             AttendanceStudent::create([
                 'attendance_date' => $data['date'][$i],
+                'period_id' => $periodoActual->id,
                 'student_history_id' =>$data['studenthistory'][$i],
-                'active' => '1',
+                'active' => $data['asistencia'][$i],
             ]) ;
         }
 
 
-      
+
       return redirect()->route('attendancesDates',$grado->id)->with('edit','<strong>'.count($data['date']).'  </strong> Asistencias Guardadas del
       Grado:   <strong>  '.$mensaje.'</strong>  fecha: <strong> '.$now.'</strong> ');
     // return back()->with('edit','Registro Guardado');
+    }
+    public function filter(Request $request,$control)
+    {
+        $activedYear=SchoolYear::where('active',1)->get()->first()->id;
+        $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
+        $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
+        $periodoFiltrado= SchoolPeriod::find($request->periodo_id);
+
+        $attendanceDates= array();
+
+        $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$request->degree,$activedYear,$request->periodo_id]);
+            foreach($query as $element){
+                array_push($attendanceDates,$element);
+            }
+
+        $degree=Degree::where('id',$request->degree)->get()->first();
+        //dd($degree);
+        ($attendanceDates);
+        $now = new \DateTime();
+        $now= $now->format('Y-m-d');
+        //filtrado
+         $total=StudentHistory::where('degree_id',$request->degree)
+         ->where('school_year_id',$activedYear)->get();
+         $total=count($total);
+         $control=0;
+         if ($periodoActual->id != $periodoFiltrado->id ) {
+            $control=1;
+         }
+
+
+       return view('attendanceStudents.attendances', compact('attendanceDates','degree','now','total','periodos','periodoActual','periodoFiltrado','control'));
+
     }
 }

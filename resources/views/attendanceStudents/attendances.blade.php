@@ -25,11 +25,15 @@
 </div>
 
 <div class="row">
+
                       <div class="col-sm-12">
 
                       <!--col-lg 3 col-md-3 col-sm-12 col-xs-12-->
+                      <p>*Se tomará la fecha de sistema para el registro de asistencia diaria</p>
                         <div class="card-body">
-                          <p>*Se tomará la fecha de sistema para el registro de asistencia diaria</p>
+                            PERIODO EN CURSO DEL AÑO ESCOLAR: <strong> PERIODO {{$periodoActual->nperiodo}}</strong>
+
+
                           <!--<div class="card" style="width: auto;">-->
                           <div class="card">
 
@@ -44,21 +48,71 @@
                                     }
                                 }
                                 @endphp
-                               @if ($bandera==1)
+                               @if ($bandera==1 || $control==1)
 
                                <button  class="btn btn-danger" disabled>Tomar Asistencia <i class="fa fa-ban"></i></button>
                                @else
                                <a href="{{route('attendanceRecord',$degree->id)}}" class="btn btn-success">Tomar Asistencia</a>
                                @endif
-                                <a href="" class="btn btn-primary">Historial de Registros</a>
+                               <!-- <a href="" class="btn btn-primary">Historial de Registros</a> -->
+                                <hr>
+                                <!-- Boton de filtrado-->
+
+                                <form action="{{route('attendance-filter',1)}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="degree" value="{{$degree->id}}">
+                                    <input type="hidden" name="year" value="{{$periodoActual->school_year_id}}">
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                    @php
+                                                        $cantidad= count($periodos);
+                                                    @endphp
+                                                   <select class="form-control" name="periodo_id">
+                                                    @for ($i=0; $i <$cantidad ; $i++)
+                                                        @if ($periodos[$i]->id == $periodoFiltrado->id )
+                                                        <option value="{{$periodoFiltrado->id}}" selected>PERIODO {{$periodoFiltrado->nperiodo}} </option>
+                                                       @else
+                                                        <option value="{{$periodos[$i]->id}}">PERIODO {{$periodos[$i]->nperiodo}}</option>
+                                                        @endif
+                                                    @endfor
+
+                                                  </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-warning mb-1">Filtrar <i class="fa fa-filter" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                                 <!--mostrando datos -->
+                                <div class="row">
+                                    <div class="col-md-5">
+                                       Mostrando Registros de Asistencia:
+                                        <strong>PERIODO {{$periodoFiltrado->nperiodo}}</strong>
+                                    </div>
+
+                                </div>
 
                               <!--<h5 class="card-title">-->
-                                <br><br>
+                                <div class="table-responsive">
+                                  <table class="table table-borderless">
+                                    <tr>
+                                      <td><strong></strong></td>
+
+                                      <td>Grado: <strong> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>.  Alumnos Registrados: <strong>{{$total}}</strong></td>
+                                      <td></td>
+
+                                    </tr>
+                                  </table>
+                                </div>
+                            <!--    <br><br>
                                <strong>Grado</strong>
                                {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}
-                               <br>
+                               <br> -->
 
-                                  
+
                               <!--</h5>-->
                                 <div class="table-responsive">
                                   <br>
@@ -67,15 +121,20 @@
                                       <tr>
                                         <th width="150" scope="col">Fecha</th>
                                         <th width="150" scope="col">Asistencia</th>
-                                        <th width="150" scope="col">Ver</th>
+
+                                        <th width="150" scope="col">Ver Detalle</th>
+
                                       </tr>
                                     </thead>
                                     <tbody>
                                       @foreach($attendanceDates as $key => $value)
                                         @if($value->degree_id == $degree->id )
                                           <tr>
+                                          <!--  <td>{{$value->attendance_date}}</td>
+                                            <td>{{$value->asistencia}}</td>  -->
+
                                             <td>{{Help::dateFormatter($value->attendance_date)}}</td>
-                                            <td>{{$value->asistencia}}</td>                                            
+                                            <td>{{$value->asistencia}}</td>
                                             <!-- IMPORTANTE-->
                                             <td>
                                               <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -92,7 +151,7 @@
                         </div>
                       </div>
 
-    
+
 </div>
 
 

@@ -22,10 +22,11 @@ class AttendanceStudentSeeder extends Seeder
             //$attendanceStudent->attendance_date=date('y-m-d');
             $attendanceStudent->attendance_date=$date;
             $attendanceStudent->student_history_id=$student->id;
-            $random=random_int(0,1);            
-            $attendanceStudent->active=$random;            
+            $random=random_int(0,2); $random2=random_int(1,3);
+            $attendanceStudent->active=$random;
+            $attendanceStudent->period_id=$random2;
             $attendanceStudent->save();
-        }                
-        }        
+        }
+        }
     }
 }
