@@ -23,14 +23,13 @@
     </nav>
   </div>
 </div>
-<small>*Se tomará la fecha de sistema para el registro de asistencia diaria</small>
+
 <div class="row">
-    
                       <div class="col-sm-12">
 
                       <!--col-lg 3 col-md-3 col-sm-12 col-xs-12-->
                         <div class="card-body">
-
+                          <p>*Se tomará la fecha de sistema para el registro de asistencia diaria</p>
                           <!--<div class="card" style="width: auto;">-->
                           <div class="card">
 
@@ -54,18 +53,15 @@
                                 <a href="" class="btn btn-primary">Historial de Registros</a>
 
                               <!--<h5 class="card-title">-->
-                                <div class="table-responsive">
-                                  <table class="table table-borderless">
-                                    <tr>
-                                      <td><strong>Grado</strong></td>
+                                <br><br>
+                               <strong>Grado</strong>
+                               {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}
+                               <br>
 
-                                      <td> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}</td>
-
-                                    </tr>
-                                  </table>
-                                </div>
+                                  
                               <!--</h5>-->
                                 <div class="table-responsive">
+                                  <br>
                                   <table class="table" table-hover" id="bootstrap-data-table_length">
                                     <thead>
                                       <tr>
@@ -78,7 +74,7 @@
                                       @foreach($attendanceDates as $key => $value)
                                         @if($value->degree_id == $degree->id )
                                           <tr>
-                                            <td>{{$value->attendance_date}}</td>
+                                            <td>{{Help::dateFormatter($value->attendance_date)}}</td>
                                             <td>{{$value->asistencia}}</td>                                            
                                             <!-- IMPORTANTE-->
                                             <td>
