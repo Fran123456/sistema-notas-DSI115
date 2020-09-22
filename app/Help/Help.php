@@ -129,7 +129,11 @@ class Help
 	 	return $p;
 	 }
 
-
+	 public static function types(){
+		 //array para devolver tipos en porcentajes
+		 $array= array('Prueba Objetiva','Actividades','Actitud');
+		 return $array;
+	 }
 
 }
  ?>

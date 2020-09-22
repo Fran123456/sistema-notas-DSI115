@@ -12,11 +12,13 @@ class ScoreType extends Model
         'id',
         'school_period_id',
         'school_year_id',
+        'degree_id',
+        'subject_id',
         'percentage',
         'activity',
         'description',
         'date',
-        'state'
+        'state',
         'type'
     ];
 }
