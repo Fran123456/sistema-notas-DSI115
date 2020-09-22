@@ -9,7 +9,7 @@ use App\DegreeSchoolSubject;
 use App\Help\Help;
 use App\Degree;
 use App\DegreeSchoolYear;
-
+use App\Subject;
 class TeacherController extends Controller
 {
     public function grades($id){//id del teacher
@@ -29,9 +29,10 @@ class TeacherController extends Controller
     }
     /*tipos de evaluacion que va tener una materia*/
 
-    public function scorePercentage($grade,$teacher){
+    public function scorePercentage($grade,$teacher, $subject){
     	$grade = Degree::find($grade);
         $teacher = User::find($teacher);
-    	return view('score.type.scoreTypesCreate', compact('grade','teacher'));
+        $subject = Subject::find($subject);
+    	return view('score.type.scoreTypesCreate', compact('grade','teacher','subject'));
     }
 }

@@ -57,7 +57,7 @@
                      </td>
                      
                      <td>
-                         <a href="{{ route('scorePercentage',[ $grade->id , $te->id ]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                         <a href="{{ route('scorePercentage',[ $grade->id , $te->id , $value->subject->id]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </td>
 
                      
