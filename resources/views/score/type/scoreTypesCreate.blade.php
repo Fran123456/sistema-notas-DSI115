@@ -10,22 +10,22 @@
       padding-top: 35px;
     }
   </style>
-
-  <div class="row">
-    <div class="col-md-12">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('scoreTypeList') }}">Tipo de notas</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Crear tipo de notas</li>
-        </ol>
-      </nav>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('gradesTeacher',$te->id) }}">
+          Administración de docente - Año escolar {{Help::getSchoolYear()->year}}
+        </a></li>
+        <li class="breadcrumb-item active" aria-current="page">Materias</li>
+      </ol>
+    </nav>
   </div>
+</div>
 
 
-
-  <form method="post" action="{{ route('degrees.store') }}" enctype="multipart/form-data">
+  <form method="post" action="" enctype="multipart/form-data">
   @csrf
   <div class="row">
     <div class="col-lg-12">

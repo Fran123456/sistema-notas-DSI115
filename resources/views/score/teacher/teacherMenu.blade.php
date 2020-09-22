@@ -31,7 +31,7 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">Materias para el docente encargado:  {{Auth::user()->name}} - 
+        <strong class="card-title">Grados para el docente encargado:  {{Auth::user()->name}} - 
           Año escolar {{Help::getSchoolYear()->year}}
         </strong>
       </div>

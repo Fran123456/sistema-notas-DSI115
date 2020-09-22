@@ -25,60 +25,43 @@
   </div>
 </div>
 
-
-
-<div class="row ">
-    <div class="col-md-12 col-sm-12 col-xs-12 text-right">
-       <a class="btn btn-info mb-1" href=""><i class="fa fa-plus" aria-hidden="true"></i></a>
-    </div>
-</div>
-
-
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">Años escolares</strong>
+        <strong class="card-title">Materias para el grado: {{Help::ordinal($grade->degree)}} 
+          {{$grade->section}} - {{Help::turn($grade->turn)}} (ADMINISTRAR % TAREAS Y EVALUACIONES)</strong>
       </div>
         <div class="card-body">
             <table class="table" id="bootstrap-data-table_length">
               <thead>
                 <tr>
                   <th width="40" scope="col">#</th>
-                  <th width="200" scope="col">Fecha inicio</th>
-                  <th width="200" scope="col">Fecha de finalización</th>
-                  <th scope="col">Año</th>
-                  <th scope="col">Activo</th>
-                  <th scope="col" width="40">Estado</th>
-                  <th width="40" scope="col"> Administrar </th>
-                  <th width="40" scope="col"> Editar </th>
-                  <th width="40" scope="col"> Eliminar </th>
+                  <th width="200" scope="col">Materia</th>
+                  <th width="200" scope="col">Docente</th>
+                  <th width="40" scope="col">Año</th>
+                  <th width="120" scope="col">Grado</th>
+                  <th width="40" scope="col"> Asignar % </th>
+                
+                  
                 </tr>
               </thead>
               <tbody>
                  @foreach ($grades as $key => $value)
                   <tr>
                     <th scope="row">{{$key+1}}</th>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td>
-                     
+                     <td>{{$value->subject->name}}</td>
+                     <td>{{$value->docente->name}}</td>
+                     <td>{{$value->school_year->year}}</td>
+                     <td>{{Help::ordinal($value->degree->degree)}} {{$value->degree->section}} - {{Help::turn($value->degree->turn)}}
                      </td>
-                     <td>
-                     <a href="" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
                      
-                     </td>
                      <td>
-                         <a href="" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                         <a href="{{ route('scorePercentage',[ $grade->id , $te->id ]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </td>
 
-                      <td>
-                        <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                      </td>
-                      <td>              
-                        <a href="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                      </td>
+                     
+                     
 
                   </tr>
                 @endforeach
