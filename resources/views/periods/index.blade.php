@@ -24,7 +24,7 @@
     </div>
 </div>
 
-
+<button class="btn btn-success">{{$cantidad}}/3 periodos asignados</button>
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
@@ -35,7 +35,7 @@
             <table class="table">
                 <thead class="thead-light">
                 <tr>
-                  <th width="30" scope="col">#</th>
+                  <th width="30" scope="col">Periodo</th>
                   <th scope="col">Inicio</th>
                   <th scope="col">Fin</th>
                   <th scope="col">Editar</th>

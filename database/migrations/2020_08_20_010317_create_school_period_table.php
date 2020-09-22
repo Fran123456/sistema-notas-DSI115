@@ -18,7 +18,7 @@ class CreateSchoolPeriodTable extends Migration
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('nperiodo')->nullable();
-            $table->string('nuevo') ->nullable();
+           // $table->string('nuevo') ->nullable();
             $table->boolean('current')->default(false);
             $table->unsignedBigInteger('school_year_id')->nullable();
           //  $table->timestamps();

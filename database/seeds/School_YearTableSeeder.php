@@ -23,6 +23,7 @@ class School_YearTableSeeder extends Seeder
       $time1 = new SchoolPeriod();
       $time1->start_date = '2020-03-01';
       $time1->end_date = '2020-04-30';
+      $time1->nperiodo=1;
       $time1->current = true;
       $time1->school_year_id	 = $year->id;
       $time1->save();
@@ -30,6 +31,7 @@ class School_YearTableSeeder extends Seeder
       $time2 = new SchoolPeriod();
       $time2->start_date = '2020-05-01';
       $time2->end_date = '2020-06-30';
+      $time2->nperiodo=2;
       $time2->current = false;
       $time2->school_year_id	 = $year->id;
       $time2->save();
@@ -37,6 +39,7 @@ class School_YearTableSeeder extends Seeder
       $time3 = new SchoolPeriod();
       $time3->start_date = '2020-07-01';
       $time3->end_date = '2020-08-31';
+      $time3->nperiodo=3;
       $time3->current = false;
       $time3->school_year_id	 = $year->id;
       $time3->save();

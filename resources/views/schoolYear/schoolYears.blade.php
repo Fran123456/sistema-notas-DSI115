@@ -87,7 +87,7 @@
                      </td>
 
                      <td>
-                        <a href="{!! route('periods-index',$value->id) !!}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{!! route('periods-index',$value->id) !!}" class="btn btn-primary"><i class="fa fa-layer-group" aria-hidden="true"></i></a>
                       </td>
                       <td>
                         <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

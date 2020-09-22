@@ -18,7 +18,8 @@ class PeriodController extends Controller
     {
         $year= SchoolYear::find($idyear);
         $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
-        return view('periods.index', compact('year','periodos'));
+       $cantidad= count($periodos);
+        return view('periods.index', compact('year','periodos','cantidad'));
     }
 
     /**
@@ -28,8 +29,33 @@ class PeriodController extends Controller
      */
     public function create($idyear)
     {
+        $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
+        $cantidad= count($periodos);
+       $n1=0; $n2=0; $n3=0;
+
+       //validacion de priodo
+    /*  for ($i=0; $i < $cantidad ; $i++) {
+          if ($periodos[$i]['nperiodo'] == 1 ) {
+              $n1=1;
+          break;
+          } else {
+             if ($periodos[$i]['nperiodo'] == 2) {
+                 $n2=1;
+                break;
+             } else {
+                 $n3=1;
+             }
+
+          }
+      } */
+
+       if ($cantidad >= 3) {
+        return back()->with('delete','No se pueden asignar mas de 3 periodos a un año escolar');
+    } else {
         $year= SchoolYear::find($idyear);
-        return view('periods.create', compact('year'));
+    return view('periods.create', compact('year','periodos','n1','n2','n3'));
+    }
+
     }
 
     /**
@@ -40,13 +66,27 @@ class PeriodController extends Controller
      */
     public function store(Request $request, $idyear)
     {
-        SchoolPeriod::create([
-            'start_date' => $request->startdate,
-            'end_date' => $request->enddate,
-            'school_year_id' => $idyear,
-            'nperiodo' => $request->nperiodo,
-        ]);
-        return redirect()->route('periods-index',$idyear)->with('success','Registro Creado Correctamente');
+        $bandera=0;
+        $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
+        foreach ($periodos as $value) {
+            if ($value->nperiodo == $request->nperiodo) {
+              $bandera=1;
+            }
+        }
+
+        if ($bandera==1) {
+            return back()->with('delete','Error. Ya existe el  <strong>PERIODO '.$request->nperiodo.'</strong>. Seleccione Otra Opcion.');
+        } else {
+            SchoolPeriod::create([
+                'start_date' => $request->startdate,
+                'end_date' => $request->enddate,
+                'school_year_id' => $idyear,
+                'nperiodo' => $request->nperiodo,
+            ]);
+            return redirect()->route('periods-index',$idyear)->with('success','Registro Creado Correctamente');
+        }
+
+
 
     }
 
