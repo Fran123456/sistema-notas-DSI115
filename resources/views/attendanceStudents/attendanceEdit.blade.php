@@ -33,8 +33,8 @@
                   </tr>
                 </thead>
                 <input hidden value="{{$attendanceDate}}" name="date">
-                <input hidden value="{{$activeYear}}" name="activeYear">
-                <input hidden value="{{$degree}}" name="degree">
+                <input hidden value="{{$activeYear->id}}" name="activeYear">
+                <input hidden value="{{$degree->id}}" name="degree">
                 <tbody>
                 @foreach($attendance as $key => $value)
                     <tr>
