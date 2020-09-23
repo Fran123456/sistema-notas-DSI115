@@ -29,13 +29,12 @@ class AttendanceStudentController extends Controller
         $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
         $periodoFiltrado=$periodoActual;
-
-        $attendanceDates= array();
-
-        $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degreeId,$activedYear,$periodoActual->nperiodo]);
-            foreach($query as $element){
-                array_push($attendanceDates,$element);
-            }
+        
+        $attendanceDates=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date,
+        sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
+        sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END) as faltas,
+        sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END) as permisos
+        FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ?  AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degreeId,$activedYear,$periodoActual->nperiodo]);
 
         $degree=Degree::where('id',$degreeId)->get()->first();
         //dd($degree);
@@ -177,22 +176,20 @@ class AttendanceStudentController extends Controller
     // return back()->with('edit','Registro Guardado');
     }
     public function filter(Request $request,$control)
-    {
+    {        
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
         $periodoFiltrado= SchoolPeriod::find($request->periodo_id);
 
-        $attendanceDates= array();
-
-        $query=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date, count(attendance_students.attendance_date) as asistencia FROM attendance_students INNER JOIN students_history on attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ? AND attendance_students.active =1 AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$request->degree,$activedYear,$request->periodo_id]);
-            foreach($query as $element){
-                array_push($attendanceDates,$element);
-            }
+        $attendanceDates=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date,
+        sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
+        sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END) as faltas,
+        sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END) as permisos
+        FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ?  AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$request->degree,$activedYear,$periodoFiltrado->id]);            
 
         $degree=Degree::where('id',$request->degree)->get()->first();
-        //dd($degree);
-        ($attendanceDates);
+        //dd($degree);        
         $now = new \DateTime();
         $now= $now->format('Y-m-d');
         //filtrado

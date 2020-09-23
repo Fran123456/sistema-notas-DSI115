@@ -18,13 +18,13 @@ class AttendanceStudentSeeder extends Seeder
         array_push($dates,'2020-09-13','2020-09-14','2020-09-15');
         foreach($dates as $date){
             foreach($studentHistory as $student){
-            $attendanceStudent= new AttendanceStudent();
-            //$attendanceStudent->attendance_date=date('y-m-d');
+            $attendanceStudent= new AttendanceStudent();            
             $attendanceStudent->attendance_date=$date;
             $attendanceStudent->student_history_id=$student->id;
             $random=random_int(0,2); $random2=random_int(1,3);
             $attendanceStudent->active=$random;
-            $attendanceStudent->period_id=$random2;
+            //$attendanceStudent->period_id=$random2;
+            $attendanceStudent->period_id=1;
             $attendanceStudent->save();
         }
         }

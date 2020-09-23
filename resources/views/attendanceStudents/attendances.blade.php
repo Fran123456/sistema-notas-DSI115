@@ -120,8 +120,9 @@
                                     <thead>
                                       <tr>
                                         <th width="150" scope="col">Fecha</th>
-                                        <th width="150" scope="col">Asistencia</th>
-
+                                        <th width="150" scope="col">Con Asistencia</th>
+                                        <th width="150" scope="col">Con Falta</th>
+                                        <th width="150" scope="col">Con Permiso</th>
                                         <th width="150" scope="col">Ver Detalle</th>
 
                                       </tr>
@@ -129,12 +130,11 @@
                                     <tbody>
                                       @foreach($attendanceDates as $key => $value)
                                         @if($value->degree_id == $degree->id )
-                                          <tr>
-                                          <!--  <td>{{$value->attendance_date}}</td>
-                                            <td>{{$value->asistencia}}</td>  -->
-
+                                          <tr>                                                                                      
                                             <td>{{Help::dateFormatter($value->attendance_date)}}</td>
-                                            <td>{{$value->asistencia}}</td>
+                                            <td>{{$value->asistencias}}</td>
+                                            <td>{{$value->faltas}}</td>
+                                            <td>{{$value->permisos}}</td>
                                             <!-- IMPORTANTE-->
                                             <td>
                                               <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
