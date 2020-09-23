@@ -116,3 +116,7 @@ Route::post('year/{idyear}/periods/create/save','Period\PeriodController@store')
 Route::post('year/periods/delete','Period\PeriodController@destroy')->name('periods-delete');
 Route::get('year/{idyear}/active/{idperiod}', 'Period\PeriodController@changePeriodStatus')->name('changePeriodStatus');
 
+/*CONDUCTA INDICADORES */
+Route::resource('behaviors','Behavior\BehaviorController');
+Route::post('behaviors/delete','Behavior\BehaviorController@destroy')->name('behaviors-delete');
+
