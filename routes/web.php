@@ -108,6 +108,10 @@ Route::post('grades-teacher/percentage/save','Score\ScoreTypeController@scoreTyp
 Route::get('grades-teacher/percentage/{grade}/{teacher}/{subject}/{period}','Teacher\TeacherController@scorePercentage')->name('scorePercentage');
 Route::get('teacher/{idteacher}/degree/{iddegree}/students/','Teacher\TeacherController@showStudentsDegreeTeacher')->name('showStudentsDegreeTeacher');
 
+
+Route::get('types/sendtypes', 'Score\ScoreTypeController@SendTypes')->name('SendTypes');
+
+
 /*PERIODOS */
 Route::resource('periods','Period\PeriodController');
 Route::get('year/{idyear}/periods','Period\PeriodController@index')->name('periods-index');
@@ -121,4 +125,3 @@ Route::get('year/{idyear}/active/{idperiod}', 'Period\PeriodController@changePer
 /*CONDUCTA INDICADORES */
 Route::resource('behaviors','Behavior\BehaviorController');
 Route::post('behaviors/delete','Behavior\BehaviorController@destroy')->name('behaviors-delete');
-

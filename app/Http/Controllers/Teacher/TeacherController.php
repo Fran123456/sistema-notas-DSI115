@@ -13,6 +13,7 @@ use App\Subject;
 use App\SchoolPeriod;
 use App\SchoolYear;
 use DB;
+use App\ScoreType;
 //use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
@@ -41,7 +42,7 @@ class TeacherController extends Controller
         $numberPeriodBack=$period;
         $year=Help::getSchoolYear();
         $types=Help::types();
-        $period = SchoolPeriod::where('nperiodo',$period)        
+        $period = SchoolPeriod::where('nperiodo',$period)
         ->where('school_year_id', $year->id)->first();
 
         /*$arrayPercentages=ScoreType::where('school_period_id',$numberPeriodBack)
@@ -50,15 +51,15 @@ class TeacherController extends Controller
             ->where('subject_id',$subject->id)
             ->get();*/
 
-        $query=DB::SELECT("SELECT * FROM score_type WHERE (school_period_id = ? AND school_year_id = ? AND degree_id = ? AND subject_id = ?)",[$numberPeriodBack,$year->id,$grade->id,$subject->id]);
-        //dd($arrayPercentages);
-        //dd($query);
-        
+        //$query=DB::SELECT("SELECT * FROM score_type WHERE (school_period_id = ? AND school_year_id = ? AND degree_id = ? AND subject_id = ?)",[$numberPeriodBack,$year->id,$grade->id,$subject->id]);
+        /*Equivalente al codigo de arriba solo se movio al modelo ya que se utilizo en otros momentos
+        y así no acumulamos mucho codigo sql en los controladores*/
+        $query = ScoreType::scoreTypeByDegree($numberPeriodBack,$year->id,$grade->id,$subject->id);
 
         if($period==null){
             return back()->with('delete','<strong> No existe registro del periodo '.$numberPeriodBack.' del año '.Help::getSchoolYear()->year.'. </strong>');
         }
-        
+
         return view('score.type.scoreTypesCreate', compact('grade','teacher','subject','period','year','types','query'));
     }
 

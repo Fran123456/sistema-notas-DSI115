@@ -10,6 +10,7 @@ use App\Degree;
 use App\Subject;
 use App\User;
 use App\Help\Help;
+use DB;
 
 class ScoreTypeController extends Controller
 {
@@ -73,5 +74,13 @@ class ScoreTypeController extends Controller
 
         return back()->with('delete','<strong>Porcentaje eliminado correctamente</strong>');
     }
+
+    /*METODO PARA DISTRIBUIR LOS % POR PERIODO A LOS ALUMNOS*/
+    public function SendTypes(Request $request){
+      $query = ScoreType::scoreTypeByDegree($request->periodx,$request->yearx, $request->gradex, $request->subjectx);
+      return $query;
+
+    }
+      /*METODO PARA DISTRIBUIR LOS % POR PERIODO A LOS ALUMNOS*/
 
 }

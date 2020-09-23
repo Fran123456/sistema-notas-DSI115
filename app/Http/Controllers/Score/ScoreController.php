@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class ScoreController extends Controller
 {
-    //
+    public SendTypes($period){
+
+    }
 }
