@@ -78,7 +78,13 @@ class ScoreTypeController extends Controller
     /*METODO PARA DISTRIBUIR LOS % POR PERIODO A LOS ALUMNOS*/
     public function SendTypes(Request $request){
       $query = ScoreType::scoreTypeByDegree($request->periodx,$request->yearx, $request->gradex, $request->subjectx);
-      return $query;
+      $countQuery = ScoreType::countScoreTypeByDegree($query);
+      if($countQuery == 100){
+        //vamos a distribuir
+        return $query;
+      }else{
+        return back()->with('delete', 'Aun no se puede distribuir hasta que cumpla el 100%');
+      }
 
     }
       /*METODO PARA DISTRIBUIR LOS % POR PERIODO A LOS ALUMNOS*/

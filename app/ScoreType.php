@@ -11,7 +11,7 @@ class ScoreType extends Model
     public $timestamps = false;
     protected $fillable = [
         'id','school_period_id','school_year_id','degree_id','subject_id','percentage','activity',
-        'description','date','state','type'
+        'description','date','state','type','send'
     ];
 
     public static function scoreTypeByDegree($periodx,$yearx, $gradex, $subjectx)
@@ -20,5 +20,13 @@ class ScoreType extends Model
       AND school_year_id = ? AND degree_id = ? AND subject_id = ?)",
       [$periodx,$yearx,$gradex,$subjectx]);
       return $query;
+    }
+
+    public static function countScoreTypeByDegree($data){
+      $ac = 0;
+      foreach ($data as $key => $value) {
+        $ac = $ac + $value->percentage;
+      }
+      return $ac;
     }
 }
