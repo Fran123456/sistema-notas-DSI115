@@ -22,14 +22,13 @@ class ScoreTypeController extends Controller
     	return view('score.type.scoretypesCreate');
     }
 
-    public function scoreTypeSave(Request $request){        
+    public function scoreTypeSave(Request $request){
 
         $accumulatedPercentage=ScoreType::where('school_period_id',$request->period)
             ->where('school_year_id',$request->year)
             ->where('degree_id',$request->grade)
             ->where('subject_id',$request->subject)
-            ->sum('percentage');        
-
+            ->sum('percentage');
         if($accumulatedPercentage==100){
             return back()->with('delete', '<strong> Ya se ha alcanzado el porcentaje máximo. </strong>');
         }
@@ -44,7 +43,7 @@ class ScoreTypeController extends Controller
                     ->where('degree_id',$request->grade)
                     ->where('subject_id',$request->subject)
                     ->where('type','Actitud')
-                    ->count();    
+                    ->count();
                     if($checkingNumberBehavior>0){
                         return back()->with('delete', '<strong> Ya existe una nota de Actitud ingresada. </strong>');
                     }
@@ -59,9 +58,9 @@ class ScoreTypeController extends Controller
                 $scoreType->description=$request->description;
                 $scoreType->date=$request->date;
                 $scoreType->type=$request->type;
-                $scoreType->save();                                                        
+                $scoreType->save();
             }
-        }                
+        }
 
         return back()->with('success','<strong>Porcentaje guardado con éxito.</strong>');
     }
