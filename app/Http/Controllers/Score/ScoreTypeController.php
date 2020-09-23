@@ -77,4 +77,13 @@ class ScoreTypeController extends Controller
         ->where('school_year_id', $year->id)->first();
         return redirect()->route('scorePercentage', compact('grade','teacher','subject','period','year','types'))->with('success','<strong> Porcentaje guardado con éxito.</strong>');
     }
+
+
+    public function destroy(Request $request)
+    {
+        ScoreType::destroy($request->id);
+
+        return back()->with('delete','<strong>Porcentaje eliminado correctamente</strong>');
+    }
+
 }

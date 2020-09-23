@@ -102,6 +102,7 @@
                     <th scope="col">Actividad</th>
                     <th scope="col">%</th>                    
                     <th scope="col">Descripción</th>
+                    <th scope="col">Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -110,7 +111,16 @@
                       <td>{{$element->type}}</td>
                       <td>{{$element->activity}}</td>
                       <td>{{$element->percentage}}</td>
-                      <td>{{$element->description}}</td>                             
+                      <td>{{$element->description}}</td>
+                      <td>
+
+                     <form action="{{route('destroyScoreType')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$element->id}}">
+                        <button type="submit" class="btn btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+                     </form>
+
+                      </td>                             
                     </tr>          
                   @endforeach        
                 </tbody>
