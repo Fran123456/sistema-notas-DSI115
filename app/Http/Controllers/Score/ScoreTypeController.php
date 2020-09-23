@@ -11,6 +11,7 @@ use App\Subject;
 use App\User;
 use App\Help\Help;
 use DB;
+use App\ScoreStudent;
 
 class ScoreTypeController extends Controller
 {
@@ -71,7 +72,6 @@ class ScoreTypeController extends Controller
     public function destroy(Request $request)
     {
         ScoreType::destroy($request->id);
-
         return back()->with('delete','<strong>Porcentaje eliminado correctamente</strong>');
     }
 
@@ -79,13 +79,38 @@ class ScoreTypeController extends Controller
     public function SendTypes(Request $request){
       $query = ScoreType::scoreTypeByDegree($request->periodx,$request->yearx, $request->gradex, $request->subjectx);
       $countQuery = ScoreType::countScoreTypeByDegree($query);
+
+      $sol = ScoreType::validateSendType($query); //validamos si han sido enviadas o no
+      if($sol == true){
+        return back()->with('delete', 'Ya han sido distribuidos los porcentajes');
+      }
+
       if($countQuery == 100){
         //vamos a distribuir
-        return $query;
+        $students = User::studentsByYearByDegree($request->gradex,$request->yearx);
+        foreach ($students as $key => $student) {
+          foreach ($query as $key2 => $type) {
+              $c = ScoreStudent::create([
+               'score_type_id' => $type->id,
+               'student_id' =>$student->id,
+               'school_period_id' =>$type->school_period_id,
+               'school_year_id' =>$type->school_year_id,
+               'degree_id' =>$type->degree_id,
+               'subject_id'=>$type->subject_id,
+               'score' =>null,
+              ]);
+
+              $w = ScoreType::where('id', $type->id)->
+              update([
+                'send' => true
+              ]);
+          }
+        }
+        return back()->with('success', 'Se ha distribuido el periodo para los alumnos');
+        //return $query;
       }else{
         return back()->with('delete', 'Aun no se puede distribuir hasta que cumpla el 100%');
       }
-
     }
       /*METODO PARA DISTRIBUIR LOS % POR PERIODO A LOS ALUMNOS*/
 

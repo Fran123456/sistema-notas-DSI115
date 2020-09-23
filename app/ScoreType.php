@@ -29,4 +29,15 @@ class ScoreType extends Model
       }
       return $ac;
     }
+
+    public static function validateSendType($data){
+      $ac = 0;
+      foreach ($data as $key => $value) {
+        if($value->send) $ac++;
+      }
+      $datac = count($data);
+      if($datac == $ac) return true;
+      else return false;
+
+    }
 }

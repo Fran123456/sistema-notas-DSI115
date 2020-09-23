@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Help\Help;
 use Illuminate\Support\Facades\Auth;
 use App\Degree;
-
+use DB;
 
 class User extends Authenticatable
 {
@@ -103,12 +103,22 @@ class User extends Authenticatable
           'full'=> $value->full,
           'id_degreeSchoolYear'=> $value->id,
          );
-         
          $compile[$key][0]=$user;
          $compile[$key][1]=$grade;
          $compile[$key][2]=$complement;
       }
       return $compile;
-
     }
+
+    public static function studentsByYearByDegree($degree,$schoolYear){
+      $students = DB::table('students as stu')
+      ->join('students_history as sh','stu.id','=','sh.student_id')
+      ->select('sh.id','stu.name','stu.lastname','stu.gender','stu.age','stu.address','stu.phone','stu.parent_name','stu.status')
+      ->where('sh.degree_id','=',$degree)
+      ->where('sh.school_year_id','=',$schoolYear)
+      ->get();
+      return $students;
+    }
+
+
 }
