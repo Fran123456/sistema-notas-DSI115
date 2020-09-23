@@ -13,6 +13,7 @@ class AttendanceStudent extends Model
         'id',
         'student_history_id',
         'attendance_date',
+        'period_id',
         'active'
     ];
 

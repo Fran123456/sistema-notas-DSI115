@@ -31,7 +31,7 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">Materias para el docente {{Auth::user()->name}} - 
+        <strong class="card-title">Materias para el docente {{Auth::user()->name}} -
           Año escolar {{Help::getSchoolYear()->year}}
         </strong>
       </div>
@@ -66,7 +66,7 @@
                      <td>{{$value[2]['capacity']}}</td>
                      <td>{{$value[2]['full']}}</td>
                      <td>
-                      <a href="{{ route('attendancesDates',$value[1]['id']) }}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                      <a href="{{ route('attendancesDates',$value[1]['id']) }}" class="btn btn-info"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
                      </td>
                      <td>
                          <a href="" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -74,7 +74,7 @@
                       <td>
                         <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
-                      <td>                      
+                      <td>
                         <a href="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                       </td>
 

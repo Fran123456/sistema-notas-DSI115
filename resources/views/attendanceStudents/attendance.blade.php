@@ -41,7 +41,7 @@
 
                             </tr>
                         </table>
-                    </div>                    
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-hover" id="bootstrap-data-table_length">
                             <thead>
@@ -54,15 +54,27 @@
                             </thead>
                             <tbody>
                                 @foreach($attendance as $key => $value)
-                                
+
                                     <tr>
                                     <td>{{$key+1}}</td>
                                     <td>{{$value->name}}</td>
                                     <td>{{$value->lastname}}</td>
                                     <td>
+
+                                        @if ($value->active==0)
+                                            NO ASISTIO
+                                        @else
+                                            @if ($value->active==1)
+                                                ASISTIO
+                                            @else
+                                                FALTA CON PERMISO
+                                            @endif
+
+                                        @endif
+
                                     </td>
-                                    <!--Pendiente-->
-                                    </tr>                                
+
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -70,6 +82,6 @@
                 </div>
             </div>
         </div>
-    </div>     
+    </div>
 </div><!--BODY-->
 @endsection

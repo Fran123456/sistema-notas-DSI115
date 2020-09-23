@@ -12,7 +12,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <strong class="card-title"> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>
+          <strong class="card-title"> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}. <br>PERIODO EN CURSO DEL AÑO ESCOLAR: PERIODO {{$periodoActual->nperiodo}} </strong>
           <strong></strong>
 
         </div>
@@ -53,8 +53,8 @@
                       </td>
                        <td><select name="asistencia[]" class="form-control" style="font-size: 90%">
                         <option value="1">ASISTIO</option>
-                        <option value="2">NO ASISTIO</option>
-                        <option value="3">FALTA CON PERMISO</option>
+                        <option value="0">NO ASISTIO</option>
+                        <option value="2">FALTA CON PERMISO</option>
                         </select>
                        </td>
 

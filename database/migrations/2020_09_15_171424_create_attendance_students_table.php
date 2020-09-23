@@ -17,6 +17,7 @@ class CreateAttendanceStudentsTable extends Migration
 
             $table->bigIncrements('id');
             $table->date('attendance_date');
+            $table->unsignedBigInteger('period_id');
             $table->unsignedBigInteger('student_history_id');
             $table->boolean('active')->default(false);
            // $table->timestamps();
@@ -24,6 +25,11 @@ class CreateAttendanceStudentsTable extends Migration
             $table->foreign('student_history_id')
                 ->references('id')
                 ->on('students_history')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+             $table->foreign('period_id')
+                ->references('id')
+                ->on('school_period')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
