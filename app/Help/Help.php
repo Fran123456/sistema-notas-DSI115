@@ -130,8 +130,8 @@ class Help
 	 }
 
 	 public static function types(){
-		 //array para devolver tipos en porcentajes
-		 $array= array('Prueba Objetiva','Actividades','Actitud');
+		 //array para devolver tipos en porcentajes		 
+		 $array= array('Actitud','Actividades','Prueba Objetiva');
 		 return $array;
 	 }
 
