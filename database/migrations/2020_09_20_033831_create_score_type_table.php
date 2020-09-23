@@ -25,6 +25,7 @@ class CreateScoreTypeTable extends Migration
             $table->string('date')->nullable();
             $table->string('type')->nullable();
             $table->boolean('state')->default(false);
+              $table->boolean('send')->default(false);
            // $table->timestamps();
 
             $table->foreign('degree_id')
@@ -44,7 +45,7 @@ class CreateScoreTypeTable extends Migration
               ->on('school_years')
               ->onDelete('cascade')
               ->onUpdate('cascade');
-            
+
             $table->foreign('subject_id')
                 ->references('id')
                 ->on('subjects')
