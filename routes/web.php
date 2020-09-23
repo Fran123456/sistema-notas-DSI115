@@ -97,10 +97,12 @@ Route::resource('studenthistories','Student\StudentHistoryController');
 /*SCORE TYPES*/
 Route::get('score-types', 'Score\ScoreTypeController@scoreType')->name('scoreTypeList');
 Route::get('score-types/create/{}', 'Score\ScoreTypeController@crateScoreType')->name('crateScoreType');
+Route::post('score-types/delete', 'Score\ScoreTypeController@destroy')->name('destroyScoreType');
 
 /*SCORE TYPES*/
 Route::get('grades-teacher/{id}', 'Teacher\TeacherController@grades')->name('gradesTeacher');
 Route::get('grades-teacher/types/{grade}/{teacher}', 'Teacher\TeacherController@types')->name('typesSubjectTeacher');
+Route::post('grades-teacher/percentage/save','Score\ScoreTypeController@scoreTypeSave')->name('scoreTypeSave');
 Route::get('grades-teacher/percentage/{grade}/{teacher}/{subject}/{period}','Teacher\TeacherController@scorePercentage')->name('scorePercentage');
 Route::get('teacher/{idteacher}/degree/{iddegree}/students/','Teacher\TeacherController@showStudentsDegreeTeacher')->name('showStudentsDegreeTeacher');
 

@@ -18,6 +18,7 @@ class CreateScoreTypeTable extends Migration
             $table->unsignedBigInteger('school_period_id')->nullable();
             $table->unsignedBigInteger('school_year_id')->nullable();
             $table->unsignedBigInteger('degree_id')->nullable();
+            $table->unsignedBigInteger('subject_id')->nullable();
             $table->string('percentage')->nullable();
             $table->string('activity')->nullable();
             $table->text('description')->nullable();
@@ -43,6 +44,12 @@ class CreateScoreTypeTable extends Migration
               ->on('school_years')
               ->onDelete('cascade')
               ->onUpdate('cascade');
+            
+            $table->foreign('subject_id')
+                ->references('id')
+                ->on('subjects')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
