@@ -142,4 +142,13 @@ class PeriodController extends Controller
         SchoolPeriod::destroy($request->id);
         return back()->with('delete','Registro Eliminado Correctamente');
     }
+
+    public function changePeriodStatus(Request $request,$idyear,$idperiod){
+        $request->user()->authorizeRoles(['administrador']);
+        $schoolYear= SchoolYear::find($idyear);
+        $period=SchoolPeriod::find($idperiod);
+        SchoolPeriod::where('current',1)->where('school_year_id',$schoolYear->id)->update(['current'=>0]);
+        SchoolPeriod::where('id',$idperiod)->update(['current'=>1]);
+        return back()->with('success','<strong>El periodo escolar '.$period->nperiodo. ' - '.$schoolYear->year. ' ha sido activado correctamente</strong>');
+    }
 }

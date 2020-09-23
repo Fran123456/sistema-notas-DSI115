@@ -112,4 +112,5 @@ Route::post('year/{idyear}/periods/edit/save','Period\PeriodController@update')-
 Route::get('year/{idyear}/periods/create','Period\PeriodController@create')->name('periods-create');
 Route::post('year/{idyear}/periods/create/save','Period\PeriodController@store')->name('periods-store');
 Route::post('year/periods/delete','Period\PeriodController@destroy')->name('periods-delete');
+Route::get('year/{idyear}/active/{idperiod}', 'Period\PeriodController@changePeriodStatus')->name('changePeriodStatus');
 

@@ -42,6 +42,7 @@
                   <th width="50" scope="col">Periodo</th>
                   <th scope="col">Inicio</th>
                   <th scope="col">Fin</th>
+                  <th scope="col">Estado</th>
                   <th width="60px" scope="col">Editar</th>
                   <th width="60px" scope="col">Eliminar</th>
 
@@ -55,7 +56,13 @@
                      <td>{{Help::dateFormatter($value->start_date)}}</td>
                      <td>{{Help::dateFormatter($value->end_date)}}</td>
 
-
+                     <td>
+                     @if (!($value->current))
+                     <a href="{{ route('changePeriodStatus',[$year->id,$value->id]) }}"  class="btn btn-info"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
+                     @else
+                     <button disabled="" class="btn btn-info"><i class="fas fa-exchange-alt" aria-hidden="true"></i></button>
+                     @endif
+                     </td>
 
                      <td>
                         <a href="{{route('periods-edit',[$value->id])}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
