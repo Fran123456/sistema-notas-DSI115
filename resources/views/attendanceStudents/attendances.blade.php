@@ -23,14 +23,16 @@
     </nav>
   </div>
 </div>
-<small>*Se tomará la fecha de sistema para el registro de asistencia diaria</small>
+
 <div class="row">
 
                       <div class="col-sm-12">
 
                       <!--col-lg 3 col-md-3 col-sm-12 col-xs-12-->
+                      <p>*Se tomará la fecha de sistema para el registro de asistencia diaria</p>
                         <div class="card-body">
                             PERIODO EN CURSO DEL AÑO ESCOLAR: <strong> PERIODO {{$periodoActual->nperiodo}}</strong>
+
 
                           <!--<div class="card" style="width: auto;">-->
                           <div class="card">
@@ -105,8 +107,15 @@
                                     </tr>
                                   </table>
                                 </div>
+                            <!--    <br><br>
+                               <strong>Grado</strong>
+                               {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}
+                               <br> -->
+
+
                               <!--</h5>-->
                                 <div class="table-responsive">
+                                  <br>
                                   <table class="table" table-hover" id="bootstrap-data-table_length">
                                     <thead>
                                       <tr>
@@ -121,9 +130,11 @@
                                       @foreach($attendanceDates as $key => $value)
                                         @if($value->degree_id == $degree->id )
                                           <tr>
-                                            <td>{{$value->attendance_date}}</td>
-                                            <td>{{$value->asistencia}}</td>
+                                          <!--  <td>{{$value->attendance_date}}</td>
+                                            <td>{{$value->asistencia}}</td>  -->
 
+                                            <td>{{Help::dateFormatter($value->attendance_date)}}</td>
+                                            <td>{{$value->asistencia}}</td>
                                             <!-- IMPORTANTE-->
                                             <td>
                                               <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>

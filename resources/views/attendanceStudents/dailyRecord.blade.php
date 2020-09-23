@@ -5,16 +5,20 @@
 
 
 
-<strong class="card-title">Control de Asistencia Escolar: {{$now}}</strong>
+<strong class="card-title"></strong>
 
 <div class="row">
 
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <strong class="card-title"> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}. <br>PERIODO EN CURSO DEL AÑO ESCOLAR: PERIODO {{$periodoActual->nperiodo}} </strong>
-          <strong></strong>
+         <!-- <strong class="card-title"> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}. <br>PERIODO EN CURSO DEL AÑO ESCOLAR: PERIODO {{$periodoActual->nperiodo}} </strong> -->
 
+
+          <strong class="card-title">
+            <br>PERIODO EN CURSO DEL AÑO ESCOLAR: PERIODO {{$periodoActual->nperiodo}} <br>
+            Control de Asistencia Escolar: {{Help::dateFormatter($now)}} para el grado:
+           {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}  </strong></strong>
         </div>
         <div>
 

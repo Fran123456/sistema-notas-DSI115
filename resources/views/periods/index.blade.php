@@ -24,22 +24,26 @@
     </div>
 </div>
 
-<button class="btn btn-success">{{$cantidad}}/3 periodos asignados</button>
+<button disabled="" class="btn btn-success">{{$cantidad}}/3 periodos asignados</button>
+<br>
 <div class="row">
   <div class="col-lg-12">
+    <br>
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">PERIODOS AÑO Lectivo {{$year->year}} <br>Inicio:{{$year->start_date}}    Fin:{{$year->end_date}}</strong>
+        <strong class="card-title">PERIODOS AÑO Lectivo {{$year->year}} - 
+          Inicio: {{Help::dateFormatter($year->start_date)}}    
+        Fin: {{Help::dateFormatter($year->end_date)}}</strong>
       </div>
         <div class="card-body">
             <table class="table">
                 <thead class="thead-light">
                 <tr>
-                  <th width="30" scope="col">Periodo</th>
+                  <th width="50" scope="col">Periodo</th>
                   <th scope="col">Inicio</th>
                   <th scope="col">Fin</th>
-                  <th scope="col">Editar</th>
-                  <th scope="col">Eliminar</th>
+                  <th width="60px" scope="col">Editar</th>
+                  <th width="60px" scope="col">Eliminar</th>
 
                 </tr>
               </thead>
@@ -48,8 +52,8 @@
                   <tr>
                     <th scope="row">{{$value->nperiodo}}</th>
 
-                     <td>{{$value->start_date}}</td>
-                     <td>{{$value->end_date}}</td>
+                     <td>{{Help::dateFormatter($value->start_date)}}</td>
+                     <td>{{Help::dateFormatter($value->end_date)}}</td>
 
 
 

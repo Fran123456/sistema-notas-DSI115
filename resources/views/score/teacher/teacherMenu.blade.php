@@ -31,7 +31,8 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">Materias para el docente {{Auth::user()->name}} -
+       <!-- <strong class="card-title">Materias para el docente {{Auth::user()->name}} -->
+        <strong class="card-title">Grados para el docente encargado:  {{Auth::user()->name}} -
           Año escolar {{Help::getSchoolYear()->year}}
         </strong>
       </div>
@@ -44,8 +45,8 @@
                   <th width="200" scope="col">Año</th>
                   <th scope="col">Capacidad</th>
                   <th scope="col">Inscritos</th>
-                  <th scope="col">Asistencia</th>
-                  <th width="60" scope="col">Tipos</th>
+                  <th width="40" scope="col">Asistencia</th>
+                  <th width="40" scope="col">Tipos</th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
@@ -69,7 +70,7 @@
                       <a href="{{ route('attendancesDates',$value[1]['id']) }}" class="btn btn-info"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
                      </td>
                      <td>
-                         <a href="" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                         <a href="{{ route('typesSubjectTeacher', [$value[1]['id'] , $value[0]->id]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </td>
                       <td>
                         <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

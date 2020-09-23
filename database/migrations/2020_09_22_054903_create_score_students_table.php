@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScoreTypeTable extends Migration
+class CreateScoreStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,25 @@ class CreateScoreTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('score_type', function (Blueprint $table) {
+        Schema::create('score_students', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('score_type_id')->nullable();
+            $table->unsignedBigInteger('student_id')->nullable();
             $table->unsignedBigInteger('school_period_id')->nullable();
             $table->unsignedBigInteger('school_year_id')->nullable();
             $table->unsignedBigInteger('degree_id')->nullable();
-            $table->string('percentage')->nullable();
-            $table->string('activity')->nullable();
-            $table->text('description')->nullable();
-            $table->string('date')->nullable();
-            $table->string('type')->nullable();
-            $table->boolean('state')->default(false);
-           // $table->timestamps();
+            $table->string('score')->nullable();
+            $table->timestamps();
 
-            $table->foreign('degree_id')
+             $table->foreign('score_type_id')
               ->references('id')
-              ->on('degrees')
+              ->on('score_type')
+              ->onDelete('cascade')
+              ->onUpdate('cascade');
+
+              $table->foreign('student_id')
+              ->references('id')
+              ->on('students')
               ->onDelete('cascade')
               ->onUpdate('cascade');
 
@@ -38,11 +41,18 @@ class CreateScoreTypeTable extends Migration
               ->onDelete('cascade')
               ->onUpdate('cascade');
 
-            $table->foreign('school_year_id')
+               $table->foreign('school_year_id')
               ->references('id')
               ->on('school_years')
               ->onDelete('cascade')
               ->onUpdate('cascade');
+
+              $table->foreign('degree_id')
+              ->references('id')
+              ->on('degrees')
+              ->onDelete('cascade')
+              ->onUpdate('cascade');
+
         });
     }
 
@@ -53,6 +63,6 @@ class CreateScoreTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('score_type');
+        Schema::dropIfExists('score_students');
     }
 }

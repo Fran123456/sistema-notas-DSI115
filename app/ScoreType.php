@@ -17,6 +17,7 @@ class ScoreType extends Model
         'description',
         'date',
         'state'
+        'type'
     ];
 }
 	
