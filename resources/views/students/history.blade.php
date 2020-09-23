@@ -28,7 +28,9 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
-        <div class="card-header"><strong>Historial del alumno</strong></div>
+        <div class="card-header"><strong>Escuela San Francisco Gotera de San Martín <br>Código: 99999</strong></div>
+        <div class="card-header"><strong>Registro académico<br>Año escolar actual: {{$currentyear->year}}</strong></div>
+
 
 
         <div class="card-body card-block">
@@ -43,6 +45,7 @@
                 <th>Apellidos</th>
                 <th>Edad</th>
                 <th>Género</th>
+                <th>Tipo</th>
                 <th>Estado</th>
               </tr>
               </thead>
@@ -63,6 +66,9 @@
                 @else
                     En espera
                 @endif
+                </td>
+                <td>
+Activo    
                 </td>
               </tr>     
             </tbody>
@@ -94,23 +100,50 @@
                   </tr>
                   <tr>
                     <th class="center">Grado</th>
+                    <th class="center">Sección</th>
+                    <th class="center">Turno</th>
+                    <th class="center">Docente encargado</th>
                     <th class="center">Estado</th>            
                   </tr>
                 </thead>
               
                   <tr>
                     <td>
-                     @foreach ($degrees as $key3 => $value3)
+                    @foreach ($degrees as $key3 => $value3)
                       @if ($value->degree_id == $value3->id)        
-                        {{Help::ordinal($value3->degree)}}
+                        {{Help::ordinal($value3->degree)}}                 
+                    </td>
+                    <td>
+                     {{$value3->section}}
+               
+                    </td>
+                   
+                    <td>{{Help::turn($value3->turn)}}</td>
+                    <td>
+                        @if($currentyear->id = $value->school_year_id)
+                          @foreach($degreeSY as $key4 => $value4)
+                            @foreach($teachers as $key5 => $value5)
+                                @if($value3->id == $value4->id)
+                                  @if($value4->user_id == $value5->id)
+                                    {{$value5->name}}
+                                  @endif
+                                @endif
+                            @endforeach
+                          @endforeach
+                        @endif
+                    </td>                 
                       @endif
                     @endforeach
-                    </td>
                   <td>
                     <!--A editar-->   
                     Aprobado
                     </td>
                   </tr>
+
+                  <tr>
+                    <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:1px;">PERIODOS</th>
+                  </tr>
+
               </tbody>
               </table>
             </div>
