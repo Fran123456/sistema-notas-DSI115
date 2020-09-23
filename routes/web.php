@@ -90,6 +90,8 @@ Route::get('attendances/{idDegree}/{attendanceDate}','AttendanceStudent\Attendan
 Route::get('attendance/record/{idDegreeSchoolYear}', 'AttendanceStudent\AttendanceStudentController@record')->name('attendanceRecord');
 Route::post('attendance/record/save', 'AttendanceStudent\AttendanceStudentController@saveRecord')->name('saveAttendanceRecord');
 Route::post('attendance/filter/{control}', 'AttendanceStudent\AttendanceStudentController@filter')->name('attendance-filter');
+Route::get('attendances/{idDegree}/{attendanceDate}/edit','AttendanceStudent\AttendanceStudentController@editAttendance')->name('editAttendance');
+Route::patch('attendances/update','AttendanceStudent\AttendanceStudentController@updateAttendanceRecord')->name('updateAttendance');
 
 /*STUDENT HISTORY*/
 Route::resource('studenthistories','Student\StudentHistoryController');

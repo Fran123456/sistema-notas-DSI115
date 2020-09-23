@@ -34,33 +34,32 @@ class ScoreTypeController extends Controller
             return back()->with('delete', '<strong> Ya se ha alcanzado el porcentaje máximo. </strong>');
         }
         else{
-            if($accumulatedPercentage+$request->percentage > 100){
-                return back()->with('delete', '<strong> El porcentaje ingresado sobrepasa el valor máximo. </strong>');
+            if($accumulatedPercentage+$request->percentage > 100 || $request->percentage <= 0){
+                return back()->with('delete', '<strong> El porcentaje ingresado no es válido. </strong>');
             }
             else{
-                $checkingNumberBehavior=ScoreType::where('school_period_id',$request->period)
+                if($request->type=='Actitud'){
+                    $checkingNumberBehavior=ScoreType::where('school_period_id',$request->period)
                     ->where('school_year_id',$request->year)
                     ->where('degree_id',$request->grade)
                     ->where('subject_id',$request->subject)
                     ->where('type','Actitud')
-                    ->count();
-
-                if($checkingNumberBehavior>0){
-                    return back()->with('delete', '<strong> Ya existe una nota de Actitud ingresada. </strong>');
+                    ->count();    
+                    if($checkingNumberBehavior>0){
+                        return back()->with('delete', '<strong> Ya existe una nota de Actitud ingresada. </strong>');
+                    }
                 }
-                else{
-                    $scoreType= new ScoreType();
-                    $scoreType->school_period_id=$request->period;
-                    $scoreType->school_year_id=$request->year;
-                    $scoreType->degree_id=$request->grade;
-                    $scoreType->subject_id=$request->subject;
-                    $scoreType->percentage=$request->percentage;
-                    $scoreType->activity=$request->activity;
-                    $scoreType->description=$request->description;
-                    $scoreType->date=$request->date;
-                    $scoreType->type=$request->type;
-                    $scoreType->save();
-                }            
+                $scoreType= new ScoreType();
+                $scoreType->school_period_id=$request->period;
+                $scoreType->school_year_id=$request->year;
+                $scoreType->degree_id=$request->grade;
+                $scoreType->subject_id=$request->subject;
+                $scoreType->percentage=$request->percentage;
+                $scoreType->activity=$request->activity;
+                $scoreType->description=$request->description;
+                $scoreType->date=$request->date;
+                $scoreType->type=$request->type;
+                $scoreType->save();                                                        
             }
         }                
 

@@ -124,6 +124,7 @@
                                         <th width="150" scope="col">Con Falta</th>
                                         <th width="150" scope="col">Con Permiso</th>
                                         <th width="150" scope="col">Ver Detalle</th>
+                                        <th width="150" scope="col">Editar</th>
 
                                       </tr>
                                     </thead>
@@ -138,6 +139,9 @@
                                             <!-- IMPORTANTE-->
                                             <td>
                                               <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            </td>
+                                            <td>
+                                              <a href="{{ route('editAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                             </td>
                                           <!--Cerrado IMPORTANTE -->
                                           </tr>
