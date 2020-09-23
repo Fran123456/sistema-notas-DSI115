@@ -105,9 +105,23 @@ class AttendanceStudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
+    public function editAttendance($degreeId, $attendanceDate){
+        $activeYear= SchoolYear::where('active',1)->first();
+        $attendance=DB::select("SELECT * FROM attendance_students INNER JOIN
+         (students_history INNER JOIN students ON students_history.student_id = students.id) ON
+         attendance_students.student_history_id = students_history.id WHERE students_history.degree_id= ?
+         AND attendance_students.attendance_date = ? AND students_history.school_year_id= ?", [$degreeId, $attendanceDate,$activeYear->id]);
+        $degree=Degree::where('id',$degreeId)->get()->first();        
+        return view('attendanceStudents.attendanceEdit', compact('attendance','degree','attendanceDate','activeYear'));
+    }
+    
+    public function updateAttendanceRecord(Request $request){
+
+        dd($request);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -115,10 +129,10 @@ class AttendanceStudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request,$id)
+    {        
     }
+    
 
     /**
      * Remove the specified resource from storage.

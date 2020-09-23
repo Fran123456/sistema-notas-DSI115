@@ -49,6 +49,7 @@
                   <th scope="col" width="40">Estado</th>
                   <th width="40" scope="col"> Administrar </th>
                   <th width="40" scope="col"> Periodos </th>
+                  <th width="40" scope="col"> Conducta </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
@@ -88,6 +89,9 @@
 
                      <td>
                         <a href="{!! route('periods-index',$value->id) !!}" class="btn btn-primary"><i class="fa fa-layer-group" aria-hidden="true"></i></a>
+                      </td>
+                      <td>
+                        <a href="{{route('behaviors.index')}}" class="btn btn-primary"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
                       </td>
                       <td>
                         <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

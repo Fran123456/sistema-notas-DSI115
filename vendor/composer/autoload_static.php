@@ -492,6 +492,8 @@ class ComposerStaticInit5faacb2f22ebd3493c1fac7ba17d0c7b
 
     public static $classMap = array (
         'App\\AttendanceStudent' => __DIR__ . '/../..' . '/app/AttendanceStudent.php',
+        'App\\BehaviorIndicator' => __DIR__ . '/../..' . '/app/BehaviorIndicator.php',
+        'App\\BehaviorIndicatorsStudent' => __DIR__ . '/../..' . '/app/BehaviorIndicatorsStudent.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Degree' => __DIR__ . '/../..' . '/app/Degree.php',
         'App\\DegreeSchoolSubject' => __DIR__ . '/../..' . '/app/DegreeSchoolSubject.php',

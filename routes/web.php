@@ -90,6 +90,8 @@ Route::get('attendances/{idDegree}/{attendanceDate}','AttendanceStudent\Attendan
 Route::get('attendance/record/{idDegreeSchoolYear}', 'AttendanceStudent\AttendanceStudentController@record')->name('attendanceRecord');
 Route::post('attendance/record/save', 'AttendanceStudent\AttendanceStudentController@saveRecord')->name('saveAttendanceRecord');
 Route::post('attendance/filter/{control}', 'AttendanceStudent\AttendanceStudentController@filter')->name('attendance-filter');
+Route::get('attendances/{idDegree}/{attendanceDate}/edit','AttendanceStudent\AttendanceStudentController@editAttendance')->name('editAttendance');
+Route::patch('attendances/update','AttendanceStudent\AttendanceStudentController@updateAttendanceRecord')->name('updateAttendance');
 
 /*STUDENT HISTORY*/
 Route::resource('studenthistories','Student\StudentHistoryController');
@@ -115,4 +117,8 @@ Route::get('year/{idyear}/periods/create','Period\PeriodController@create')->nam
 Route::post('year/{idyear}/periods/create/save','Period\PeriodController@store')->name('periods-store');
 Route::post('year/periods/delete','Period\PeriodController@destroy')->name('periods-delete');
 Route::get('year/{idyear}/active/{idperiod}', 'Period\PeriodController@changePeriodStatus')->name('changePeriodStatus');
+
+/*CONDUCTA INDICADORES */
+Route::resource('behaviors','Behavior\BehaviorController');
+Route::post('behaviors/delete','Behavior\BehaviorController@destroy')->name('behaviors-delete');
 
