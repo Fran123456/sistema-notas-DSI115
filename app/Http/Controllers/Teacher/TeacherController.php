@@ -57,10 +57,16 @@ class TeacherController extends Controller
         $query = ScoreType::scoreTypeByDegree($numberPeriodBack,$year->id,$grade->id,$subject->id);
         $sol = ScoreType::validateSendType($query);
 
+        $accumulatedPercentage=ScoreType::where('school_period_id',$period->id)
+            ->where('school_year_id',$year->id)
+            ->where('degree_id',$grade->id)
+            ->where('subject_id',$subject->id)
+            ->sum('percentage');            
+
         if($period==null){
             return back()->with('delete','<strong> No existe registro del periodo '.$numberPeriodBack.' del año '.Help::getSchoolYear()->year.'. </strong>');
         }
-        return view('score.type.scoreTypesCreate', compact('grade','teacher','subject','period','year','types','query','sol'));
+        return view('score.type.scoreTypesCreate', compact('grade','teacher','subject','period','year','types','query','sol','accumulatedPercentage'));
     }
 
 
