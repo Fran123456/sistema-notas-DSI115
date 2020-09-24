@@ -138,9 +138,12 @@ class PeriodController extends Controller
      */
     public function destroy(Request $request)
     {
-
+        $period=SchoolPeriod::find($request->id);
+        if($period->current==1){
+            return back()->with('delete',' <strong> El periodo no pude ser eliminado por estar activo </strong>');
+        }
         SchoolPeriod::destroy($request->id);
-        return back()->with('delete','Registro Eliminado Correctamente');
+        return back()->with('success','<strong> Registro Eliminado Correctamente </strong>');
     }
 
     public function changePeriodStatus(Request $request,$idyear,$idperiod){
