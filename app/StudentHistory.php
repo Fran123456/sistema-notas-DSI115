@@ -35,4 +35,8 @@ class StudentHistory extends Model
     return $this->belongsTo('App\DegreeSchoolYear', 'degree_id', 'degree_id');
   }
 
+  public function attendancebyperiod(){
+    return $this->belongsTo('App\AttendanceStudent', 'id', 'student_history_id');
+  }
+
 }

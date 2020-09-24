@@ -145,10 +145,35 @@ class Help
        return true;
 	 }
 
+
 	 public static function subjectByStudent($student, $period, $year, $degree){
 	 	$types = ScoreStudent::scoreByStudent($student, $period, $year, $degree);
 	 	return $types;
 	 } 
+
+	 public static function periods($period){
+		if($period=="1")
+			$periodo="Primer periodo";
+		elseif($period=="2")
+			$periodo="Segundo periodo";
+		else
+			$periodo="Tercer periodo";
+		return $periodo; 
+	 }
+
+	 public static function typeOfStudent($type){
+	 	if($type=="AI")
+	 		$tipo = "Antiguo ingreso";
+	 	elseif($type=="NI")
+	 		$tipo = "Nuevo ingreso";
+	 	elseif($type=="EG")
+	 		$tipo = "Egresado";
+	 	elseif($type="AB")
+	 		$tipo = "Abandonó";
+	 	else
+	 		$tipo= "En espera";
+	 	return $tipo;
+	 }
 
 }
 ?>
