@@ -14,6 +14,7 @@ use App\Help\Help;
 class ScoreController extends Controller
 {
     public function  getScoresTypeByStudent(Request $request){
+      auth()->user()->authorizeRoles(['Docente']);            
       //request => year , degree
       //showStudentsDegreeTeacher
       $year = SchoolYear::find($request->year);
@@ -41,6 +42,7 @@ class ScoreController extends Controller
     }
 
     public function updateScores(Request $request){
+      auth()->user()->authorizeRoles(['Docente']);
       $student = $request->student;
       $degree = $request->degree;
       $period = $request->period;

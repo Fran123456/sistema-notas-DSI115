@@ -16,6 +16,7 @@ class SchoolYearSubjectsController extends Controller
 {
    /*MUESTRA EL FORMULARIO PARA AGREGAR UNA MATERIA A UN GRADO*/
     public function storeSubjects($id){
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
       $year = DegreeSchoolYear::find($id);
       $degree = Degree::find($year->degree_id);
       $schoolYear = SchoolYear::find($year->school_year_id);
@@ -52,12 +53,14 @@ class SchoolYearSubjectsController extends Controller
 
     /*AGREGA UNA MATERIA A UN AÑO Y AUN GRADO ESCOLAR*/
     public function saveSubjectsDegree(Request $request){
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
        $year =DegreeSchoolSubject::create($request->all());
        return back()->with('success', 'La materia ha sido agregada correctamente');
     }/*AGREGA UNA MATERIA A UN AÑO Y AUN GRADO ESCOLAR*/
 
 
     public function deleteSubjectsDegree($id){
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
       DegreeSchoolSubject::destroy($id);
       return back()->with('delete', 'Materia eliminada correctamente');
     }

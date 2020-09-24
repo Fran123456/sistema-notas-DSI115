@@ -88,7 +88,7 @@ class SchoolYearDegreesController extends Controller
      */
     public function destroy($id)
     {
-
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);  
       $year = DegreeSchoolYear::find($id);
 
       $degree = Degree::find($year->degree_id);
@@ -107,14 +107,16 @@ class SchoolYearDegreesController extends Controller
     }
     public function delete(Request $request, $id)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
        $year_degree= DegreeSchoolYear::find($id);
        $degree = Degree::find($year_degree->degree_id);
        DegreeSchoolYear::destroy($year_degree->id);
        DegreeSchoolSubject::where('degree_id',$year_degree->degree_id)->delete();
        return redirect()->route('teacher-grade',$year_degree->school_year_id)->with('delete',' <strong> '.Help::ordinal($degree->degree). $degree->section.'-'.  Help::turn($degree->turn).' Eliminado Correctamente </strong>');
     }
-    public function showStudentsDegreeYear($id)
+    public function showStudentsDegreeYear($id)    
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $degree_school_year = DegreeSchoolYear::find($id);
         $degree = Degree::find($degree_school_year->degree_id);
         $schoolYear = SchoolYear::find($degree_school_year->school_year_id);

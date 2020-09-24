@@ -13,12 +13,14 @@ use App\StudentHistory;
 class StudentGradeController extends Controller
 {
    public function addStudent(){
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
       $actually = SchoolYear::where('active', true)->first();
       $degrees = DegreeSchoolYear::where('school_year_id', $actually->id)->get();
       return view('students.studentCreate',compact('degrees','actually'));
    }
 
    public function registerStudent(Request $request){
+    auth()->user()->authorizeRoles(['Administrador','Secretaria']);
      $student = Student::create($request->all());
      $history = StudentHistory::create([
        'student_id' => $student->id,

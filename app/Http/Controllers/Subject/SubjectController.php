@@ -17,6 +17,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $subjects = Subject::get();
         return view('subjects.subjects',["subjects"=>$subjects]);
     }
@@ -28,7 +29,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         return view('subjects.subjectsCreate');
     }
 
@@ -40,7 +41,7 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $s = Subject::where([
             'name' => $request->nombre
         ])->get();
@@ -75,6 +76,7 @@ class SubjectController extends Controller
      */
     public function edit($id)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $subject= Subject::where('id',$id)->first();
         return view('subjects.edit', compact('subject'));
     }
@@ -88,6 +90,7 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         Subject::where('id',$id)
         ->update([
             'name' =>$request->name,
@@ -105,7 +108,7 @@ class SubjectController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-      //  $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
        $materia=Subject::find($id);
        $relatedYears=DB::table('degree_subject_year as year')
        ->join('subjects as sub','year.subject_id','=','sub.id')
@@ -120,7 +123,7 @@ class SubjectController extends Controller
     }
 
     public function changeStatusSubject(Request $request, $id){
-      //  $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $backSubject=Subject::find($id);
         $valorCambio=1;
         if($backSubject->active==0){

@@ -167,6 +167,7 @@
                                 </li>
                           <!--GENERAL-->
                                 <li class="app-sidebar__heading">General</li>
+                                @if(Auth::user()->roles()->first()->name == "Administrador")
                                 <li class="">
                                     <a href="#" aria-expanded="false">
                                         <i class="metismenu-icon fa fa-users"></i>
@@ -174,30 +175,38 @@
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul class="mm-collapse" style="height: 7.04px;">
-                                    @if(Auth::user()->roles()->first()->name == "Administrador")
+
                                         <li>
                                             <a href="{{ route('users.index') }}"><i class="metismenu-icon"></i>Usuarios</a>
                                         </li>
-                                    @endif
+                                    
                                         <li>
                                           <a href="{{ route('roles.index') }}"><i class="metismenu-icon"></i>Roles</a>
                                         </li>
                                     </ul>
                                 </li>
-                               
+                                @endif
+                                @if(Auth::user()->roles()->first()->name == "Administrador" || Auth::user()->roles()->first()->name == "Secretaria")
                                 <li>
                                       <a href="{{ route('degrees.index') }}"><i  class="metismenu-icon fa fa-graduation-cap"></i>Grado escolar</a>
                                 </li>
-
+                                @endif
+                                @if(Auth::user()->roles()->first()->name == "Administrador" || Auth::user()->roles()->first()->name == "Secretaria")
                                 <li>
                                       <a href="{{ route('years.index') }}"><i  class="metismenu-icon fa fa-calendar"></i>Año escolar</a>
                                 </li>
+                                @endif
+                                @if(Auth::user()->roles()->first()->name == "Administrador" || Auth::user()->roles()->first()->name == "Secretaria")
                                 <li>
                                       <a href="{{ route('subjects.index') }}"><i  class="metismenu-icon fa fa-book"></i>Materias</a>
                                 </li>
+                                @endif
+                                @if(Auth::user()->roles()->first()->name == "Administrador" || Auth::user()->roles()->first()->name == "Secretaria")
                                 <li>
                                       <a href="{{ route('students.index') }}"><i  class="metismenu-icon fa fa-users"></i>Alumnos</a>
                                 </li>
+                                @endif
+                                @if(Auth::user()->roles()->first()->name == "Docente")
                                 <li>
                                     <a href="#" aria-expanded="false">
                                         <i class="metismenu-icon fa fa-users"></i>
@@ -207,13 +216,10 @@
                                     <ul class="mm-collapse" style="height: 7.04px;">                                                                            
                                         <li>
                                             <a href="{{ route('gradesTeacher',Auth::user()->id) }}"><i class="metismenu-icon"></i>Grados</a>
-                                        </li>
-                                                                                                                
+                                        </li>                                                                                                                
                                     </ul>
                                 </li>
-
-                             
-
+                                @endif
                                
                               <!--GENERAL-->
 

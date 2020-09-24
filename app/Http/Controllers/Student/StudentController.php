@@ -22,6 +22,7 @@ class StudentController extends Controller
     public function index()
     {
         //
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $students = Student::orderBy('status')->get();
         return view('students.students',["students"=>$students]);
     }
@@ -56,7 +57,7 @@ class StudentController extends Controller
     public function show($id)
     {
         //
-
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $student = Student::where("id", $id)->first();
         $studentrecord = StudentHistory::where("student_id", $id)->get();        
         $currentyear = SchoolYear::where('active', true)->first();
@@ -67,7 +68,7 @@ class StudentController extends Controller
     public function beforedeleting($id)
     {
         //
-
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $student = Student::where("id", $id)->first();
         $studentrecord = StudentHistory::where("student_id", $id)->get();
         $years = SchoolYear::all();
@@ -86,7 +87,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $actually = SchoolYear::where('active', true)->first();
         $degrees = DegreeSchoolYear::where('school_year_id', $actually->id)->get();
         $student = Student::where("id", $id)->first();
@@ -102,7 +103,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         Student::where('id', $id)
         ->update([
 
@@ -128,7 +129,7 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
 
         $history = StudentHistory::where("student_id", $id)->first();   
 

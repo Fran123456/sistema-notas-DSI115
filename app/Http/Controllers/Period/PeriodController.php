@@ -16,6 +16,7 @@ class PeriodController extends Controller
      */
     public function index($idyear)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $year= SchoolYear::find($idyear);
         $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
        $cantidad= count($periodos);
@@ -29,6 +30,7 @@ class PeriodController extends Controller
      */
     public function create($idyear)
     {
+        auth()->user()->authorizeRoles(['Administrador']);
         $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
         $cantidad= count($periodos);
        $n1=0; $n2=0; $n3=0;
@@ -66,6 +68,7 @@ class PeriodController extends Controller
      */
     public function store(Request $request, $idyear)
     {
+        auth()->user()->authorizeRoles(['Administrador']);
         $bandera=0;
         $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
         foreach ($periodos as $value) {
@@ -109,6 +112,7 @@ class PeriodController extends Controller
      */
     public function edit($id)
     {
+        auth()->user()->authorizeRoles(['Administrador']);
         $periodo= SchoolPeriod::find($id);
         return view('periods.edit', compact('periodo'));
     }
@@ -122,6 +126,7 @@ class PeriodController extends Controller
      */
     public function update(Request $request, $idperiodo)
     {
+        auth()->user()->authorizeRoles(['Administrador']);
         $periodo= SchoolPeriod::find($idperiodo);
         SchoolPeriod::where('id',$idperiodo)->update([
             'start_date' => $request->startdate,
@@ -138,6 +143,7 @@ class PeriodController extends Controller
      */
     public function destroy(Request $request)
     {
+        auth()->user()->authorizeRoles(['Administrador']);
         $period=SchoolPeriod::find($request->id);
         if($period->current==1){
             return back()->with('delete',' <strong> El periodo no pude ser eliminado por estar activo </strong>');
@@ -147,7 +153,7 @@ class PeriodController extends Controller
     }
 
     public function changePeriodStatus(Request $request,$idyear,$idperiod){
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $schoolYear= SchoolYear::find($idyear);
         $period=SchoolPeriod::find($idperiod);
         SchoolPeriod::where('current',1)->where('school_year_id',$schoolYear->id)->update(['current'=>0]);

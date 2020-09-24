@@ -18,15 +18,15 @@ use App\ScoreType;
 
 class TeacherController extends Controller
 {
-    public function grades($id){//id del teacher
-		$data =  User::teacher();
-		//dd($data);
-    	//return $data;
+    public function grades($id){//id del 
+        auth()->user()->authorizeRoles(['Docente']);
+		$data =  User::teacher();		
     	return view('score.teacher.teacherMenu',compact('data'));
     }
 
    /*tipos de evaluacion que va tener una materia*/
     public function types($grade, $teacher){
+       auth()->user()->authorizeRoles(['Docente']);
        $grades  = DegreeSchoolSubject::where('school_year_id',Help::getSchoolYear()->id)
        ->where('degree_id', $grade)->get();
        $grade = Degree::find($grade);
@@ -36,6 +36,7 @@ class TeacherController extends Controller
     /*tipos de evaluacion que va tener una materia*/
 
     public function scorePercentage($grade,$teacher, $subject, $period){
+        auth()->user()->authorizeRoles(['Docente']);
         $grade = Degree::find($grade);
         $teacher = User::find($teacher);
         $subject = Subject::find($subject);
@@ -56,7 +57,7 @@ class TeacherController extends Controller
         y así no acumulamos mucho codigo sql en los controladores*/
         $query = ScoreType::scoreTypeByDegree($numberPeriodBack,$year->id,$grade->id,$subject->id);
         $sol = ScoreType::validateSendType($query);
-                
+
         $accumulatedPercentage=ScoreType::where('school_period_id',$numberPeriodBack)
             ->where('school_year_id',$year->id)
             ->where('degree_id',$grade->id)
@@ -72,6 +73,8 @@ class TeacherController extends Controller
 
     public function showStudentsDegreeTeacher($idteacher,$iddegree)
     {
+        //auth()->user()->authorizeRoles(['Docente','Administrador']);
+        auth()->user()->authorizeRoles(['Docente']);
         $schoolYear = SchoolYear::where('active', true)->first();
         $teacher=User::find($idteacher);
         $degree= Degree::find($iddegree);

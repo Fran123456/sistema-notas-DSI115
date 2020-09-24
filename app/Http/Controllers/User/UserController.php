@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $users = User::all();
         return view('users.users', compact('users'));
     }
@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-      //  auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $roles = Role::all();
         return view('users.userCreate', compact('roles'));
     }
@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-      //  $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $user = User::where('email', $request->email)->get();
         if(count($user)>0){
             return back()->with('delete','<strong>Error el correo ya existe</strong>');
@@ -92,7 +92,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-      //  auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $user = User::find($id);
         $created_at = Help::dateFormatter($user->created_at);
         return view('users.user', compact('user','created_at'));
@@ -106,7 +106,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $user = User::find($id);
         $roles = Role::all();
         return view('users.userUpdate',compact('user','roles'));
@@ -123,7 +123,7 @@ class UserController extends Controller
     {
 
 
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         if($request->hasFile('pdf')){
             $nameCV= Help::uploadFile($request, 'files/cv/','pdf');
             User::where('id', $id)
@@ -162,7 +162,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-      //  $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
        User::destroy($id);
        return back()->with('delete', '<strong>Usuario eliminado correctamente');
     }
@@ -170,7 +170,7 @@ class UserController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-        //$request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador','Secretaria','Docente']);
         $user= User::find($id);
        return view('users.updatePassword', compact('user'));
     }
@@ -185,7 +185,7 @@ class UserController extends Controller
 
     public function savePassword(Request $request, $id)
     {
-        //$request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador','Secretaria','Docente']);
         $user= User::find($id);
 
         if( $this->checkCurrentPassword($request->currentPassword,$user->password) == false ){
@@ -220,7 +220,7 @@ class UserController extends Controller
     }
 
     public function changeStatus(Request $request, $id){
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $backUser=User::find($id);
         $valorCambio=2;
         $stringCambio="";

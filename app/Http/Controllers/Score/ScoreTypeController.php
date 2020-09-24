@@ -24,8 +24,8 @@ class ScoreTypeController extends Controller
     	return view('score.type.scoretypesCreate');
     }
 
-    public function scoreTypeSave(Request $request){
-
+    public function scoreTypeSave(Request $request){      
+      auth()->user()->authorizeRoles(['Docente']);
         $accumulatedPercentage=ScoreType::where('school_period_id',$request->period)
             ->where('school_year_id',$request->year)
             ->where('degree_id',$request->grade)
@@ -70,13 +70,15 @@ class ScoreTypeController extends Controller
 
 
     public function destroy(Request $request)
-    {
+    { 
+        auth()->user()->authorizeRoles(['Docente']);
         ScoreType::destroy($request->id);
         return back()->with('delete','<strong>Porcentaje eliminado correctamente</strong>');
     }
 
     /*METODO PARA DISTRIBUIR LOS % POR PERIODO A LOS ALUMNOS*/
     public function SendTypes(Request $request){
+      auth()->user()->authorizeRoles(['Docente']);
       $query = ScoreType::scoreTypeByDegree($request->periodx,$request->yearx, $request->gradex, $request->subjectx);
       $countQuery = ScoreType::countScoreTypeByDegree($query);
 

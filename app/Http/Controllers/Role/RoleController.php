@@ -15,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $roles = Role::all();
         return view('roles.roles', compact('roles'));
     }
@@ -27,7 +27,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
     }
 
     /**
@@ -38,7 +38,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-       auth()->user()->authorizeRoles(['administrador']);
+       auth()->user()->authorizeRoles(['Administrador']);
     }
 
     /**
@@ -49,7 +49,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
     }
 
     /**
@@ -60,7 +60,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         $role = Role::find($id);
         return view('roles.roleUpdate',compact('role'));
     }
@@ -74,7 +74,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
          Role::where('id', $id)
         ->update([
             'name' => $request->name,
@@ -91,7 +91,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador']);
         //
     }
 }

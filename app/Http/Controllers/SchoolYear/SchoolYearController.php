@@ -24,8 +24,8 @@ class SchoolYearController extends Controller
      */
     public function index()
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $years = SchoolYear::orderBy('year','asc')->get();
-
         return view('schoolYear.schoolYears', compact('years'));
     }
 
@@ -36,12 +36,14 @@ class SchoolYearController extends Controller
      */
     public function create()
     {
-       return view('schoolYear.schoolYearCreate');
+      auth()->user()->authorizeRoles(['Administrador']);
+      return view('schoolYear.schoolYearCreate');
     }
 
 
     /*CREATE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
     public function createYearTeacher($id){
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
       $year = SchoolYear::find($id);
   //    $degrees = Degree::where('active', true)->orderBy('turn')->get();
        //$degrees = SchoolYear::where('active', true)->first();
@@ -83,8 +85,9 @@ class SchoolYearController extends Controller
 
     /*STORE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
     public function storeYearTeacher(Request $request){
-       $year = DegreeSchoolYear::create($request->all());
-       return back()->with('success', 'Grado asignado correctamente al año escolar actual');
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+      $year = DegreeSchoolYear::create($request->all());
+      return back()->with('success', 'Grado asignado correctamente al año escolar actual');
     }
     /*STORE A REGISTRY (YEAR) FOR A TEACHER AND GRADE*/
 
@@ -97,7 +100,7 @@ class SchoolYearController extends Controller
      */
     public function store(Request $request)
     {
-
+      auth()->user()->authorizeRoles(['Administrador']);
        $validate = SchoolYear::where('year', $request->year)->get();
        if(count($validate)>0){
          return back()->with('delete', "No se puede agregar el año escolar porque ya existe un registro con el mismo año")
@@ -156,13 +159,14 @@ class SchoolYearController extends Controller
      */
     public function destroy($id)
     {
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
       $backSchoolYear=SchoolYear::find($id);
       SchoolYear::destroy($id);
       return redirect()->route('years.index')->with('success','<strong>El año escolar '.$backSchoolYear->year.' fue eliminado correctamente</strong>');
     }
 
     public function changeStatusSchoolYear(Request $request, $id){
-      $request->user()->authorizeRoles(['administrador']);
+      auth()->user()->authorizeRoles(['Administrador']);
       $backSchoolYear=SchoolYear::find($id);
       SchoolYear::where('active',1)->update(['active'=>0]);
       SchoolYear::where('id',$id)->update(['active'=>1]);
@@ -170,7 +174,7 @@ class SchoolYearController extends Controller
     }
     public function editYear_grade($id_year_grade)
     {
-
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
        //id año-grado
         $year_grade= DegreeSchoolYear::find($id_year_grade);
 
@@ -194,6 +198,7 @@ class SchoolYearController extends Controller
     }
     public function save_editYear_grade(Request $request, $id_year_grade)
     {
+      auth()->user()->authorizeRoles(['Administrador','Secretaria']);
        $aux = DegreeSchoolYear::find($id_year_grade);
         DegreeSchoolYear::where('id',$id_year_grade)->update([
             'user_id' =>$request->teacher,
@@ -212,7 +217,7 @@ class SchoolYearController extends Controller
     }
 
     public function deletingSchoolYear(Request $request, $id){
-
+      auth()->user()->authorizeRoles(['Administrador']);
       $backSchoolYear=SchoolYear::find($id);
       if($backSchoolYear->active){
         return redirect()->route('years.index')->with('delete',' <strong> No es posible eliminar un año activo </strong>');
