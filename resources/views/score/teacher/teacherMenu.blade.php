@@ -46,6 +46,7 @@
                   <th scope="col">Capacidad</th>
                   <th scope="col">Inscritos</th>
                   <th width="40" scope="col">Asistencia</th>
+                  <th width="40" scope="col">Conducta</th>
                   <th width="40" scope="col">Alumnos</th>
                   <th width="40" scope="col">Tipos</th>
                   <th width="40" scope="col"> Editar </th>
@@ -71,8 +72,11 @@
                       <a href="{{ route('attendancesDates',$value[1]['id']) }}" class="btn btn-info"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
                      </td>
                      <td>
+                        <a href="{{ route('behaviors-all',  $value[1]['id'])  }}" class="btn btn-warning"><i class="fa fa-circle" aria-hidden="true"></i></a>
+                       </td>
+                     <td>
                         <a href="{{route('showStudentsDegreeTeacher',[Auth::user()->id,$value[1]->id])}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                     </td> 
+                     </td>
                      <td>
                          <a href="{{ route('typesSubjectTeacher', [$value[1]['id'] , $value[0]->id]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </td>

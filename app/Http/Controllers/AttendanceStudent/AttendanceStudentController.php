@@ -29,7 +29,7 @@ class AttendanceStudentController extends Controller
         $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
         $periodoFiltrado=$periodoActual;
-        
+
         $attendanceDates=DB::select("SELECT students_history.degree_id, attendance_students.attendance_date,
         sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
         sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END) as faltas,
@@ -133,11 +133,16 @@ class AttendanceStudentController extends Controller
 
     public function record($idDegreeSchoolYear)
     {
+        
+        
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
         $degSchoolYear= DegreeSchoolYear::find($idDegreeSchoolYear);
         $degree= Degree::find($degSchoolYear->degree_id);
-        $students= StudentHistory::where('degree_id',$degree->id)->get();
+        $students= StudentHistory::where('degree_id',$degree->id)
+        ->where('school_year_id',$activedYear)
+        //->where('status',1)
+        ->get();
         $std= Student::all();
 
         $now = new \DateTime();
@@ -176,7 +181,7 @@ class AttendanceStudentController extends Controller
     // return back()->with('edit','Registro Guardado');
     }
     public function filter(Request $request,$control)
-    {        
+    {
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
@@ -186,10 +191,10 @@ class AttendanceStudentController extends Controller
         sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
         sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END) as faltas,
         sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END) as permisos
-        FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ?  AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$request->degree,$activedYear,$periodoFiltrado->id]);            
+        FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ?  AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$request->degree,$activedYear,$periodoFiltrado->id]);
 
         $degree=Degree::where('id',$request->degree)->get()->first();
-        //dd($degree);        
+        //dd($degree);
         $now = new \DateTime();
         $now= $now->format('Y-m-d');
         //filtrado

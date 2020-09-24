@@ -13,7 +13,7 @@
 
           <strong class="card-title">
             ASIGNACION DE INDICADORES DE CONDUCTA PARA: {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}
-            <br>PERIODO EN CURSO DEL AÑO ESCOLAR: PERIODO {{$activePeriod[0]->nperiodo}} <br>
+            <br>PERIODO EN CURSO DEL AÑO ESCOLAR: PERIODO {{$periodo->nperiodo}} <br>
            </strong>
         </div>
         <div>
@@ -40,32 +40,18 @@
                     @foreach ($students as $key=> $item)
                     <tr style="font-size: 90%">
 
-                       <form action="{{route('behaviors-register-save')}}" method="POST" enctype="multipart/form-data">
+
                         @csrf
-                        <input type="hidden" name="school_period_id[]" value="{{$activePeriod[0]->id}}">
-                        <input type="hidden" name="school_year_id[]" value="{{$activeYear[0]->id}}">
-                        <input type="hidden" name="degree_id[]" value="{{$degree->id}}">
+
                        <th scope="row">{{$key+1}}</th>
-                       <td class="text-center">
-                        <input type="hidden" value="{{$item->id}}" name="student_id[]">
-                           {{$item->name}}
-                      </td>
-                      <td class="text-center"> {{$item->lastname}}  </td>
-                       <td><select name="behavior_indicator_id[]" class="form-control" style="font-size: 90%">
-                       @foreach ($indicadores as $value)
-                       <option value="{{$value->id}}">{{$value->name}}  ({{$value->code}})</option>
-                       @endforeach
-                        </select>
-                       </td>
+                       <td class="text-center">    {{$item->nombre}}      </td>
+                       <td class="text-center"> {{$item->lastname}}  </td>
+                       <td class="text-center">{{$item->name}} ({{$item->code}})</td>
 
                     </tr>
                     @endforeach
               </tbody>
             </table>
-            <button class="btn btn-primary" type="submit" >GUARDAR    <i class="fa fa-check-circle"></i></button>
-        </form>
-
-
 
         </div>
       </div>

@@ -119,4 +119,9 @@ Route::get('year/{idyear}/active/{idperiod}', 'Period\PeriodController@changePer
 /*CONDUCTA INDICADORES */
 Route::resource('behaviors','Behavior\BehaviorController');
 Route::post('behaviors/delete','Behavior\BehaviorController@destroy')->name('behaviors-delete');
+Route::get('behaviors/register/all/{degreeid}','Behavior\BehaviorController@all')->name('behaviors-all');
+Route::get('behaviors/register/{degreeid}/{idperiod}','Behavior\BehaviorController@register')->name('behaviors-register');
+Route::get('behaviors/register/detail/{degreeid}/{idperiod}','Behavior\BehaviorController@detail')->name('behaviors-register-detail');
+Route::get('behaviors/register/delete/{degreeid}/{idperiod}','Behavior\BehaviorController@delete')->name('behaviors-register-delete');
+Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister')->name('behaviors-register-save');
 
