@@ -52,6 +52,14 @@ class ScoreStudent extends Model
     return $scores;
   }
 
-  
+  public static function scoreByStudentBySubject($student, $period, $year, $degree, $subject){
+    $scores = ScoreStudent::where('student_id', $student)
+    ->where('school_period_id', $period)
+    ->where('school_year_id', $year)
+    ->where('degree_id', $degree)
+    ->where('subject_id', $subject)->get();
+    return $scores;
+  }
+
 
 }

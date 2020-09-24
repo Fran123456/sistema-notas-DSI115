@@ -21,7 +21,7 @@ class CreateScoreStudentsTable extends Migration
             $table->unsignedBigInteger('school_year_id')->nullable();
             $table->unsignedBigInteger('degree_id')->nullable();
             $table->unsignedBigInteger('subject_id')->nullable();
-            $table->string('score')->nullable();
+            $table->string('score')->default(0);
             $table->timestamps();
 
             $table->foreign('subject_id')

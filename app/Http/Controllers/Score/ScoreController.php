@@ -10,6 +10,7 @@ use App\Degree;
 use App\Student;
 use App\SchoolPeriod;
 use App\DegreeSchoolSubject;
+use App\Help\Help;
 class ScoreController extends Controller
 {
     public function  getScoresTypeByStudent(Request $request){
@@ -34,13 +35,27 @@ class ScoreController extends Controller
       }else{
 
       }
-      
-      return view('score.score.scoreStudent', 
+
+      return view('score.score.scoreStudent',
         compact('types','look','student','degree','year','period','teacher','degrees'));
     }
 
     public function updateScores(Request $request){
-      
+      $student = $request->student;
+      $degree = $request->degree;
+      $period = $request->period;
+      $subject = $request->subject;
+      $year = Help::getSchoolYear()->id;
+      $data = ScoreStudent::scoreByStudentBySubject($student, $period, $year, $degree, $subject);
+
+      foreach ($data as $key => $dat) {
+        $c= ScoreStudent::where('id', $dat->id)->
+        update([
+          'score' => $request[$dat->id]
+        ]);
+      }
+      return back()->with('success', '<strong>Nota agregada correctamente</strong>');
+
     }
 
 }

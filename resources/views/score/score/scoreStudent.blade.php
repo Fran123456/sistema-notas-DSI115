@@ -20,6 +20,15 @@
     border: 1px solid rgba(26,54,126,0.125);
     border-radius: .25rem;
 }
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    padding-top: 1rem;
+    padding-right: 1.25rem;
+    padding-bottom: 0.1rem;
+    padding-left: 1.25rem;
+}
 </style>
 @include('alerts.dataTable')
 
@@ -34,7 +43,7 @@
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item">
           <a href="{{ route('showStudentsDegreeTeacher', [$teacher, $degree->id]) }}">
-          Alumnos del {{Help::ordinal($degree->id)}} {{$degree->section}} 
+          Alumnos del {{Help::ordinal($degree->id)}} {{$degree->section}}
           {{Help::turn($degree->turn)}}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Notas de {{$student->name}}
@@ -67,74 +76,88 @@
     <div class="card">
        <div class="card-header">
         <strong class="card-title">{{$student->name}} - Periodo: {{$period->nperiodo}}
-          {{$year->year}} - {{Help::ordinal($degree->id)}} {{$degree->section}} 
+          {{$year->year}} - {{Help::ordinal($degree->id)}} {{$degree->section}}
           {{Help::turn($degree->turn)}}</strong>
        </div>
         <div class="card-body">
-            @foreach ($degrees as $key => $element)
+            @foreach ($degrees as $key => $element) <!--INICIO AQUI SE IMPRIMEN LAS MATERIAS-->
             <div class="card2">
               <div class="card-body">
-                <h5 class="card-title">{{$element->subject->name}} - 
+                <h5 class="card-title">{{$element->subject->name}} -
                   Docente: {{$element->docente->name}}
                 </h5>
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                  
+                  @php
+                    $con =0;
+                    $notaff = 0;
+                  @endphp
                   <form method="get" action="{{ route('updateScores') }}" enctype="multipart/form-data">
                    <table class="table text-center table-sm table-bordered">
                       <thead class="thead-light">
                         <tr>
-                          @php
-                            $con =0;
-                          @endphp
-                          @foreach ($types as $type)
+                          @foreach ($types as $type) <!--NOTAS-->
                            @if ($type->subject_id==$element->subject->id)
-                           <th data-toggle="tooltip" data-placement="top" 
+                           <th data-toggle="tooltip" data-placement="top"
                            title="{{$type->score_types->activity}}">
-                            {{$type->score_types->percentage}}%
+                            {{number_format($type->score_types->percentage,2)}}%
                            </th>
                            @php
                              $con++;
                            @endphp
                            @endif
-                          @endforeach
+                          @endforeach <!--NOTAS-->
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          @foreach ($types as $type)
+                          @foreach ($types as $type) <!--NOTAS-->
                            @if ($type->subject_id==$element->subject->id)
+                             @php
+                               $notaff = ($type->score * ($type->score_types->percentage/100)  )  + $notaff;
+                             @endphp
                            <th scope="row">
-                            <input type="number" class="form-control" name="{{$type->id}}" 
-                            value="{{$type->score}}">
+                            <input type="number" min="0.00" max="10.00" step="0.01" class="form-control" name="{{$type->id}}"
+                            value="{{number_format($type->score,2)}}">
                            </th>
                            @endif
-                          @endforeach
+                          @endforeach <!--NOTAS-->
                           @if ($con>0)
                           <th scope="row">
                             <button type="submit" class="btn btn-info mb-1" ><i class="fa fa-plus" aria-hidden="true"></i></button>
                           </th>
                           @endif
-                          
                         </tr>
                       </tbody>
                     </table>
+
+                    @if ($con>0)
+                      <h5>Calificación global: <span class="badge badge-secondary">{{number_format($notaff,2)}}</span>
+                        @if ($notaff >= 6)
+                          <i class="fa fa-smile" aria-hidden="true"></i>
+                        @else
+                          <i class="fa fa-frown" aria-hidden="true"></i>
+                        @endif
+                      </h5>
+
+                    @endif
+
 
                     <!--HIDENS-->
                       <input type="hidden" value="{{$element->subject->id}}" name="subject">
                       <input type="hidden" value="{{$student->id}}" name="student">
                       <input type="hidden" value="{{$degree->id}}" name="degree">
                       <input type="hidden" value="{{$period->id}}" name="period">
-                     <!--HIDENS--> 
+                     <!--HIDENS-->
                     </form>
-                   
+
                 </li>
               </ul>
             </div>
             <br>
-            @endforeach
+            @endforeach <!--INICIO AQUI SE IMPRIMEN LAS MATERIAS-->
       </div>
     </div>
   </div>
