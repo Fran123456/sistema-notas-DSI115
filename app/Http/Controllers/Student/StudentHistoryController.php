@@ -12,6 +12,7 @@ use App\Student;
 class StudentHistoryController extends Controller
 {
     public function destroy(Request $request,$id){
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $studentHistory=StudentHistory::find($id);
         $degree=Degree::find($studentHistory->degree_id);
         $schoolYear=SchoolYear::find($studentHistory->school_year_id);

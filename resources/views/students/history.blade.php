@@ -54,22 +54,8 @@
                 <td>{{$student->lastname}}</td>
                 <td>{{$student->age}}</td>
                 <td>{{Help::getGender($student->gender)}}</td>
-                <td>
-                @if ($student->status =="AI")
-                    Antiguo Ingreso
-                @elseif($student->status =="NI")
-                    Nuevo Ingreso
-                @elseif ($student->status =="EG")
-                    Egresado
-                @elseif ($student->status =="AB")
-                    Abandonó
-                @else
-                    En espera
-                @endif
-                </td>
-                <td>
-Activo    
-                </td>
+                <td>{{Help::typeOfStudent($student->status)}}</td>
+                <td>Activo</td>
               </tr>     
             </tbody>
             </table>
@@ -78,7 +64,6 @@ Activo
           </div>
 
         @foreach ($studentrecord as $key => $value)
-
           <div class="row">
             <div class="col-md-12">
               <table class="table table-bordered" align="center">
@@ -91,11 +76,7 @@ Activo
                   </tr>            
                   <tr>
                     <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:6px;">
-                      @foreach ($years as $key2 => $value2)
-                        @if ($value->school_year_id == $value2->id)
-                          {{$value2->year}}
-                        @endif
-                      @endforeach
+                      {{$value->year->year}}
                     </th>
                   </tr>
                   <tr>
@@ -105,47 +86,51 @@ Activo
                     <th class="center">Docente encargado</th>
                     <th class="center">Estado</th>            
                   </tr>
-                </thead>
-              
+                </thead>              
                   <tr>
+                    <td>{{Help::ordinal($value->degree->degree)}}</td>
+                    <td>{{$value->degree->section}}</td>  
+                    <td>{{Help::turn($value->degree->turn)}}</td>
+                    <td>{{$value->degreesy->teacher->name}}</td>            
+                  
                     <td>
-                    @foreach ($degrees as $key3 => $value3)
-                      @if ($value->degree_id == $value3->id)        
-                        {{Help::ordinal($value3->degree)}}                 
-                    </td>
-                    <td>
-                     {{$value3->section}}
-               
-                    </td>
-                   
-                    <td>{{Help::turn($value3->turn)}}</td>
-                    <td>
-                        @if($currentyear->id = $value->school_year_id)
-                          @foreach($degreeSY as $key4 => $value4)
-                            @foreach($teachers as $key5 => $value5)
-                                @if($value3->id == $value4->id)
-                                  @if($value4->user_id == $value5->id)
-                                    {{$value5->name}}
-                                  @endif
-                                @endif
-                            @endforeach
-                          @endforeach
-                        @endif
-                    </td>                 
-                      @endif
-                    @endforeach
-                  <td>
                     <!--A editar-->   
                     Aprobado
                     </td>
                   </tr>
+                </tbody>
+              </table> 
 
-                  <tr>
-                    <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:1px;">PERIODOS</th>
-                  </tr>
+              @foreach($periods as $key2 => $value2)
+                <table class="table table-bordered" align="center">
+                  <tbody>
+                    <thead>
+                      <tr>
+                        <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:1px;">{{Help::periods($value2->nperiodo)}}</th>
+                      </tr>
+                      <tr>
+                        @foreach($value->degree->subjects as $key3 => $value3)
+                        <th>{{$value3->name}}</th>
+                        @endforeach
+                        <th>Asistencia</th>
+                        <th>Conducta</th>
+                      </tr>
+                    </thead>
+                    <tr>
+                     @foreach($value->degree->subjects as $key3 => $value3)
+                        <th></th>
+                      @endforeach
+                      @if($value2->nperiodo == $value->attendancebyperiod->period_id)
+                      <th>{{$value->attendancebyperiod->active}}</th>
+                      @else
+                      <th>N/A</th>
+                      @endif
+                      <th></th>
+                    </tr>
 
-              </tbody>
-              </table>
+                  </tbody>
+                </table>
+                @endforeach
             </div>
           </div>
         

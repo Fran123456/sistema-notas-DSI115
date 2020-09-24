@@ -20,8 +20,9 @@ class BehaviorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index()    
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $indicadores= BehaviorIndicator::all();
         return view('behavior.crud.index', compact('indicadores'));
     }
@@ -33,6 +34,7 @@ class BehaviorController extends Controller
      */
     public function create()
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         return view('behavior.crud.create');
     }
 
@@ -44,6 +46,7 @@ class BehaviorController extends Controller
      */
     public function store(Request $request)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         BehaviorIndicator::create([
             'name' => $request->name,
             'code' => $request->code,
@@ -71,6 +74,7 @@ class BehaviorController extends Controller
      */
     public function edit($id)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $indicador= BehaviorIndicator::find($id);
         return view('behavior.crud.edit', compact('indicador'));
     }
@@ -84,6 +88,7 @@ class BehaviorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         BehaviorIndicator::where('id',$id)->update([
             'name' => $request->name,
             'code' => $request->code,
@@ -100,6 +105,7 @@ class BehaviorController extends Controller
      */
     public function destroy(Request $request)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         BehaviorIndicator::find($request->id)->delete();
         return back()->with('delete','Indicador de Conducta Eliminado Correctamente');
     }

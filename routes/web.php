@@ -90,6 +90,8 @@ Route::get('attendances/{idDegree}/{attendanceDate}','AttendanceStudent\Attendan
 Route::get('attendance/record/{idDegreeSchoolYear}', 'AttendanceStudent\AttendanceStudentController@record')->name('attendanceRecord');
 Route::post('attendance/record/save', 'AttendanceStudent\AttendanceStudentController@saveRecord')->name('saveAttendanceRecord');
 Route::post('attendance/filter/{control}', 'AttendanceStudent\AttendanceStudentController@filter')->name('attendance-filter');
+Route::get('attendances/{idDegree}/{attendanceDate}/edit','AttendanceStudent\AttendanceStudentController@editAttendance')->name('editAttendance');
+Route::patch('attendances/update','AttendanceStudent\AttendanceStudentController@updateAttendanceRecord')->name('updateAttendance');
 
 /*STUDENT HISTORY*/
 Route::resource('studenthistories','Student\StudentHistoryController');
@@ -105,6 +107,13 @@ Route::get('grades-teacher/types/{grade}/{teacher}', 'Teacher\TeacherController@
 Route::post('grades-teacher/percentage/save','Score\ScoreTypeController@scoreTypeSave')->name('scoreTypeSave');
 Route::get('grades-teacher/percentage/{grade}/{teacher}/{subject}/{period}','Teacher\TeacherController@scorePercentage')->name('scorePercentage');
 Route::get('teacher/{idteacher}/degree/{iddegree}/students/','Teacher\TeacherController@showStudentsDegreeTeacher')->name('showStudentsDegreeTeacher');
+Route::get('types/sendtypes', 'Score\ScoreTypeController@SendTypes')->name('SendTypes');
+
+/*score*/
+Route::get('scores/student', 'Score\ScoreController@getScoresTypeByStudent')->name('getScoresTypeByStudent');
+Route::get('scores/update', 'Score\ScoreController@updateScores')->name('updateScores');
+
+
 
 /*PERIODOS */
 Route::resource('periods','Period\PeriodController');

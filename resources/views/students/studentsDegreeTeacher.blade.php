@@ -35,12 +35,18 @@
                   <th scope="col">Nombres</th>
                   <th scope="col">Edad</th>
                   <th scope="col">Género</th>
-                  <th scope="col">Teléfono</th>
-                  <th scope="col">Encargado</th>
-                  <th scope="col">Estado</th>
+                <!--  <th scope="col">Teléfono</th>
+                  <th scope="col">Encargado</th>-->
+                  <!--<th scope="col">Estado</th>-->
+                  <th width="65" scope="col">Periodo 1</th>
+                  <th width="65" scope="col">Periodo 2</th>
+                  <th width="65" scope="col">Periodo 3</th>
                 </tr>
               </thead>
               <tbody>
+                @php
+                  $y = Help::getSchoolYear();
+                @endphp
                  @foreach ($students as $key => $value)
                   <tr>
                     <th scope="row">{{$key+1}}</th>
@@ -50,9 +56,9 @@
                      <td>{{$value->name}}</td>
                      <td>{{$value->age}}</td>
                      <td>{{Help::getGender($value->gender)}}</td>
-                     <td>{{$value->phone}}</td>
-                     <td>{{$value->parent_name}}</td>
-                     <td>
+                    <!--  <td>{{$value->phone}}</td>
+                     <td>{{$value->parent_name}}</td>-->
+                    <!-- <td>
                       @if ($value->status =="AI")
                        Antiguo Ingreso
                       @elseif($value->status =="NI")
@@ -64,6 +70,55 @@
                       @else
                        En espera
                       @endif
+                    </td>-->
+                     <td>
+                      @if (Help::validatePeriod(1))
+                       <form action="{{route('getScoresTypeByStudent')}}" method="get" enctype="multipart/form-data">
+                          <input hidden value="{{$y->id}}" name="year">
+                          <input hidden value="{{$degree->id}}" name="degree">
+                          <input hidden value="0" name="look">
+                          <input hidden value="{{$value->id}}" name="student">
+                          <input hidden value="{{$teacher->id}}" name="teacher">
+                          
+                          <input hidden value="1" name="period">
+                          <button type="submit" class="btn btn-secondary"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                       </form>
+                       @else
+                       <i class="fa fa-times" aria-hidden="true"></i>
+                       @endif
+                     </td>
+
+                     <td>
+                      @if (Help::validatePeriod(2))
+                       <form action="{{route('getScoresTypeByStudent')}}" method="get" enctype="multipart/form-data">
+                          <input hidden value="{{$y->id}}" name="year">
+                          <input hidden value="{{$degree->id}}" name="degree">
+                          <input hidden value="0" name="look">
+                          <input hidden value="{{$value->id}}" name="student">
+                          <input hidden value="2" name="period">
+                          <input hidden value="{{$teacher->id}}" name="teacher">
+                          <button type="submit" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                       </form>
+                      @else
+                       <i class="fa fa-times" aria-hidden="true"></i>
+                       @endif
+                     </td>
+
+
+                     <td>
+                      @if (Help::validatePeriod(3))
+                       <form action="{{route('getScoresTypeByStudent')}}" method="get" enctype="multipart/form-data">
+                          <input hidden value="{{$y->id}}" name="year">
+                          <input hidden value="{{$degree->id}}" name="degree">
+                          <input hidden value="0" name="look">
+                          <input hidden value="{{$value->id}}" name="student">
+                          <input hidden value="3" name="period">
+                          <input hidden value="{{$teacher->id}}" name="teacher">
+                          <button type="submit" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                       </form>
+                        @else
+                       <i class="fa fa-times" aria-hidden="true"></i>
+                       @endif
                      </td>
                   </tr>
                 @endforeach

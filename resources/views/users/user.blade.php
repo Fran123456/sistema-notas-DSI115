@@ -54,11 +54,6 @@
                   
                   <h5>Fecha de creación: <strong> {{$created_at}}</strong></h5>
 
-                  <h5>Ver currículum: 
-
-                   <a href="#" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                  </h5>
-
                 </p>
             </div>
           </div>

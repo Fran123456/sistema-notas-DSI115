@@ -85,33 +85,16 @@
                                             <button type="submit" class="btn btn-warning mb-1">Filtrar <i class="fa fa-filter" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
-                                </form>
-                                 <!--mostrando datos -->
-                                <div class="row">
-                                    <div class="col-md-5">
-                                       Mostrando Registros de Asistencia:
-                                        <strong>PERIODO {{$periodoFiltrado->nperiodo}}</strong>
-                                    </div>
-
-                                </div>
+                                </form>                                                                
 
                               <!--<h5 class="card-title">-->
                                 <div class="table-responsive">
                                   <table class="table table-borderless">
-                                    <tr>
-                                      <td><strong></strong></td>
-
-                                      <td>Grado: <strong> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>.  Alumnos Registrados: <strong>{{$total}}</strong></td>
-                                      <td></td>
-
+                                    <tr>                                      
+                                      <td  width="150" scope="col">Mostrando Registros de Asistencia: <strong>PERIODO {{$periodoFiltrado->nperiodo}}</strong> Grado: <strong> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>  Alumnos Registrados: <strong>{{$total}}</strong></td>                                      
                                     </tr>
                                   </table>
-                                </div>
-                            <!--    <br><br>
-                               <strong>Grado</strong>
-                               {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}
-                               <br> -->
-
+                                </div>                            
 
                               <!--</h5>-->
                                 <div class="table-responsive">
@@ -124,6 +107,7 @@
                                         <th width="150" scope="col">Con Falta</th>
                                         <th width="150" scope="col">Con Permiso</th>
                                         <th width="150" scope="col">Ver Detalle</th>
+                                        <th width="150" scope="col">Editar</th>
 
                                       </tr>
                                     </thead>
@@ -139,6 +123,9 @@
                                             <td>
                                               <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             </td>
+                                            <td>
+                                              <a href="{{ route('editAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                            </td>
                                           <!--Cerrado IMPORTANTE -->
                                           </tr>
                                         @endif
@@ -150,8 +137,6 @@
                           </div>
                         </div>
                       </div>
-
-
 </div>
 
 

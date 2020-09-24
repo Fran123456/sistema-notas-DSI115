@@ -16,7 +16,7 @@ class DegreeController extends Controller
      */
     public function index()
     {
-       // auth()->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $degrees = Degree::orderBy('turn')->get();
         return view('degrees.degrees',["degrees"=>$degrees]);
     }
@@ -27,8 +27,8 @@ class DegreeController extends Controller
      */
     public function create()
     {
-               return view('degrees.degreesCreate');
-
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+        return view('degrees.degreesCreate');
     }
 
     /**
@@ -39,7 +39,7 @@ class DegreeController extends Controller
      */
     public function store(Request $request)
     {
-
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $d = Degree::where([
             'degree' => $request->degree,
             'section' => $request->seccion
@@ -77,6 +77,7 @@ class DegreeController extends Controller
      */
     public function edit($id)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $degree= Degree::where("id",$id)->first();
         return view('degrees.edit', compact('degree'));
     }
@@ -90,6 +91,7 @@ class DegreeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         Degree::where('id',$id)
         ->update([
 
@@ -115,7 +117,7 @@ class DegreeController extends Controller
     }
 
     public function changeStatusDegree(Request $request, $id){
-        $request->user()->authorizeRoles(['administrador']);
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $backDegree=Degree::find($id);
         $valorCambio=1;
         $stringCambio="";

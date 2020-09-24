@@ -25,6 +25,8 @@ class AttendanceStudentController extends Controller
      */
     public function attendancesDates($degreeId){
 
+        auth()->user()->authorizeRoles(['Docente']);
+
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
@@ -37,7 +39,7 @@ class AttendanceStudentController extends Controller
         FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE students_history.degree_id = ? AND students_history.school_year_id = ?  AND attendance_students.period_id=? GROUP BY  students_history.degree_id,attendance_students.attendance_date",[$degreeId,$activedYear,$periodoActual->nperiodo]);
 
         $degree=Degree::where('id',$degreeId)->get()->first();
-        //dd($degree);
+
         ($attendanceDates);
         $now = new \DateTime();
         $now= $now->format('Y-m-d');
@@ -88,6 +90,7 @@ class AttendanceStudentController extends Controller
     }
 
     public function showAttendance($degreeId, $attendanceDate){
+        auth()->user()->authorizeRoles(['Docente']);
         $activeYear= SchoolYear::where('active',1)->first();
         $attendance=DB::select("SELECT * FROM attendance_students INNER JOIN
          (students_history INNER JOIN students ON students_history.student_id = students.id) ON
@@ -105,9 +108,41 @@ class AttendanceStudentController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
+    public function editAttendance($degreeId, $attendanceDate){
+        auth()->user()->authorizeRoles(['Docente']);
+        $activeYear= SchoolYear::where('active',1)->first();
+        $attendance=DB::select("SELECT * FROM attendance_students INNER JOIN
+         (students_history INNER JOIN students ON students_history.student_id = students.id) ON
+         attendance_students.student_history_id = students_history.id WHERE students_history.degree_id= ?
+         AND attendance_students.attendance_date = ? AND students_history.school_year_id= ?", [$degreeId, $attendanceDate,$activeYear->id]);
+        $degree=Degree::where('id',$degreeId)->get()->first();
+        return view('attendanceStudents.attendanceEdit', compact('attendance','degree','attendanceDate','activeYear'));
+    }
+
+    public function updateAttendanceRecord(Request $request){
+
+        auth()->user()->authorizeRoles(['Docente']);
+        $arrayStudentHistory= array();
+        foreach($request->student_id as $key => $student){
+            $studentHistoryId=StudentHistory::where('degree_id',$request->degree)
+            ->where('school_year_id',$request->activeYear)
+            ->where('student_id',$student)
+            ->get()->first();
+
+            AttendanceStudent::where('id', $studentHistoryId->id)->where('attendance_date',$request->date)
+            ->update([
+                'active' => $request->asistencia[$key],
+              ]);
+
+            array_push($arrayStudentHistory,$studentHistoryId);
+        }
+
+        return redirect()->route('attendancesDates',$request->degree)->with('edit','<strong> Los cambios fueron guardados con éxito </strong>');
+
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -115,10 +150,10 @@ class AttendanceStudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -133,8 +168,9 @@ class AttendanceStudentController extends Controller
 
     public function record($idDegreeSchoolYear)
     {
-        
-        
+
+
+        auth()->user()->authorizeRoles(['Docente']);
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
         $degSchoolYear= DegreeSchoolYear::find($idDegreeSchoolYear);
@@ -152,6 +188,7 @@ class AttendanceStudentController extends Controller
 
     public function saveRecord(Request $request)
     {
+        auth()->user()->authorizeRoles(['Docente']);
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
 
@@ -180,8 +217,10 @@ class AttendanceStudentController extends Controller
       Grado:   <strong>  '.$mensaje.'</strong>  fecha: <strong> '.$now.'</strong> ');
     // return back()->with('edit','Registro Guardado');
     }
+
     public function filter(Request $request,$control)
     {
+        auth()->user()->authorizeRoles(['Docente']);
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodos= SchoolPeriod::where('school_year_id',$activedYear)->get();
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();

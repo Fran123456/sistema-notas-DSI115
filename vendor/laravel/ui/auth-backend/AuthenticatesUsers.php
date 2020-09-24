@@ -2,8 +2,8 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -46,28 +46,13 @@ trait AuthenticatesUsers
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
-        
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
-        
-        $query=User::where('email',$request->only($this->username()))->count();
-        if($query==0){
-            return $this->sendFailedLoginResponse($request,2);
-        }
-        else{
-            $query=User::where('email',$request->only($this->username()))->where('active',1)->count();
-            if($query==1){
-                return $this->sendFailedLoginResponse($request,1);
-            }
-            else{
-                return $this->sendFailedLoginResponse($request,0);
-            }
-        }
-        
-        
+
+        return $this->sendFailedLoginResponse($request);
     }
 
     /**
@@ -96,7 +81,7 @@ trait AuthenticatesUsers
     {
         return $this->guard()->attempt(
             $this->credentials($request), $request->filled('remember')
-        );        
+        );
     }
 
     /**
@@ -107,19 +92,14 @@ trait AuthenticatesUsers
      */
     protected function credentials(Request $request)
     {
-        //return $request->only($this->username(), 'password');
-
-        $credentials = $request->only($this->username(), 'password');
-        $credentials['active'] = 1;
-
-        return $credentials;
+        return $request->only($this->username(), 'password');
     }
 
     /**
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -132,7 +112,7 @@ trait AuthenticatesUsers
         }
 
         return $request->wantsJson()
-                    ? new Response('', 204)
+                    ? new JsonResponse([], 204)
                     : redirect()->intended($this->redirectPath());
     }
 
@@ -156,27 +136,11 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function sendFailedLoginResponse(Request $request, $error)
-    {        
-
-        if($error == 2){
-            throw ValidationException::withMessages([
-                $this->username() => [trans('auth.notfound')],
-            ]);
-        }
-        if($error == 1){
-            throw ValidationException::withMessages([
-                $this->username() => [trans('auth.failed')],
-            ]);
-        }
-        if($error==0){
-            throw ValidationException::withMessages([
-                $this->username() => [trans('auth.deactivated')],
-            ]);
-        }
-        /*throw ValidationException::withMessages([
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
-        ]);*/
+        ]);
     }
 
     /**
@@ -193,7 +157,7 @@ trait AuthenticatesUsers
      * Log the user out of the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
     {
@@ -208,7 +172,7 @@ trait AuthenticatesUsers
         }
 
         return $request->wantsJson()
-            ? new Response('', 204)
+            ? new JsonResponse([], 204)
             : redirect('/');
     }
 
