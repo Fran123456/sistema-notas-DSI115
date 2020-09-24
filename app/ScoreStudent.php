@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Help\Help;
 
 class ScoreStudent extends Model
 {
@@ -41,5 +42,16 @@ class ScoreStudent extends Model
   {
       return $this->belongsTo('App\Subject','subject_id');
   }
+
+  public static function scoreByStudent($student, $period, $year, $degree){
+    $scores = ScoreStudent::where('student_id', $student)
+    ->where('school_period_id', $period)
+    ->where('school_year_id', $year)
+    ->where('degree_id', $degree)->get();
+   // ->where('subject_id', $subject)->get();
+    return $scores;
+  }
+
+  
 
 }

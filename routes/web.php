@@ -111,6 +111,8 @@ Route::get('types/sendtypes', 'Score\ScoreTypeController@SendTypes')->name('Send
 
 /*score*/
 Route::get('scores/student', 'Score\ScoreController@getScoresTypeByStudent')->name('getScoresTypeByStudent');
+Route::get('scores/update', 'Score\ScoreController@updateScores')->name('updateScores');
+
 
 
 /*PERIODOS */

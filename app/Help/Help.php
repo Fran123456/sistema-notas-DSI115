@@ -3,6 +3,8 @@
 namespace App\Help;
 use App\User;
 use App\SchoolYear;
+use App\SchoolPeriod;
+use App\ScoreStudent;
 class Help
 {
 
@@ -118,6 +120,12 @@ class Help
 		 return $g;
 	 }
 
+	 public static function types(){
+		 //array para devolver tipos en porcentajes		 
+		 $array= array('Actitud','Actividades','Prueba Objetiva');
+		 return $array;
+	 }
+
 	 //helper de models
 	 public static function getTeacher($id){
 		 $user = User::select('name')->where('id', $id)->first();
@@ -129,11 +137,18 @@ class Help
 	 	return $p;
 	 }
 
-	 public static function types(){
-		 //array para devolver tipos en porcentajes		 
-		 $array= array('Actitud','Actividades','Prueba Objetiva');
-		 return $array;
+	 public static function validatePeriod($n){
+	 	$e =SchoolPeriod::where('nperiodo',$n)
+      ->where('school_year_id', Help::getSchoolYear()->id)
+      ->first();
+       if($e ==null)return false;
+       return true;
 	 }
 
+	 public static function subjectByStudent($student, $period, $year, $degree){
+	 	$types = ScoreStudent::scoreByStudent($student, $period, $year, $degree);
+	 	return $types;
+	 } 
+
 }
- ?>
+?>

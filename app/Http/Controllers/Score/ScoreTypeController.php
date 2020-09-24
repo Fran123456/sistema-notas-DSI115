@@ -97,7 +97,7 @@ class ScoreTypeController extends Controller
                'school_year_id' =>$type->school_year_id,
                'degree_id' =>$type->degree_id,
                'subject_id'=>$type->subject_id,
-               'score' =>null,
+               'score' =>0,
               ]);
 
               $w = ScoreType::where('id', $type->id)->
