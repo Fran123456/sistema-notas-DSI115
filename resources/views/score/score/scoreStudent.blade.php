@@ -123,7 +123,10 @@
                     </table>
 
                     <!--HIDENS-->
-                      <input type="{{$element->subject->id}}" name="subject">
+                      <input type="hidden" value="{{$element->subject->id}}" name="subject">
+                      <input type="hidden" value="{{$student->id}}" name="student">
+                      <input type="hidden" value="{{$degree->id}}" name="degree">
+                      <input type="hidden" value="{{$period->id}}" name="period">
                      <!--HIDENS--> 
                     </form>
                    
