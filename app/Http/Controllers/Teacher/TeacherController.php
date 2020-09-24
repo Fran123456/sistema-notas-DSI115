@@ -56,8 +56,8 @@ class TeacherController extends Controller
         y así no acumulamos mucho codigo sql en los controladores*/
         $query = ScoreType::scoreTypeByDegree($numberPeriodBack,$year->id,$grade->id,$subject->id);
         $sol = ScoreType::validateSendType($query);
-
-        $accumulatedPercentage=ScoreType::where('school_period_id',$period->id)
+                
+        $accumulatedPercentage=ScoreType::where('school_period_id',$numberPeriodBack)
             ->where('school_year_id',$year->id)
             ->where('degree_id',$grade->id)
             ->where('subject_id',$subject->id)
