@@ -1,7 +1,18 @@
 @extends('layouts.app')
 @section('content')
 @include('alerts.dataTable')
-<strong class="card-title"></strong>
+<div class="row">
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('gradesTeacher',Auth::user()->id) }}">Administración de docente - Año escolar {{Help::getSchoolYear()->year}}</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('behaviors-all',$degree->id) }}">Registros de Indicadores de Conducta</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Visualizar Datos</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
 
 <div class="row">
 

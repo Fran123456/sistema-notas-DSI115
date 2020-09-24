@@ -2,32 +2,25 @@
 @section('content')
 
 
-<style media="screen">
-  .pa{
-    padding-top: 35px;
-  }
-</style>
 
-@include('alerts.dataTable')
 
 <div class="row">
   @include('alerts.alerts')
 </div>
 
-{{--<div class="row">
-  <div class="col-md-12">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
-       <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$year_grade->id) }}">Año escolar activo</a></li>
+<div class="row">
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('periods-index',$year->id) }}">Periodos Escolares</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Crear Periodo Escolar</li>
+        </ol>
+      </nav>
+    </div>
+</div>
 
-
-        <li class="breadcrumb-item active" aria-current="page">Editar grado: {{Help::ordinal($degreeSelected->degree)}} {{$degreeSelected->section}} - {{Help::turn($degreeSelected->turn)}}</li>
-      </ol>
-    </nav>
-  </div>
-</div> --}}
 
 
 
@@ -37,7 +30,7 @@
 <div class="row">
   <div class="col-lg-12">
                     <div class="card">
-                          <div class="card-header"><strong>Crear Periodo Escolar Año xx</strong></div>
+                          <div class="card-header"><strong>Crear Periodo Escolar Año {{$year->year}}</strong></div>
 
                           <div class="card-body card-block">
 

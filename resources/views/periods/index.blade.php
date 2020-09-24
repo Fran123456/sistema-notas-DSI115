@@ -7,16 +7,17 @@
   @include('alerts.alerts')
 </div>
 
-{{--<div class="row">
-  <div class="col-md-12">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Alumnos</li>
-      </ol>
-    </nav>
+<div class="row">
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Periodos Escolares</li>
+        </ol>
+      </nav>
+    </div>
   </div>
-</div> --}}
 
 <div class="row ">
     <div class="col-md-12 col-sm-12 col-xs-12 text-right">
@@ -31,8 +32,8 @@
     <br>
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">PERIODOS AÑO Lectivo {{$year->year}} - 
-          Inicio: {{Help::dateFormatter($year->start_date)}}    
+        <strong class="card-title">PERIODOS AÑO Lectivo {{$year->year}} -
+          Inicio: {{Help::dateFormatter($year->start_date)}}
         Fin: {{Help::dateFormatter($year->end_date)}}</strong>
       </div>
         <div class="card-body">
@@ -43,8 +44,8 @@
                   <th scope="col">Inicio</th>
                   <th scope="col">Fin</th>
                   <th scope="col">Estado</th>
-                  <th width="60px" scope="col">Editar</th>
-                  <th width="60px" scope="col">Eliminar</th>
+                  <th scope="col">Editar</th>
+                  <th  scope="col">Eliminar</th>
 
                 </tr>
               </thead>

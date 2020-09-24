@@ -14,20 +14,18 @@
   @include('alerts.alerts')
 </div>
 
-{{--<div class="row">
-  <div class="col-md-12">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
-       <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$year_grade->id) }}">Año escolar activo</a></li>
-
-
-        <li class="breadcrumb-item active" aria-current="page">Editar grado: {{Help::ordinal($degreeSelected->degree)}} {{$degreeSelected->section}} - {{Help::turn($degreeSelected->turn)}}</li>
-      </ol>
-    </nav>
+<div class="row">
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('behaviors.index') }}">Indicadores de Conducta</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Crear Indicador de Conducta</li>
+        </ol>
+      </nav>
+    </div>
   </div>
-</div> --}}
 
 
 
@@ -45,14 +43,14 @@
                                 <label  class=" form-control-label">Nombre</label>
                                 <br>
                                 <small>*requerido</small>
-                                <input type="text" name="name" required  class="form-control" placeholder="Ingrese Nombre del Indicador de Conducta , ejem MUY BUENO">
+                                <input type="text" name="name" required  class="form-control" placeholder="Ingrese Nombre del Indicador de Conducta , ejemplo MUY BUENO">
                              </div>
 
                              <div class="form-group">
                                 <label  class=" form-control-label">Codigo</label>
                                 <br>
                                 <small>*requerido</small>
-                                <input type="text" name="code" required  class="form-control" placeholder="Ingrese un codigo del indicador de conducta, ejem MB(MUY BUENO)">
+                                <input type="text" name="code" required  class="form-control" placeholder="Ingrese un codigo del indicador de conducta, ejemplo MB">
                              </div>
                              <div class="form-group">
                                 <label  class=" form-control-label">Descripcion</label>

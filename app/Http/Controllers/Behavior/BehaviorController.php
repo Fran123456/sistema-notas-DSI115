@@ -20,7 +20,7 @@ class BehaviorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()    
+    public function index()
     {
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $indicadores= BehaviorIndicator::all();
@@ -111,6 +111,7 @@ class BehaviorController extends Controller
     }
     public function all($degree)
     {
+        auth()->user()->authorizeRoles(['Docente']);
         $activo= SchoolYear::where('active',1)->get();
         //dd($activo[0]->id);
         $periodos = SchoolPeriod::where('school_year_id',$activo[0]->id)->get();
@@ -119,6 +120,7 @@ class BehaviorController extends Controller
     }
     public function register($degreeid, $periodid)
     {
+        auth()->user()->authorizeRoles(['Docente']);
         $periodSelected= SchoolPeriod::find($periodid);
         $activePeriod= SchoolPeriod::where('current',1)->get();
 
@@ -182,6 +184,7 @@ class BehaviorController extends Controller
     }
     public function detail($degreeid, $periodid)
     {
+        auth()->user()->authorizeRoles(['Docente']);
         $degree= Degree::find($degreeid);
         $year= SchoolYear::where('active',1)->get();
         $periodo= SchoolPeriod::find($periodid);
@@ -191,10 +194,17 @@ class BehaviorController extends Controller
         ->where('school_period_id',$periodo->id)
         ->where('school_year_id',$year[0]->id)
         ->where('degree_id',$degreeid)->get();
-       return view('behavior.detail', compact('degree','periodo','students'));
+        if (  count($students) == 0 ) {
+           return back()->with('edit','Sin Registros Encontrados');
+        } else {
+            return view('behavior.detail', compact('degree','periodo','students'));
+        }
+
+
     }
     public function delete($iddegrre, $idperiodo)
     {
+        auth()->user()->authorizeRoles(['Docente']);
         $periodo= SchoolPeriod::find($idperiodo);
         $yearActive= SchoolYear::where('active',1)->first();
         BehaviorIndicatorsStudent::where('school_period_id',$idperiodo)

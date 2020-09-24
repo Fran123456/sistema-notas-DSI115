@@ -113,8 +113,9 @@ class PeriodController extends Controller
     public function edit($id)
     {
         auth()->user()->authorizeRoles(['Administrador']);
+        $year=SchoolYear::where('active',1)->first();
         $periodo= SchoolPeriod::find($id);
-        return view('periods.edit', compact('periodo'));
+        return view('periods.edit', compact('periodo','year'));
     }
 
     /**

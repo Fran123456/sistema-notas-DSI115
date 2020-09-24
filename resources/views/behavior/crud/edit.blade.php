@@ -14,20 +14,18 @@
   @include('alerts.alerts')
 </div>
 
-{{--<div class="row">
-  <div class="col-md-12">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
-       <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$year_grade->id) }}">Año escolar activo</a></li>
-
-
-        <li class="breadcrumb-item active" aria-current="page">Editar grado: {{Help::ordinal($degreeSelected->degree)}} {{$degreeSelected->section}} - {{Help::turn($degreeSelected->turn)}}</li>
-      </ol>
-    </nav>
+<div class="row">
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('behaviors.index') }}">Indicadores de Conducta</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Editar Indicador de Conducta</li>
+        </ol>
+      </nav>
+    </div>
   </div>
-</div> --}}
 
 
 

@@ -75,7 +75,7 @@
                       <a href="{{ route('attendancesDates',$value[1]['id']) }}" class="btn btn-info"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
                      </td>
                      <td>
-                        <a href="{{ route('behaviors-all',  $value[1]['id'])  }}" class="btn btn-warning"><i class="fa fa-circle" aria-hidden="true"></i></a>
+                        <a href="{{ route('behaviors-all',  $value[1]['id'])  }}" class="btn btn-warning"><i class="fa fa-users" aria-hidden="true"></i></a>
                        </td>
                      <td>
                         <a href="{{route('showStudentsDegreeTeacher',[Auth::user()->id,$value[1]->id])}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>

@@ -6,18 +6,17 @@
 <div class="row">
   @include('alerts.alerts')
 </div>
-{{--
 <div class="row">
-  <div class="col-md-12">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Alumnos</li>
-      </ol>
-    </nav>
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('gradesTeacher',Auth::user()->id) }}">Administración de docente - Año escolar {{Help::getSchoolYear()->year}}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Registros de Indicadores de Conducta</li>
+        </ol>
+      </nav>
+    </div>
   </div>
-</div>
---}}
 
 
 
