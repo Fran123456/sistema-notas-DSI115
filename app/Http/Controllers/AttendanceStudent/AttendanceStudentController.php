@@ -136,8 +136,8 @@ class AttendanceStudentController extends Controller
                         
             array_push($arrayStudentHistory,$studentHistoryId);            
         }
-
-        return back()->with('success','éxito en update');
+        
+        return redirect()->route('attendancesDates',$request->degree)->with('edit','<strong> Los cambios fueron guardados con éxito </strong>');
                 
     }
     /**

@@ -85,33 +85,16 @@
                                             <button type="submit" class="btn btn-warning mb-1">Filtrar <i class="fa fa-filter" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
-                                </form>
-                                 <!--mostrando datos -->
-                                <div class="row">
-                                    <div class="col-md-5">
-                                       Mostrando Registros de Asistencia:
-                                        <strong>PERIODO {{$periodoFiltrado->nperiodo}}</strong>
-                                    </div>
-
-                                </div>
+                                </form>                                                                
 
                               <!--<h5 class="card-title">-->
                                 <div class="table-responsive">
                                   <table class="table table-borderless">
-                                    <tr>
-                                      <td><strong></strong></td>
-
-                                      <td>Grado: <strong> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>.  Alumnos Registrados: <strong>{{$total}}</strong></td>
-                                      <td></td>
-
+                                    <tr>                                      
+                                      <td  width="150" scope="col">Mostrando Registros de Asistencia: <strong>PERIODO {{$periodoFiltrado->nperiodo}}</strong> Grado: <strong> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>  Alumnos Registrados: <strong>{{$total}}</strong></td>                                      
                                     </tr>
                                   </table>
-                                </div>
-                            <!--    <br><br>
-                               <strong>Grado</strong>
-                               {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}
-                               <br> -->
-
+                                </div>                            
 
                               <!--</h5>-->
                                 <div class="table-responsive">
@@ -154,8 +137,6 @@
                           </div>
                         </div>
                       </div>
-
-
 </div>
 
 

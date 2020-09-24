@@ -20,8 +20,7 @@
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('gradesTeacher',Auth::user()->id) }}">Administración de docente - Año escolar {{Help::getSchoolYear()->year}}</a></li>
         <li class="breadcrumb-item"><a href="{{ route('attendancesDates', $degree->id) }}">Asistencias Grado {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Asistencia fecha:
-        {{Help::dateFormatter($attendanceDate)}} </li>
+        <li class="breadcrumb-item active" aria-current="page">Asistencia fecha: {{Help::dateFormatter($attendanceDate)}} </li>
       </ol>
     </nav>
   </div>
@@ -31,17 +30,7 @@
 <div class="col-sm-12">
 <div class="card">
         <div class="card-body">
-                    <div class="text-center"><h3>{{Help::dateFormatter($attendanceDate)}}</h3>        </div>
-                    <div class="table-responsive">
-                       <!-- <table class="table table-borderless">
-                            <tr>
-                                <td><strong>Fecha</strong></td>
-
-                                <td> {{$attendanceDate}}</td>
-
-                            </tr>
-                        </table> -->
-                    </div>
+                    <div class="text-center"><h3>Asistencia fecha: {{Help::dateFormatter($attendanceDate)}}</h3></div>                    
                     <div class="table-responsive">
                         <table class="table table-hover" id="bootstrap-data-table_length">
                         <table class=" table table-hover" id="bootstrap-data-table_length">
