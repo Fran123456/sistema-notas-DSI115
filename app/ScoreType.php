@@ -36,7 +36,7 @@ class ScoreType extends Model
         if($value->send) $ac++;
       }
       $datac = count($data);
-      if($datac == $ac) return true;
+      if($datac == $ac && $datac !=0) return true;
       else return false;
 
     }
