@@ -48,7 +48,7 @@
                   <th width="40" scope="col">Asistencia</th>
                   <th width="40" scope="col">Alumnos</th>
                   <th width="50" scope="col">Actividades</th>
-                  <th width="40" scope="col"> Notas </th>
+                <!--  <th width="40" scope="col"> Notas </th>-->
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
               </thead>
@@ -79,14 +79,14 @@
                      <td>
                          <a href="{{ route('typesSubjectTeacher', [$value[1]['id'] , $value[0]->id]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
                      </td>
-                      <td>
+                      <!--<td>
                         <form action="{{route('getScoresTypeByStudent')}}" method="get" enctype="multipart/form-data">
                            <input hidden value="{{$y->id}}" name="year">
                            <input hidden value="{{$value[1]['id']}}" name="degree">
                            <input hidden value="1" name="look">
                            <button type="submit" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>
                         </form>
-                      </td>
+                      </td>-->
                       <td>
                         <a href="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                       </td>

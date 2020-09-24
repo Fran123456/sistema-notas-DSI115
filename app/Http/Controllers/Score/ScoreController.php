@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\ScoreStudent;
 use App\SchoolYear;
 use App\Degree;
+use App\Student;
 class ScoreController extends Controller
 {
     public function  getScoresTypeByStudent(Request $request){
@@ -14,14 +15,13 @@ class ScoreController extends Controller
       $year = SchoolYear::find($request->year);
       $degree = SchoolYear::find($request->degree);
       $look = $request->look;
-
       $types = array();
-      if(isset($request->student)){ //existe
-
-      }else{ //no existe
+      if($look == 0){ //no hay busqueda de alumno
+        $student = Student::find($request->student);
+      }else{
 
       }
-      return view('score.score.scoreStudent', compact('types','look'));
+      return view('score.score.scoreStudent', compact('types','look','student'));
     }
 
 }
