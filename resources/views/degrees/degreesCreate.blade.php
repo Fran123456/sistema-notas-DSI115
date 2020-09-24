@@ -37,7 +37,7 @@
               <div class="form-group">
                 <label  class=" form-control-label">Grado</label>
                 <input type="number" min="1" max="12" name="degree" required  class="form-control">
-                {!! Form::radio('uno', 'uno', $checked, ['uno']) !!}
+                
               </div>
             </div>
 
