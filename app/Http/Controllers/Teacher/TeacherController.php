@@ -55,12 +55,18 @@ class TeacherController extends Controller
         /*Equivalente al codigo de arriba solo se movio al modelo ya que se utilizo en otros momentos
         y así no acumulamos mucho codigo sql en los controladores*/
         $query = ScoreType::scoreTypeByDegree($numberPeriodBack,$year->id,$grade->id,$subject->id);
+        $sol = ScoreType::validateSendType($query);
+
+        $accumulatedPercentage=ScoreType::where('school_period_id',$period->id)
+            ->where('school_year_id',$year->id)
+            ->where('degree_id',$grade->id)
+            ->where('subject_id',$subject->id)
+            ->sum('percentage');            
 
         if($period==null){
             return back()->with('delete','<strong> No existe registro del periodo '.$numberPeriodBack.' del año '.Help::getSchoolYear()->year.'. </strong>');
         }
-
-        return view('score.type.scoreTypesCreate', compact('grade','teacher','subject','period','year','types','query'));
+        return view('score.type.scoreTypesCreate', compact('grade','teacher','subject','period','year','types','query','sol','accumulatedPercentage'));
     }
 
 
@@ -69,12 +75,7 @@ class TeacherController extends Controller
         $schoolYear = SchoolYear::where('active', true)->first();
         $teacher=User::find($idteacher);
         $degree= Degree::find($iddegree);
-        $students = DB::table('students as stu')
-        ->join('students_history as sh','stu.id','=','sh.student_id')
-        ->select('sh.id','stu.name','stu.lastname','stu.gender','stu.age','stu.address','stu.phone','stu.parent_name','stu.status')
-        ->where('sh.degree_id','=',$degree->id)
-        ->where('sh.school_year_id','=',$schoolYear->id)
-        ->get();
+        $students=  User::studentsByYearByDegree($degree->id,$schoolYear->id);
         return view('students.studentsDegreeTeacher',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,"teacher"=>$teacher]);
     }
 }

@@ -120,7 +120,25 @@ class AttendanceStudentController extends Controller
     
     public function updateAttendanceRecord(Request $request){
 
-        dd($request);
+        //dd($request);                
+        $arrayStudentHistory= array();
+        foreach($request->student_id as $key => $student){
+            //$studentHistoryId= DB::select("SELECT id FROM students_history WHERE degree_id = ? AND school_year_id = ? AND student_id = ?", [$request->degree,$request->activeYear,$student]);            
+            $studentHistoryId=StudentHistory::where('degree_id',$request->degree)
+            ->where('school_year_id',$request->activeYear)
+            ->where('student_id',$student)
+            ->get()->first();
+            
+            AttendanceStudent::where('id', $studentHistoryId->id)->where('attendance_date',$request->date)
+            ->update([
+                'active' => $request->asistencia[$key],
+              ]);
+                        
+            array_push($arrayStudentHistory,$studentHistoryId);            
+        }
+        
+        return redirect()->route('attendancesDates',$request->degree)->with('edit','<strong> Los cambios fueron guardados con éxito </strong>');
+                
     }
     /**
      * Update the specified resource in storage.

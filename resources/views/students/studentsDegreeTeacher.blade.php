@@ -35,12 +35,16 @@
                   <th scope="col">Nombres</th>
                   <th scope="col">Edad</th>
                   <th scope="col">Género</th>
-                  <th scope="col">Teléfono</th>
-                  <th scope="col">Encargado</th>
-                  <th scope="col">Estado</th>
+                <!--  <th scope="col">Teléfono</th>
+                  <th scope="col">Encargado</th>-->
+                  <!--<th scope="col">Estado</th>-->
+                  <th scope="col">Periodo 1</th>
                 </tr>
               </thead>
               <tbody>
+                @php
+                  $y = Help::getSchoolYear();
+                @endphp
                  @foreach ($students as $key => $value)
                   <tr>
                     <th scope="row">{{$key+1}}</th>
@@ -50,9 +54,9 @@
                      <td>{{$value->name}}</td>
                      <td>{{$value->age}}</td>
                      <td>{{Help::getGender($value->gender)}}</td>
-                     <td>{{$value->phone}}</td>
-                     <td>{{$value->parent_name}}</td>
-                     <td>
+                    <!--  <td>{{$value->phone}}</td>
+                     <td>{{$value->parent_name}}</td>-->
+                    <!-- <td>
                       @if ($value->status =="AI")
                        Antiguo Ingreso
                       @elseif($value->status =="NI")
@@ -64,6 +68,15 @@
                       @else
                        En espera
                       @endif
+                    </td>-->
+                     <td>
+                       <form action="{{route('getScoresTypeByStudent')}}" method="get" enctype="multipart/form-data">
+                          <input hidden value="{{$y->id}}" name="year">
+                          <input hidden value="{{$degree->id}}" name="degree">
+                          <input hidden value="0" name="look">
+                          <input hidden value="{{$value->id}}" name="student">
+                          <button type="submit" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                       </form>
                      </td>
                   </tr>
                 @endforeach

@@ -1,29 +1,42 @@
 @extends('layouts.app')
 @section('content')
+@include('alerts.dataTable')
 
-
-
-
-
-<strong class="card-title"></strong>
+<style media="screen">
+.bg-success {
+  background-color: #3ac47d52 !important;
+}
+</style>
 
 <div class="row">
+  @include('alerts.alerts')
+</div>
 
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">         
+<!--BREADCUMB-->
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('gradesTeacher',Auth::user()->id) }}">Administración de docente - Año escolar {{Help::getSchoolYear()->year}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('attendancesDates', $degree->id) }}">Asistencias Grado {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edición asistencia fecha: {{Help::dateFormatter($attendanceDate)}} </li>
+      </ol>
+    </nav>
+  </div>
+</div>
 
-          <strong class="card-title">        </strong>
-        </div>
-        <div>
 
-        </div>
-
-          <div class="card-body">
-          <form method="post" action="{{route('updateAttendance')}}"  enctype="multipart/form-data">
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+        <br>
+        <div class="text-center"><h3>Edición asistencia fecha {{Help::dateFormatter($attendanceDate)}}</h3></div>                
+      <div class="card-body">
+        <form method="post" action="{{route('updateAttendance')}}"  enctype="multipart/form-data">
           <input name="_method" type="hidden" value="PATCH">            
             @csrf
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                   <tr>
                     <th width="40" scope="col">#</th>
@@ -33,8 +46,8 @@
                   </tr>
                 </thead>
                 <input hidden value="{{$attendanceDate}}" name="date">
-                <input hidden value="{{$activeYear}}" name="activeYear">
-                <input hidden value="{{$degree}}" name="degree">
+                <input hidden value="{{$activeYear->id}}" name="activeYear">
+                <input hidden value="{{$degree->id}}" name="degree">
                 <tbody>
                 @foreach($attendance as $key => $value)
                     <tr>
@@ -65,15 +78,11 @@
                 @endforeach
               </tbody>
             </table>
-            <button class="btn btn-primary" type="submit" >GUARDAR ASISTENCIA   <i class="fa fa-check-circle"></i></button>
+            <button class="btn btn-primary" type="submit" >Guardar cambios  <i class="fa fa-check-circle"></i></button>
         </form>
-
-
-
-        </div>
       </div>
     </div>
-
+  </div>
 </div>
 
 
