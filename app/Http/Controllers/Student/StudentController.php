@@ -58,14 +58,10 @@ class StudentController extends Controller
         //
 
         $student = Student::where("id", $id)->first();
-        $studentrecord = StudentHistory::where("student_id", $id)->get();
-        $years = SchoolYear::all();
-        $degrees = Degree::all();
-        $degreeSY = DegreeSchoolYear::all();
+        $studentrecord = StudentHistory::where("student_id", $id)->get();        
         $currentyear = SchoolYear::where('active', true)->first();
-        $teachers = User::where('role_id', 2)->get();
         $periods = SchoolPeriod::all();
-        return view('students.history', compact('student', 'studentrecord', 'years', 'degrees', 'currentyear', 'teachers', 'degreeSY', 'periods'));
+        return view('students.history', compact('student', 'studentrecord', 'currentyear', 'periods'));
     }
 
     public function beforedeleting($id)

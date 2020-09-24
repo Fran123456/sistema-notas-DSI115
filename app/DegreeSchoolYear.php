@@ -16,6 +16,9 @@ class DegreeSchoolYear extends Pivot
       return $this->hasOne('App\Degree','id');
     }
 
+	public function teacher(){
+	return $this->belongsTo('App\User', 'user_id');
+	}
 
 
 

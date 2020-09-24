@@ -22,4 +22,17 @@ class StudentHistory extends Model
   public function students(){
     return $this->belongsTo(Student::class);
   }
+
+  public function degree(){
+    return $this->belongsTo('App\Degree');
+  }
+
+  public function year(){
+    return $this->belongsTo('App\SchoolYear', 'school_year_id');
+  }
+
+  public function degreesy(){
+    return $this->belongsTo('App\DegreeSchoolYear', 'degree_id', 'degree_id');
+  }
+
 }
