@@ -35,7 +35,7 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
-                <img height="50" width="60" src="{{asset('images/catalana.png') }}" alt="">
+                <img height="50" width="60" src="{{asset('images/plataforma3.png') }}" alt="">
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -65,17 +65,7 @@
                 </span>
             </div>    <div class="app-header__content">
                 <div class="app-header-left">
-
-                    <ul class="header-menu nav">
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-database"> </i>
-                                Statistics
-                            </a>
-                        </li>
-
-
-                    </ul>
+                    
                </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
@@ -287,7 +277,7 @@
                                    @yield('content')
                         </div>
                     </div>
-                    <div class="app-wrapper-footer">
+                    <!--<div class="app-wrapper-footer">
                         <div class="app-footer">
                             <div class="app-footer__inner">
                                 <div class="app-footer-left">
@@ -323,7 +313,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    </div>
+                    </div>--> 
+                   </div>
         </div>
     </div>
 
