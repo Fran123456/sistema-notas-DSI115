@@ -16,7 +16,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
-       <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$year_grade->id) }}">Año escolar activo</a></li>
+       <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$year_grade->school_year_id) }}">Año escolar activo</a></li>
 
 
         <li class="breadcrumb-item active" aria-current="page">Editar grado: {{Help::ordinal($degreeSelected->degree)}} {{$degreeSelected->section}} - {{Help::turn($degreeSelected->turn)}}</li>
