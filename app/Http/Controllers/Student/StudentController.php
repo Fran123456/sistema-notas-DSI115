@@ -11,6 +11,8 @@ use App\DegreeSchoolYear;
 use App\StudentHistory;
 use App\User;
 use App\SchoolPeriod;
+use App\BehaviorIndicatorsStudent;
+use App\ScoreStudent;
 
 class StudentController extends Controller
 {
@@ -62,7 +64,9 @@ class StudentController extends Controller
         $studentrecord = StudentHistory::where("student_id", $id)->get();        
         $currentyear = SchoolYear::where('active', true)->first();
         $periods = SchoolPeriod::all();
-        return view('students.history', compact('student', 'studentrecord', 'currentyear', 'periods'));
+        $behavior = BehaviorIndicatorsStudent::where("student_id", $id)->get();
+        $scores = ScoreStudent::where("student_id", $id)->get();
+        return view('students.history', compact('student', 'studentrecord', 'currentyear', 'periods', 'behavior', 'scores'));
     }
 
     public function beforedeleting($id)
@@ -70,11 +74,9 @@ class StudentController extends Controller
         //
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $student = Student::where("id", $id)->first();
-        $studentrecord = StudentHistory::where("student_id", $id)->get();
-        $years = SchoolYear::all();
-        $degrees = Degree::all();
-
-        return view('students.delete', compact('student', 'studentrecord', 'years', 'degrees'));
+        $studentrecord = StudentHistory::where("student_id", $id)->get();        
+        $currentyear = SchoolYear::where('active', true)->first();
+        return view('students.delete', compact('student', 'studentrecord', 'currentyear'));
     }
 
 

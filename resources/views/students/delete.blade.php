@@ -77,7 +77,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-bordered" align="center">
+   <table class="table table-bordered" align="center">
               <tbody>
                 <thead>
                   <tr>
@@ -87,34 +87,28 @@
                   </tr>            
                   <tr>
                     <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:6px;">
-                      @foreach ($years as $key2 => $value2)
-                        @if ($value->school_year_id == $value2->id)
-                          {{$value2->year}}
-                        @endif
-                      @endforeach
+                      {{$value->year->year}}
                     </th>
                   </tr>
                   <tr>
                     <th class="center">Grado</th>
-                    <th class="center">Estado</th>            
+                    <th class="center">Sección</th>
+                    <th class="center">Turno</th>
+                    <th class="center">Docente encargado</th>
+                               
                   </tr>
-                </thead>
-              
+                </thead>              
                   <tr>
-                    <td>
-                     @foreach ($degrees as $key3 => $value3)
-                      @if ($value->degree_id == $value3->id)        
-                        {{Help::ordinal($value3->degree)}}
-                      @endif
-                    @endforeach
-                    </td>
-                  <td>
-                    <!--A editar-->   
-                    Aprobado
-                    </td>
+                    <td>{{Help::ordinal($value->degree->degree)}}</td>
+                    <td>{{$value->degree->section}}</td>  
+                    <td>{{Help::turn($value->degree->turn)}}</td>
+                    <td>{{$value->degreesy->teacher->name}}</td>            
+                  
+   
                   </tr>
-              </tbody>
-              </table>
+                </tbody>
+              </table> 
+
             </div>
           </div>
         

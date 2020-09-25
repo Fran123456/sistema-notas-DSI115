@@ -46,7 +46,6 @@
                 <th>Edad</th>
                 <th>Género</th>
                 <th>Tipo</th>
-                <th>Estado</th>
               </tr>
               </thead>
               <tr>              
@@ -55,7 +54,6 @@
                 <td>{{$student->age}}</td>
                 <td>{{Help::getGender($student->gender)}}</td>
                 <td>{{Help::typeOfStudent($student->status)}}</td>
-                <td>Activo</td>
               </tr>     
             </tbody>
             </table>
@@ -84,7 +82,6 @@
                     <th class="center">Sección</th>
                     <th class="center">Turno</th>
                     <th class="center">Docente encargado</th>
-                    <th class="center">Estado</th>            
                   </tr>
                 </thead>              
                   <tr>
@@ -93,10 +90,7 @@
                     <td>{{Help::turn($value->degree->turn)}}</td>
                     <td>{{$value->degreesy->teacher->name}}</td>            
                   
-                    <td>
-                    <!--A editar-->   
-                    Aprobado
-                    </td>
+   
                   </tr>
                 </tbody>
               </table> 
@@ -109,24 +103,55 @@
                         <th colspan="12" class="table-active" style="text-align:center; font-weight:bold; letter-spacing:1px;">{{Help::periods($value2->nperiodo)}}</th>
                       </tr>
                       <tr>
+
                         @foreach($value->degree->subjects as $key3 => $value3)
-                        <th>{{$value3->name}}</th>
+                        <th width="12%">{{$value3->name}}</th>
                         @endforeach
+
+
                         <th>Asistencia</th>
                         <th>Conducta</th>
                       </tr>
+
                     </thead>
-                    <tr>
-                     @foreach($value->degree->subjects as $key3 => $value3)
-                        <th></th>
+                   
+
+                      @foreach($value->degree->subjects as $key3 => $value3)
+                    <td>
+                      <table width="auto">
+                       
+                          
+                      @foreach($scores as $s => $notas)
+                        @if($value2->nperiodo == $notas->school_period_id)  
+                          @if($notas->subject_id == $value3->id)                                       
+                             <tr><th>{{$notas->score_types->activity}}</th><th>%</th></tr>
+                            <tr> <td>{{$notas->score}}</td><td>{{$notas->score_types->percentage}}%</td>    </tr>                
+                          @endif
+                        @endif
+                      @endforeach     
+                      
+                  
+                    </table>
+                  
+                    </td>
                       @endforeach
-                      @if($value2->nperiodo == $value->attendancebyperiod->period_id)
-                      <th>{{$value->attendancebyperiod->active}}</th>
-                      @else
-                      <th>N/A</th>
+                      <td>
+                        @if($value2->nperiodo == $value->attendancebyperiod->period_id)
+                        {{$value->attendancebyperiod->active}}
+                          @else
+                           N/A
+                        @endif
+                      </td>
+                      <td>
+                      @foreach($behavior as $k => $v)
+                        @if($value2->nperiodo == $v->school_period_id)
+                          {{$v->indicator->name}} 
+                        @else
+                        N/A
                       @endif
-                      <th></th>
-                    </tr>
+                      @endforeach
+                      </td> 
+                   
 
                   </tbody>
                 </table>

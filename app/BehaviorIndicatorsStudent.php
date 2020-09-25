@@ -17,4 +17,8 @@ class BehaviorIndicatorsStudent extends Model
         'degree_id'
 
     ];
+
+    public function indicator(){
+        return $this->belongsTo('App\BehaviorIndicator', 'behavior_indicator_id');
+    }
 }
