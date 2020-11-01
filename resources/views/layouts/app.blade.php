@@ -210,6 +210,11 @@
                                     </ul>
                                 </li>
                                 @endif
+                                @if(Auth::user()->roles()->first()->name == "Administrador")
+                                <li>
+                                    <a href="{{route('behaviors.index')}}"><i class="metismenu-icon fa fa-users" aria-hidden="true"></i>Conducta</a>
+                                </li>
+                                @endif
                                
                               <!--GENERAL-->
 
