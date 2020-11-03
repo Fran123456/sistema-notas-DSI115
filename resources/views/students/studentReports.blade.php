@@ -42,10 +42,10 @@
                      <a href="{{ route('attendance.pdf',[$student->id,1])}}" class="btn btn-info">Periodo 1</a>                   
                 </div>
                      <div class="col-md-3">                
-                     <a href="#" class="btn btn-info">Periodo 2</a>                   
+                     <a href="{{ route('attendance.pdf',[$student->id,2])}}" class="btn btn-info">Periodo 2</a>                   
                 </div>
                      <div class="col-md-3">                
-                     <a href="#" class="btn btn-info">Periodo 3</a>                   
+                     <a href="{{ route('attendance.pdf',[$student->id,3])}}" class="btn btn-info">Periodo 3</a>                   
                 </div>
                 
 

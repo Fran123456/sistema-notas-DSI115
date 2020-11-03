@@ -3,39 +3,53 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<style>
+
+		.table, .thead, .tr, .th, .td{
+			width: 100%;
+			border: 1px solid;
+		}
+
+	</style>
 </head>
 <body>
 
-<strong>Reporte de asistencia</strong><br><br>	            
-  <strong>Nombre del alumno: </strong>{{$student->name}} {{$student->lastname}}<br><br>
-  
+<strong>REPORTE DE ASISTENCIA</strong><br><br>	
+  <strong>DATOS DEL ALUMNO</strong><br>	            
+  <strong>Nombre: </strong>{{$student->name}} {{$student->lastname}}<br>
+  <strong>Grado: </strong>{{Help::ordinal($history->degree->degree)}}<br>
+  <strong>Sección: </strong>{{$history->degree->section}}<br>
+  <strong>Turno: </strong>{{Help::turn($history->degree->turn)}}<br>
+  <strong>Año: </strong>{{$history->year->year}}<br>
+  <strong>Periodo: </strong>{{$period->nperiodo}}<br><br>
+
+
 	<table class="table">
 
-		<thead>
-			<tr>
-				<th>Fecha</th>
-				<th>Asistencia</th>
+		<thead class="thead">
+			<tr class="tr">
+				<th class="th">Fecha</th>
+				<th class="th">Asistencia</th>
 			</tr>
 		</thead>
 
 		<tbody>
 <!--  
 	
-	A editar diseno
+
 	
   -->
-          @foreach ($history as $key => $value)
-
+          @foreach ($attendance as $key => $value)
           	<tr>
-          		<td>{{$value->attendance_date}}</td>
-          		<td>         	
-                  @if ($value->active==0)
-                   NO ASISTIO
+          		<td class="td">{{$value->attendance_date}}</td>
+          		<td class="td">         	
+                  @if($value->active==0)
+                    No asistió
                   @else
-                  @if ($value->active==1)
-                   ASISTIO
+                  @if($value->active==1)
+                    Asistió
                   @else
-                   FALTA CON PERMISO
+                    Falta con permiso
                   @endif
                  @endif
           		</td>

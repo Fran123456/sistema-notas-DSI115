@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\StudentHistory;
 use App\Student;
+use App\SchoolPeriod;
 use App\AttendanceStudent;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -100,13 +101,14 @@ class AttendanceController extends Controller
 
        $student = Student::where("id", $idstudent)->first();
 
-       $history = AttendanceStudent::where("student_history_id", $idstudent)->where('period_id', $idperiod)->get();
+       $attendance = AttendanceStudent::where("student_history_id", $idstudent)->where('period_id', $idperiod)->get();
 
-       $pdf = PDF::loadView('pdf.reports', compact('student', 'history'));
+       $period = SchoolPeriod::where("id", $idperiod)->first();
 
+       $history = StudentHistory::where("student_id", $idstudent)->first();
 
+       $pdf = PDF::loadView('pdf.reports', compact('student', 'attendance', 'history', 'period'));
 
-        
         return $pdf->download('reporte-asistencia.pdf');
     }
 }
