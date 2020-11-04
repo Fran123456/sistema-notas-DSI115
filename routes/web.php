@@ -108,6 +108,7 @@ Route::post('grades-teacher/percentage/save','Score\ScoreTypeController@scoreTyp
 Route::get('grades-teacher/percentage/{grade}/{teacher}/{subject}/{period}','Teacher\TeacherController@scorePercentage')->name('scorePercentage');
 Route::get('teacher/{idteacher}/degree/{iddegree}/students/','Teacher\TeacherController@showStudentsDegreeTeacher')->name('showStudentsDegreeTeacher');
 Route::get('types/sendtypes', 'Score\ScoreTypeController@SendTypes')->name('SendTypes');
+Route::get('teacher/{idteacher}/degree/{iddegree}/subjects/','Teacher\TeacherController@showSubjectsByDegree')->name('showSubjectsByDegree');
 
 /*score*/
 Route::get('scores/student', 'Score\ScoreController@getScoresTypeByStudent')->name('getScoresTypeByStudent');
@@ -134,3 +135,6 @@ Route::get('behaviors/register/detail/{degreeid}/{idperiod}','Behavior\BehaviorC
 Route::get('behaviors/register/delete/{degreeid}/{idperiod}','Behavior\BehaviorController@delete')->name('behaviors-register-delete');
 Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister')->name('behaviors-register-save');
 
+/*REPORTS*/
+Route::resource('reports', 'Report\AttendanceController');
+Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\AttendanceController@reportpdf')->name('attendance.pdf');
