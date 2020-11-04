@@ -85,16 +85,16 @@
                                             <button type="submit" class="btn btn-warning mb-1">Filtrar <i class="fa fa-filter" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
-                                </form>                                                                
+                                </form>
 
                               <!--<h5 class="card-title">-->
                                 <div class="table-responsive">
                                   <table class="table table-borderless">
-                                    <tr>                                      
-                                      <td  width="150" scope="col">Mostrando Registros de Asistencia: <strong>PERIODO {{$periodoFiltrado->nperiodo}}</strong> Grado: <strong> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>  Alumnos Registrados: <strong>{{$total}}</strong></td>                                      
+                                    <tr>
+                                      <td  width="150" scope="col">Mostrando Registros de Asistencia: <strong>PERIODO {{$periodoFiltrado->nperiodo}}</strong> Grado: <strong> {{Help::ordinal($degree->degree)}} {{$degree->section}} - {{Help::turn($degree->turn)}} </strong>  Alumnos Registrados: <strong>{{$total}}</strong></td>
                                     </tr>
                                   </table>
-                                </div>                            
+                                </div>
 
                               <!--</h5>-->
                                 <div class="table-responsive">
@@ -106,6 +106,7 @@
                                         <th width="150" scope="col">Con Asistencia</th>
                                         <th width="150" scope="col">Con Falta</th>
                                         <th width="150" scope="col">Con Permiso</th>
+                                        <th width="150" scope="col">Total</th>
                                         <th width="150" scope="col">Ver Detalle</th>
                                         <th width="150" scope="col">Editar</th>
 
@@ -114,11 +115,17 @@
                                     <tbody>
                                       @foreach($attendanceDates as $key => $value)
                                         @if($value->degree_id == $degree->id )
-                                          <tr>                                                                                      
+                                          <tr>
                                             <td>{{Help::dateFormatter($value->attendance_date)}}</td>
                                             <td>{{$value->asistencias}}</td>
                                             <td>{{$value->faltas}}</td>
                                             <td>{{$value->permisos}}</td>
+                                            <td>
+                                              @php
+                                                $total =$value->permisos + $value->faltas + $value->asistencias;
+                                              @endphp
+                                              {{$total}}
+                                            </td>
                                             <!-- IMPORTANTE-->
                                             <td>
                                               <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -126,7 +133,7 @@
                                             <td>
                                               <a href="{{ route('editAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                             </td>
-                                          <!--Cerrado IMPORTANTE -->
+
                                           </tr>
                                         @endif
                                       @endforeach

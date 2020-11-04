@@ -47,16 +47,16 @@ class DegreeController extends Controller
 
       if(count($d)>0){
           return back()->with('delete', '<strong>El grado '.$request->degree.' sección '.$request->seccion.' ya existe.</strong>');
-       }else{      
+       }else{
         $newDegree = Degree::create([
             'degree'   => $request->degree,
             'section'  => $request->seccion,
             'turn'     => $request->turn,
-            'active'   => $request->active 
+            'active'   => $request->active
         ]);
         return redirect()->route('degrees.index')->with('success', '<strong>El grado '.$request->degree.' sección '.$request->seccion.' ha sido guardado correctamente.</strong>');
         }
-    }
+     }
 
     /**
      * Display the specified resource.

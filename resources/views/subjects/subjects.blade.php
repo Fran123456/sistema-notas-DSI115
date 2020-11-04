@@ -40,7 +40,7 @@
               <thead>
                 <tr>
                   <th width="40" scope="col">#</th>
-                  <th scope="col">Nombre</th>                                    
+                  <th scope="col">Nombre</th>
                   <th scope="col">Activo</th>
                   <th scope="col">Estado</th>
                   <th width="40" scope="col">Editar</th>
@@ -50,18 +50,18 @@
               <tbody>
                  @foreach ($subjects as $key => $value)
                   <tr>
-                    <th scope="row">{{$key+1}}</th>                     
-                     <td>{{$value->name}}</td>                     
+                    <th scope="row">{{$key+1}}</th>
+                     <td>{{$value->name}}</td>
                      <td>
                       @if ($value->active)
                        Activo
                       @else
-                       No activo
+                       <p  class="text-danger">No activo</p>
                       @endif
                      </td>
                      <td>
                      <a href="{{ route('changeStatusSubject', $value->id) }}" class="btn btn-danger"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
-                     </td>                     
+                     </td>
                      @if (Auth::user()->roles()->first()->name =="Administrador")
                       <td>
                         <a href="{{route('subjects.edit',$value->id)}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
@@ -69,7 +69,7 @@
                      @else
                      <td> <button class="btn btn-warning" disabled=""><i class="fa fa-edit" aria-hidden="true"></i></button> </td>
                      @endif
-                     <td> 
+                     <td>
                      @if (Auth::user()->roles()->first()->name =="Administrador")
                         <form method="POST" action="{{route('subjects.destroy', $value->id) }}">
                            @csrf
@@ -77,11 +77,11 @@
                            <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         </form>
                      @else
-                     <button class="btn btn-danger" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button> 
+                     <button class="btn btn-danger" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button>
                      @endif
                      </td>
                   </tr>
-                  
+
                 @endforeach
             </tbody>
           </table>
