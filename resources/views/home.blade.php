@@ -3,6 +3,34 @@
 @section('content')
 
 <div class="row">
+
+@php
+    $act1 = array( 
+           array(
+             'Actividades','act 1',10
+           ),
+           array(
+             'Actividades','act 2',10
+           ),
+           array(
+             'Actividades','act 3',20
+           ),
+           array(
+             'Actitud','actitud',20
+           ),
+           array(
+             'Prueba Objetiva','Examen',40
+           ),
+         );
+$faker  = Faker\Factory::create();
+$d = $faker->dateTimeBetween($startDate = '-7 months', $endDate = 'now', $timezone = null);
+print_r($d->format('Y-m-d'));
+@endphp
+
+
+
+
+
                 <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">

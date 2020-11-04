@@ -42,13 +42,13 @@
                 <tr>
                   <th width="40" scope="col">#</th>
                   <th width="200" scope="col">Grado</th>
-                  <th width="200" scope="col">Año</th>
                   <th scope="col">Capacidad</th>
                   <th scope="col">Inscritos</th>
                   <th width="40" scope="col">Asistencia</th>
                   <th width="40" scope="col">Conducta</th>
                   <th width="40" scope="col">Alumnos</th>
                   <th width="50" scope="col">Actividades</th>
+                  <th width="40" scope="col">Materias</th>
                 <!--  <th width="40" scope="col"> Notas </th>-->
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
@@ -68,7 +68,6 @@
                   <tr>
                     <th scope="row">{{$key+1}}</th>
                      <td>{{Help::ordinal($value[1]->degree)}} {{$value[1]->section}}  {{Help::turn($value[1]->turn)}}</td>
-                     <td>{{$value[2]['year']}}</td>
                      <td>{{$value[2]['capacity']}}</td>
                      <td>{{$value[2]['full']}}</td>
                      <td>
@@ -82,6 +81,9 @@
                      </td>
                      <td>
                          <a href="{{ route('typesSubjectTeacher', [$value[1]['id'] , $value[0]->id]) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                     </td>
+                     <td>
+                          <a href="{{ route('showSubjectsByDegree',[Auth::user()->id,$value[1]->id]) }}" class="btn btn-secondary"><i class="fa fa-book" aria-hidden="true"></i></a>                
                      </td>
                       <!--<td>
                         <form action="{{route('getScoresTypeByStudent')}}" method="get" enctype="multipart/form-data">

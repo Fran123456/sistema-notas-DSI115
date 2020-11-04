@@ -79,6 +79,21 @@ class TeacherController extends Controller
         $teacher=User::find($idteacher);
         $degree= Degree::find($iddegree);
         $students=  User::studentsByYearByDegree($degree->id,$schoolYear->id);
-        return view('students.studentsDegreeTeacher',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,"teacher"=>$teacher]);
+       return view('students.studentsDegreeTeacher',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,"teacher"=>$teacher]);
+    }
+
+    public function showSubjectsByDegree($idteacher,$iddegree)
+    {
+        auth()->user()->authorizeRoles(['Docente']);
+        $schoolYear = SchoolYear::where('active', true)->first();
+        $teacher=User::find($idteacher);
+        $degree= Degree::find($iddegree);
+        $subjects=DB::table('subjects as sub')
+        ->join('degree_subject_year as dsy','sub.id','=','dsy.subject_id')
+        ->select('dsy.id','dsy.subject_id','sub.name')
+        ->where('school_year_id',$schoolYear->id)
+        ->where('degree_id',$degree->id)
+        ->get();
+        return view('subjects.subjectsByDegree',["subjects"=>$subjects,"schoolYear"=>$schoolYear,"degree"=>$degree,"teacher"=>$teacher]);
     }
 }

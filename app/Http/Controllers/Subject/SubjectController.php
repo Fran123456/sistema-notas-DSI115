@@ -17,7 +17,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+       // auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $subjects = Subject::get();
         return view('subjects.subjects',["subjects"=>$subjects]);
     }
@@ -29,7 +29,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+      //  auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         return view('subjects.subjectsCreate');
     }
 
@@ -41,7 +41,7 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+       // auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $s = Subject::where([
             'name' => $request->nombre
         ])->get();
