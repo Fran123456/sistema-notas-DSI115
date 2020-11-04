@@ -25,7 +25,7 @@ class DegreeSchoolSubjectSeeder extends Seeder
         $subjects=Subject::all();
 
         /*Objeto de actividades*/
-        $act1 = array( 
+        $act1 = array(
            array(
              'Actividades','act 1',10
            ),
@@ -42,9 +42,65 @@ class DegreeSchoolSubjectSeeder extends Seeder
              'Prueba Objetiva','Examen',40
            ),
          );
+
+         $act2 = array(
+            array(
+              'Actividades','act 1',10
+            ),
+            array(
+              'Actividades','act 2',10
+            ),
+            array(
+              'Actividades','act 3',5
+            ),
+            array(
+              'Actividades','act 4',5
+            ),
+            array(
+              'Actividades','act 5',20
+            ),
+            array(
+              'Actitud','actitud',20
+            ),
+            array(
+              'Prueba Objetiva','Examen',30
+            ),
+          );
+
+
+          $act3 = array(
+             array(
+               'Actividades','act 1',4
+             ),
+             array(
+               'Actividades','act 2',6
+             ),
+             array(
+               'Actividades','act 3',10
+             ),
+             array(
+               'Actividades','act 4',5
+             ),
+             array(
+               'Actividades','act 5',5
+             ),
+             array(
+               'Actividades','act 6',20
+             ),
+             array(
+               'Actividades','act 7',10
+             ),
+             array(
+               'Actitud','actitud',10
+             ),
+             array(
+               'Prueba Objetiva','Examen',30
+             ),
+           );
+
+        $arrayTotal = array($act1,$act2, $act3);
+
         $faker  = Faker\Factory::create();
-
-
 
         foreach ($schoolYears as $year) {
           foreach ($degrees as $degree) {
@@ -58,20 +114,22 @@ class DegreeSchoolSubjectSeeder extends Seeder
                  $degreeSchoolSubject->degree_id=$degree->id;
                  $degreeSchoolSubject->save();
 
-                 for ($p=0; $p <3 ; $p++) { 
-                    for ($i=0; $i <count($act1) ; $i++) { 
+
+                 $aUtilizar = $arrayTotal[rand(0,2)];
+                 for ($p=0; $p <3 ; $p++) {
+                    for ($i=0; $i <count( $aUtilizar   )  ; $i++) {
                        $date = $faker->dateTimeBetween($startDate = '-7 months', $endDate = 'now', $timezone = null);
                        $scoreType= ScoreType::create([
                         'school_period_id' => $p+1,
                          'school_year_id' => $year->id,
                          'degree_id'=>$degree->id,
                          'subject_id'=>$subject->id,
-                         'percentage'=>$act1[$i][2],
-                         'activity'=>$act1[$i][1],
-                         'description'=> 'periodo 1: -' .$act1[$i][1],
+                         'percentage'=>$aUtilizar[$i][2],
+                         'activity'=>$aUtilizar[$i][1],
+                         'description'=> 'periodo 1: -' .$aUtilizar[$i][1],
                          'date'=>$date->format('Y-m-d'),
-                         'type'=>$act1[$i][0],
-                         'state'=>false,
+                         'type'=>$aUtilizar[$i][0],
+                         'state'=>true,
                          'send'=>true
                        ]);
 
