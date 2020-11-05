@@ -12,7 +12,9 @@ use App\StudentHistory;
 use App\User;
 use App\SchoolPeriod;
 use App\BehaviorIndicatorsStudent;
+use App\Help\Help;
 use App\ScoreStudent;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -22,11 +24,31 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {    
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
-        $students = Student::orderBy('status')->get();
-        return view('students.students',["students"=>$students]);
+        $schoolYear=Help::getSchoolYear();//objeto
+        //$students = Student::orderBy('status')->get();        
+        $students=DB::select("SELECT students.id as clave, students_history.degree_id as grado, students.name, students_history.school_year_id as school_year,students.*, degrees.degree,degrees.section,degrees.turn, CASE WHEN EXISTS( SELECT grado FROM ((students INNER JOIN students_history ON students.id = students_history.student_id) INNER JOIN degrees ON degrees.id = students_history.degree_id) WHERE school_year = ?) THEN CONCAT(degrees.degree, ' ', degrees.section, ' ', degrees.turn) ELSE 'NO TIENE GRADO' END AS result FROM ((students INNER JOIN students_history ON students.id = students_history.student_id) INNER JOIN degrees ON degrees.id = students_history.degree_id) ORDER BY students.lastname",[$schoolYear->id]);
+        foreach($students as $keyOne => $student){
+            if($student->school_year != $schoolYear->id){                
+                foreach($students as $keyTwo => $comparison){
+                    if($student->school_year != $comparison->school_year && $student->id == $comparison->id){                        
+                        unset($students[$keyOne]);
+                    }
+                }                                                                                            
+            }                        
+           else{               
+                $str=chunk_split($student->result,1,'');                
+                if($str[4]=='m'){
+                    $student->result=Help::ordinal($str[0]).' '.$str[2].' Matutino';
+                }
+                else{
+                    $student->result=Help::ordinal($str[0]).' '.$str[2].' Verspertino';
+                }
+            }
+        }
+        $new=array_merge($students);//Para restablecer el # de keys del array
+        return view('students.students',["students"=>$new]);
     }
 
     /**
@@ -142,3 +164,4 @@ class StudentController extends Controller
         return redirect()->route('students.index')->with('delete','<strong>El alumno/a fue eliminado correctamente</strong>');
     }
 }
+
