@@ -136,5 +136,6 @@ Route::get('behaviors/register/delete/{degreeid}/{idperiod}','Behavior\BehaviorC
 Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister')->name('behaviors-register-save');
 
 /*REPORTS*/
-Route::resource('reports', 'Report\AttendanceController');
-Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\AttendanceController@reportpdf')->name('attendance.pdf');
+Route::resource('reports', 'Report\ReportController');
+Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\ReportController@reportpdf')->name('attendance.pdf');
+Route::get('scores-pdf/{student_id}', 'Report\ReportController@scorespdf')->name('scores.pdf');
