@@ -113,8 +113,8 @@ Route::get('teacher/{idteacher}/degree/{iddegree}/subjects/','Teacher\TeacherCon
 /*score*/
 Route::get('scores/student', 'Score\ScoreController@getScoresTypeByStudent')->name('getScoresTypeByStudent');
 Route::get('scores/update', 'Score\ScoreController@updateScores')->name('updateScores');
-
-
+Route::get('teacher/{idteacher}/subject/{idsubject}/period/{idperiod}/scores','Score\ScoreBySubjectController@showStudentScoreBySubject')->name('showStudentScoreBySubject');
+Route::get('scores-subject/update', 'Score\ScoreBySubjectController@updateScoresBySubject')->name('updateScoresBySubject');
 
 /*PERIODOS */
 Route::resource('periods','Period\PeriodController');
