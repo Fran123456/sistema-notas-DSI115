@@ -64,14 +64,10 @@ class ScoreBySubjectController extends Controller
         $stu = Student::find($student);
     
         $scores = ScoreStudent::scoreByStudentBySubject($student, $period, $year, $degree, $subject);
-  
-        $contador=0;
 
-        foreach ($scores as $score) {
+        foreach ($scores as $score) 
             ScoreStudent::where('id', $score->id)->update(['score' => $request[$score->id]]);
-            $contador=$contador+1;
-        }
-
+            
         return back()->with('success', '<strong> Los cambios se han guardado con éxito para el alumno '.$stu->name.' '.$stu->lastname.'</strong>');
     }
     

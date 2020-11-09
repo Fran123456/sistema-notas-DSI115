@@ -58,7 +58,7 @@
                     @foreach ($scores as $score)  
                       @if ($score->student_id==$value->idStudent and $score->score_type_id==$type->id)
                         <td>
-                          <input type="number" style="background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}">
+                          <input type="number" style="background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" required>
                         </td> 
                         @php
                         $notafinal = ($score->score * ($type->percentage/100)  )  + $notafinal;
