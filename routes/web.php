@@ -66,7 +66,7 @@ Route::get('year/teacher/grade/{id}/edit', 'SchoolYear\SchoolYearController@edit
 Route::post('year/teacher/grade/{id}/edit/save', 'SchoolYear\SchoolYearController@save_editYear_grade')->name('save_editYear_grade');
 Route::get('year/deleting/{id}', 'SchoolYear\SchoolYearController@deletingSchoolYear')->name('deletingSchoolYear');
 
-
+Route::get('year/finish/{id}', 'SchoolYear\SchoolYearController@finish')->name('finishyear');
 /*SCHOOL YEAR DEGREES*/
 Route::resource('yearsdegree', 'SchoolYear\SchoolYearDegreesController');
 Route::post('yearsdegree/delete/{id}', 'SchoolYear\SchoolYearDegreesController@delete')->name('yearsdegree_delete');

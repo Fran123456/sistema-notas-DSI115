@@ -26,7 +26,12 @@ class SchoolYearController extends Controller
     {
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $years = SchoolYear::orderBy('year','asc')->get();
-        return view('schoolYear.schoolYears', compact('years'));
+       return view('schoolYear.schoolYears', compact('years'));
+    }
+
+    public function finish($id){
+      $year = SchoolYear::find($id);
+      return $year;
     }
 
     /**
