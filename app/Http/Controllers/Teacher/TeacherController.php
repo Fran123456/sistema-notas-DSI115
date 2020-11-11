@@ -18,9 +18,9 @@ use App\ScoreType;
 
 class TeacherController extends Controller
 {
-    public function grades($id){//id del 
+    public function grades($id){//id del
         auth()->user()->authorizeRoles(['Docente']);
-		$data =  User::teacher();		
+		$data =  User::teacher();
     	return view('score.teacher.teacherMenu',compact('data'));
     }
 
@@ -62,7 +62,7 @@ class TeacherController extends Controller
             ->where('school_year_id',$year->id)
             ->where('degree_id',$grade->id)
             ->where('subject_id',$subject->id)
-            ->sum('percentage');            
+            ->sum('percentage');
 
         if($period==null){
             return back()->with('delete','<strong> No existe registro del periodo '.$numberPeriodBack.' del año '.Help::getSchoolYear()->year.'. </strong>');
@@ -79,7 +79,7 @@ class TeacherController extends Controller
         $teacher=User::find($idteacher);
         $degree= Degree::find($iddegree);
         $students=  User::studentsByYearByDegree($degree->id,$schoolYear->id);
-       return view('students.studentsDegreeTeacher',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,"teacher"=>$teacher]);
+     return view('students.studentsDegreeTeacher',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,"teacher"=>$teacher]);
     }
 
     public function showSubjectsByDegree($idteacher,$iddegree)

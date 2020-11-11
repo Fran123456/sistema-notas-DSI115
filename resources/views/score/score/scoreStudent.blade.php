@@ -126,7 +126,7 @@
                           @endforeach <!--NOTAS-->
                           @if ($con>0)
                           <th scope="row">
-                            <button type="submit" class="btn btn-info mb-1" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button data-toggle="tooltip" data-placement="top" title="Click para guardar" type="submit" class="btn btn-info mb-1" ><i class="fa fa-save" aria-hidden="true"></i></button>
                           </th>
                           @endif
                         </tr>

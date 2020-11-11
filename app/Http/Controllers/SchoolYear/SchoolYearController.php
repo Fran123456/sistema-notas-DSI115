@@ -31,7 +31,7 @@ class SchoolYearController extends Controller
 
     public function finish($id){
       $year = SchoolYear::find($id);
-      return $year;
+      return view('schoolYear.finish.finish', compact('year'));
     }
 
     /**
