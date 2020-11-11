@@ -31,8 +31,10 @@
               <thead>
                 <tr>
                   <th width="30" scope="col">#</th>
-                  <th scope="col">Materias</th>
-                  <th scope="col">Ver</th>
+                  <th scope="col">Materia</th>
+                  <th scope="col">Notas <br>periodo 1</th>
+                  <th scope="col">Notas <br>periodo 2</th>
+                  <th scope="col">Notas <br>periodo 3</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,7 +45,25 @@
                         {{$value->name}}
                      </td>
                      <td>
-                        <a href=# class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>                
+                     @if (Help::validatePeriod(1))
+                        <a href="{{route('showStudentScoreBySubject',[Auth::user()->id,$value->id,1])}}" class="btn btn-success"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                     @else
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                     @endif
+                     </td>
+                     <td>
+                     @if (Help::validatePeriod(2))
+                        <a href="{{route('showStudentScoreBySubject',[Auth::user()->id,$value->id,2])}}" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                     @else
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                     @endif
+                     </td>
+                     <td>
+                     @if (Help::validatePeriod(3))
+                        <a href="{{route('showStudentScoreBySubject',[Auth::user()->id,$value->id,3])}}" class="btn btn-secondary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                     @else
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                     @endif
                      </td>
                   </tr>
                 @endforeach

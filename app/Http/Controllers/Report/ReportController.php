@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\StudentHistory;
 use App\Student;
 use App\SchoolPeriod;
+use App\SchoolYear;
+use App\ScoreStudent;
 use App\AttendanceStudent;
 use Barryvdh\DomPDF\Facade as PDF;
 
-
-class AttendanceController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -53,13 +54,9 @@ class AttendanceController extends Controller
     public function show($id)
     {
         //
-
-        
         $student = Student::where("id", $id)->first();
 
-
         return view('students.studentReports', compact('student'));
-
     }
 
     /**
@@ -110,5 +107,17 @@ class AttendanceController extends Controller
        $pdf = PDF::loadView('pdf.reports', compact('student', 'attendance', 'history', 'period'));
 
         return $pdf->download('reporte-asistencia.pdf');
+    }
+
+    public function scorespdf($id)
+    {
+        $student = Student::where("id", $id)->first();
+        $history = StudentHistory::where("student_id", $id)->first();
+        $periods = SchoolPeriod::all();
+        $scores = ScoreStudent::where("student_id", $id)->get();
+
+        $pdf = PDF::loadView('pdf.scores', compact('student', 'history', 'periods', 'scores'));
+
+        return $pdf->download('reporte-notas.pdf');
     }
 }

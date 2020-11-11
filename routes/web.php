@@ -66,7 +66,7 @@ Route::get('year/teacher/grade/{id}/edit', 'SchoolYear\SchoolYearController@edit
 Route::post('year/teacher/grade/{id}/edit/save', 'SchoolYear\SchoolYearController@save_editYear_grade')->name('save_editYear_grade');
 Route::get('year/deleting/{id}', 'SchoolYear\SchoolYearController@deletingSchoolYear')->name('deletingSchoolYear');
 
-
+Route::get('year/finish/{id}', 'SchoolYear\SchoolYearController@finish')->name('finishyear');
 /*SCHOOL YEAR DEGREES*/
 Route::resource('yearsdegree', 'SchoolYear\SchoolYearDegreesController');
 Route::post('yearsdegree/delete/{id}', 'SchoolYear\SchoolYearDegreesController@delete')->name('yearsdegree_delete');
@@ -113,8 +113,8 @@ Route::get('teacher/{idteacher}/degree/{iddegree}/subjects/','Teacher\TeacherCon
 /*score*/
 Route::get('scores/student', 'Score\ScoreController@getScoresTypeByStudent')->name('getScoresTypeByStudent');
 Route::get('scores/update', 'Score\ScoreController@updateScores')->name('updateScores');
-
-
+Route::get('teacher/{idteacher}/subject/{idsubject}/period/{idperiod}/scores','Score\ScoreBySubjectController@showStudentScoreBySubject')->name('showStudentScoreBySubject');
+Route::get('scores-subject/update', 'Score\ScoreBySubjectController@updateScoresBySubject')->name('updateScoresBySubject');
 
 /*PERIODOS */
 Route::resource('periods','Period\PeriodController');
@@ -136,5 +136,6 @@ Route::get('behaviors/register/delete/{degreeid}/{idperiod}','Behavior\BehaviorC
 Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister')->name('behaviors-register-save');
 
 /*REPORTS*/
-Route::resource('reports', 'Report\AttendanceController');
-Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\AttendanceController@reportpdf')->name('attendance.pdf');
+Route::resource('reports', 'Report\ReportController');
+Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\ReportController@reportpdf')->name('attendance.pdf');
+Route::get('scores-pdf/{student_id}', 'Report\ReportController@scorespdf')->name('scores.pdf');

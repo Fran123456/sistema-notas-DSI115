@@ -50,7 +50,7 @@
                   <th width="50" scope="col">Actividades</th>
                   <th width="40" scope="col">Materias</th>
                 <!--  <th width="40" scope="col"> Notas </th>-->
-                  <th width="40" scope="col"> Eliminar </th>
+                
                 </tr>
               </thead>
               <tbody>
@@ -93,9 +93,7 @@
                            <button type="submit" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>
                         </form>
                       </td>-->
-                      <td>
-                        <a href="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                      </td>
+                    
 
                   </tr>
                 @endforeach

@@ -113,7 +113,7 @@ class User extends Authenticatable
     public static function studentsByYearByDegree($degree,$schoolYear){
       $students = DB::table('students as stu')
       ->join('students_history as sh','stu.id','=','sh.student_id')
-      ->select('sh.id','stu.name','stu.lastname','stu.gender','stu.age','stu.address','stu.phone','stu.parent_name','stu.status')
+      ->select('sh.id','sh.student_id as idStudent','stu.name','stu.lastname','stu.gender','stu.age','stu.address','stu.phone','stu.parent_name','stu.status')
       ->where('sh.degree_id','=',$degree)
       ->where('sh.school_year_id','=',$schoolYear)
       ->get();

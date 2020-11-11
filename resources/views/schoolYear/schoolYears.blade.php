@@ -49,7 +49,7 @@
                   <th scope="col" width="40">Estado</th>
                   <th width="40" scope="col"> Administrar </th>
                   <th width="40" scope="col"> Periodos </th>                  
-                  <th width="40" scope="col"> Editar </th>
+                  <th width="40" scope="col"> Finalizar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
               </thead>
@@ -90,7 +90,7 @@
                         <a href="{!! route('periods-index',$value->id) !!}" class="btn btn-primary"><i class="fa fa-layer-group" aria-hidden="true"></i></a>
                       </td>                      
                       <td>
-                        <a href="" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        <a href="{{ route('finishyear', $value->id) }}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                       </td>
 
                       <td>

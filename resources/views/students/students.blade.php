@@ -43,6 +43,7 @@
                   <th scope="col">Teléfono</th>
                   <th scope="col">Encargado</th>
                   <th scope="col">Estado</th>
+                  <th scope="col">Grado Actual</th>
                   <th width="40" scope="col"> Ver </th>
                   <th width="40" scope="col"> Editar </th>
                   <th width="40" scope="col"> Eliminar </th>
@@ -50,6 +51,7 @@
               </thead>
               <tbody>
                  @foreach ($students as $key => $value)
+                 
                   <tr>
                     <th scope="row">{{$key+1}}</th>
                      <td>
@@ -73,6 +75,9 @@
                        En espera
                       @endif
                      </td>
+                     <td>                     
+                      {{$value->result}}
+                     </td>                     
                      <td>
                         <a href="{{ route('students.show', $value->id) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                      </td>
@@ -83,6 +88,7 @@
                       <a href="{{route('beforedeleting', $value->id)}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
                   </tr>
+                 
                 @endforeach
             </tbody>
           </table>
