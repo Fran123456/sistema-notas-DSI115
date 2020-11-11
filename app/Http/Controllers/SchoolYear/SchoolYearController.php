@@ -9,6 +9,7 @@ use App\Degree;
 use App\User;
 use App\DegreeSchoolYear;
 use App\DegreeSchoolSubject;
+use App\SchoolPeriod;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use SebastianBergmann\Diff\Diff;
@@ -31,7 +32,15 @@ class SchoolYearController extends Controller
 
     public function finish($id){
       $year = SchoolYear::find($id);
-      return view('schoolYear.finish.finish', compact('year'));
+      $periods = SchoolPeriod::where('school_year_id', $id)->get();
+      $periods2 = SchoolPeriod::where('school_year_id', $id)->where('nperiodo', false)->get();
+      return view('schoolYear.finish.finish', compact('year','periods','periods2'));
+    }
+
+    public function finishProcess($year){
+        $yearx = SchoolYear::find($year);
+        $periods = SchoolPeriod::where('school_year_id',$year)->get();
+
     }
 
     /**

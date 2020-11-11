@@ -23,70 +23,55 @@
     </div>
   </div>
 
-  <form method="post" action="{{ route('degrees.store') }}" enctype="multipart/form-data">
-  @csrf
+
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
-        <div class="card-header"><strong>Crear un grado</strong></div>
-
+        <div class="card-header"><strong>Finalizar un año escolar</strong></div>
         <div class="card-body card-block">
           <div class="row">
 
-            <div class="col-md-3">
-              <div class="form-group">
-                <label  class=" form-control-label">Grado</label>
-                <input type="number" min="1" max="12" name="degree" required  class="form-control">
-
-              </div>
+            <div class="col-md-12">
+            @if (count($periods2) > 0)
+                <h4>Para poder finalizar año escolar deben haber finalizado los periodos escolares.</h4>
+            @else
+              <a class="btn btn-info mb-1"  href="{!! route('finishProcess', $year->id) !!}"><i class="fa fa-check" aria-hidden="true"></i></a>
+            
+            @endif
             </div>
 
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="seccion">Seccion</label>
-                  <select class="form-control" id="seccion" name="seccion">
-                     <option value="A">A</option>
-                     <option value="B">B</option>
-                     <option value="C">C</option>
-                  </select>
-                </div>
-             </div>
-
-             <div class="col-md-3">
-               <div class="form-group">
-                <label for="turn">Turno </label>
-                  <select class="form-control" id="turn" name="turn">
-                    <option value="m">Turno Matutino </option>
-                    <option value="t">Turno Vespertino </option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Estado</label>
-                    <select name="active" required="" class="form-control">
-                       <option value="1">Activo</option>
-                       <option value="0">No activo</option>
-                    </select>
-                   </div>
-               </div>
-
-          </div>
-
-          <div class="row form-group">
-            <div class="col-12 col-md-12 col-sx-12">
-              <div class="">
-                <button type="submit" class="btn btn-info mb-1" name="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              </div>
+            <div class="col-md-6">
+              <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Fecha inicio</th>
+                      <th scope="col">Fecha finalización</th>
+                      <th scope="col">Finalizado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($periods as $key => $value)
+                      <tr>
+                        <th scope="row">{{$value->nperiodo}}</th>
+                        <th >{{$value->start_date}}</th>
+                        <th >{{$value->end_date}}</th>
+                          <th>@if ($value->finish == true)
+                            Finalizado
+                          @else
+                            En curso
+                          @endif</th>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
             </div>
-          </div>
 
+          </div>
           </div>
       </div>
     </div>
   </div>
 
-  </form>
 
   @endsection
