@@ -262,6 +262,35 @@ class AttendanceStudentController extends Controller
 
 
        return view('attendanceStudents.attendances', compact('attendanceDates','degree','now','total','periodos','periodoActual','periodoFiltrado','control'));
+    }
+
+    //RESUMEN de las asistencias
+    public function attendanceOverview($idYear,$idPeriod){
+
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+
+        $period=SchoolPeriod::find($idPeriod);
+        $year=SchoolYear::find($period->school_year_id);        
+
+        $attendances = DB::select("
+            SELECT sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
+            sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END)/(SELECT count(*) FROM attendance_students WHERE attendance_students.period_id= ?)as porAsistencias,
+            sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END) as faltas,
+            sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END)/(SELECT count(*) FROM attendance_students WHERE attendance_students.period_id= ?)as porFaltas,
+            sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END) as permisos,
+            sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END)/(SELECT count(*) FROM attendance_students WHERE attendance_students.period_id= ?)as porPermisos
+            FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE attendance_students.period_id= ?",[$period->id,$period->id,$period->id,$period->id]);
+
+            $degrees= DB::select("
+            SELECT students_history.degree_id as grado,degrees.degree, degrees.section, degrees.turn,
+            sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
+            sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END)/(select count(*) FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE attendance_students.period_id= ? AND students_history.degree_id = grado) as porAsistencias,
+            sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END) as faltas,
+            sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END)/(select count(*) FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE attendance_students.period_id= ? AND students_history.degree_id = grado) as porFaltas,
+            sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END) as permisos,
+            sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END)/(select count(*) FROM attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id WHERE attendance_students.period_id= ? AND students_history.degree_id = grado) as porPermisos
+            FROM ((attendance_students INNER JOIN students_history ON attendance_students.student_history_id=students_history.id) INNER JOIN degrees ON students_history.degree_id = degrees.id) WHERE attendance_students.period_id= ? GROUP BY grado",[$period->id,$period->id,$period->id,$period->id]);
+            return view('periods.attendanceOverview',compact('attendances','degrees','period','year'));
 
     }
 }

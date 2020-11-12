@@ -45,8 +45,10 @@
                 <thead class="thead-light">
                 <tr>
                   <th width="60" scope="col">Periodo</th>
-                  <th scope="col">Inicio</th>
-                  <th scope="col">Fin</th>
+                  <th width="90" scope="col">Inicio</th>
+                  <th width="90" scope="col">Fin</th>
+                  <th width="80" scope="col">Resumen Notas</th>
+                  <th width="80" scope="col">Resumen Asistencias</th>
                   <th width="80" scope="col">Estado</th>
                   <th width="80" scope="col">Editar</th>
                   <th width="80"  scope="col">Eliminar</th>
@@ -63,7 +65,10 @@
 
                      <td>{{Help::dateFormatter($value->start_date)}}</td>
                      <td>{{Help::dateFormatter($value->end_date)}}</td>
-
+                     <!--Resumen Asistencia-->
+                     <td><a href="{{route('attendanceOverview',[$year->id,$value->id])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                     <!--Resumen Notas-->
+                     <td><a href="" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                      <td>
                      @if (!($value->current))
                      <a href="{{ route('changePeriodStatus',[$year->id,$value->id]) }}"  class="btn btn-info"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
