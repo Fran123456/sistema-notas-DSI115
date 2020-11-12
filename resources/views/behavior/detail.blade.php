@@ -32,9 +32,9 @@
         </div>
 
           <div class="card-body">
-
-            <table class="table">
-                <thead class="thead-dark">
+            
+            <table class="table table-hover" id="bootstrap-data-table_length">
+                <thead class="thead-dark">                
                   <tr>
                     <th width="40" scope="col">#</th>
                     <th scope="col" class="text-center" width="40">Nombre</th>
