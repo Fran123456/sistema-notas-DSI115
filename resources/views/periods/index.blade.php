@@ -2,7 +2,11 @@
 @section('content')
 
 @include('alerts.dataTable')
-
+<style media="screen">
+.bg-success {
+  background-color: #c43a3a4d !important;
+}
+</style>
 <div class="row">
   @include('alerts.alerts')
 </div>
@@ -40,18 +44,21 @@
             <table class="table">
                 <thead class="thead-light">
                 <tr>
-                  <th width="50" scope="col">Periodo</th>
+                  <th width="60" scope="col">Periodo</th>
                   <th scope="col">Inicio</th>
                   <th scope="col">Fin</th>
-                  <th scope="col">Estado</th>
-                  <th scope="col">Editar</th>
-                  <th  scope="col">Eliminar</th>
+                  <th width="80" scope="col">Estado</th>
+                  <th width="80" scope="col">Editar</th>
+                  <th width="80"  scope="col">Eliminar</th>
+                  <th  width="140"scope="col">ACCIONES</th>
 
                 </tr>
               </thead>
               <tbody>
                  @foreach ($periodos as $key => $value)
-                  <tr>
+                  <tr @if ($value->finish == true)
+                    class="bg-success"
+                  @endif>
                     <th scope="row">{{$value->nperiodo}}</th>
 
                      <td>{{Help::dateFormatter($value->start_date)}}</td>
@@ -72,8 +79,18 @@
                      <form action="{{route('periods-delete')}}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{$value->id}}">
-                        <button type="submit" class="btn btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button type="submit" disabled class="btn btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></button>
                      </form>
+                    </td>
+                    <td>
+                      @if ($value->finish == true)
+                        <a href="{{route('periods-finish',$value->nperiodo)}}" class="btn btn-danger">Habilitar<i class="fa fa-check" aria-hidden="true"></i>
+                         </a>
+                      @else
+                        <a href="{{route('periods-finish',$value->nperiodo)}}" class="btn btn-success">Finalizar<i class="fa fa-check" aria-hidden="true"></i>
+                         </a>
+                      @endif
+
                     </td>
                   </tr>
                 @endforeach

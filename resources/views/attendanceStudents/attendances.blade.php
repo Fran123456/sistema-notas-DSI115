@@ -29,31 +29,15 @@
                       <div class="col-sm-12">
 
                       <!--col-lg 3 col-md-3 col-sm-12 col-xs-12-->
-                      <p>*Se tomará la fecha de sistema para el registro de asistencia diaria</p>
                         <div class="card-body">
                             PERIODO EN CURSO DEL AÑO ESCOLAR: <strong> PERIODO {{$periodoActual->nperiodo}}</strong>
-
 
                           <!--<div class="card" style="width: auto;">-->
                           <div class="card">
 
                             <div class="card-body">
-                                @php
-                                    $bandera=0;
-                                foreach ($attendanceDates as $value) {
-                                    if ($value->degree_id == $degree->id ) {
-                                        if ($value->attendance_date == $now) {
-                                            $bandera=1;
-                                            }
-                                    }
-                                }
-                                @endphp
-                               @if ($bandera==1 || $control==1)
 
-                               <button  class="btn btn-danger" disabled>Tomar Asistencia <i class="fa fa-ban"></i></button>
-                               @else
                                <a href="{{route('attendanceRecord',$degree->id)}}" class="btn btn-success">Tomar Asistencia</a>
-                               @endif
                                <!-- <a href="" class="btn btn-primary">Historial de Registros</a> -->
                                 <hr>
                                 <!-- Boton de filtrado-->
@@ -99,7 +83,9 @@
                               <!--</h5>-->
                                 <div class="table-responsive">
                                   <br>
-                                  <table class="table" table-hover" id="bootstrap-data-table_length">
+                                  <!--Da problemas con el orden de las fechas la bootstrap-data-table-->
+                                  <!--<table class="table table-hover" id="bootstrap-data-table_length">-->
+                                  <table class="table table-hover">
                                     <thead>
                                       <tr>
                                         <th width="150" scope="col">Fecha</th>
@@ -128,7 +114,7 @@
                                             <td>
                                               <a href="{{ route('editAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                             </td>
-                                          <!--Cerrado IMPORTANTE -->
+
                                           </tr>
                                         @endif
                                       @endforeach

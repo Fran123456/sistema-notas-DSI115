@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Period;
 use App\Http\Controllers\Controller;
 use App\SchoolPeriod;
 use App\SchoolYear;
+use App\Help\Help;
 use Illuminate\Http\Request;
 
 class PeriodController extends Controller
@@ -21,6 +22,16 @@ class PeriodController extends Controller
         $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
        $cantidad= count($periodos);
         return view('periods.index', compact('year','periodos','cantidad'));
+    }
+
+    public function finishPeriod($period){
+      $year = Help::getSchoolYear();
+      $aux = SchoolPeriod::where('school_year_id', $year->id)->where('nperiodo', $period)->first();
+      $pe = SchoolPeriod::where('school_year_id', $year->id)->where('nperiodo', $period)->
+      update([
+        'finish'=> $aux->finish == true ? false : true
+      ]);
+      return back()->with('success', 'El periodo ha sido modificado correctamente');
     }
 
     /**

@@ -66,7 +66,7 @@ Route::get('year/teacher/grade/{id}/edit', 'SchoolYear\SchoolYearController@edit
 Route::post('year/teacher/grade/{id}/edit/save', 'SchoolYear\SchoolYearController@save_editYear_grade')->name('save_editYear_grade');
 Route::get('year/deleting/{id}', 'SchoolYear\SchoolYearController@deletingSchoolYear')->name('deletingSchoolYear');
 
-
+Route::get('year/finish/{id}', 'SchoolYear\SchoolYearController@finish')->name('finishyear');
 /*SCHOOL YEAR DEGREES*/
 Route::resource('yearsdegree', 'SchoolYear\SchoolYearDegreesController');
 Route::post('yearsdegree/delete/{id}', 'SchoolYear\SchoolYearDegreesController@delete')->name('yearsdegree_delete');
@@ -108,22 +108,29 @@ Route::post('grades-teacher/percentage/save','Score\ScoreTypeController@scoreTyp
 Route::get('grades-teacher/percentage/{grade}/{teacher}/{subject}/{period}','Teacher\TeacherController@scorePercentage')->name('scorePercentage');
 Route::get('teacher/{idteacher}/degree/{iddegree}/students/','Teacher\TeacherController@showStudentsDegreeTeacher')->name('showStudentsDegreeTeacher');
 Route::get('types/sendtypes', 'Score\ScoreTypeController@SendTypes')->name('SendTypes');
+Route::get('teacher/{idteacher}/degree/{iddegree}/subjects/','Teacher\TeacherController@showSubjectsByDegree')->name('showSubjectsByDegree');
 
 /*score*/
 Route::get('scores/student', 'Score\ScoreController@getScoresTypeByStudent')->name('getScoresTypeByStudent');
 Route::get('scores/update', 'Score\ScoreController@updateScores')->name('updateScores');
-
-
+Route::get('teacher/{idteacher}/subject/{idsubject}/period/{idperiod}/scores','Score\ScoreBySubjectController@showStudentScoreBySubject')->name('showStudentScoreBySubject');
+Route::get('scores-subject/update', 'Score\ScoreBySubjectController@updateScoresBySubject')->name('updateScoresBySubject');
 
 /*PERIODOS */
 Route::resource('periods','Period\PeriodController');
 Route::get('year/{idyear}/periods','Period\PeriodController@index')->name('periods-index');
+Route::get('year/finish-period/{period}','Period\PeriodController@finishPeriod')->name('periods-finish');
+//para finalizar año
+Route::get('year/finishprocess/{year}','SchoolYear\SchoolYearController@finishProcess')->name('finishProcess');
+
+
 Route::get('year/{idyear}/periods/edit','Period\PeriodController@edit')->name('periods-edit');
 Route::post('year/{idyear}/periods/edit/save','Period\PeriodController@update')->name('periods-update');
 Route::get('year/{idyear}/periods/create','Period\PeriodController@create')->name('periods-create');
 Route::post('year/{idyear}/periods/create/save','Period\PeriodController@store')->name('periods-store');
 Route::post('year/periods/delete','Period\PeriodController@destroy')->name('periods-delete');
 Route::get('year/{idyear}/active/{idperiod}', 'Period\PeriodController@changePeriodStatus')->name('changePeriodStatus');
+
 
 /*CONDUCTA INDICADORES */
 Route::resource('behaviors','Behavior\BehaviorController');
@@ -134,3 +141,7 @@ Route::get('behaviors/register/detail/{degreeid}/{idperiod}','Behavior\BehaviorC
 Route::get('behaviors/register/delete/{degreeid}/{idperiod}','Behavior\BehaviorController@delete')->name('behaviors-register-delete');
 Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister')->name('behaviors-register-save');
 
+/*REPORTS*/
+Route::resource('reports', 'Report\ReportController');
+Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\ReportController@reportpdf')->name('attendance.pdf');
+Route::get('scores-pdf/{student_id}', 'Report\ReportController@scorespdf')->name('scores.pdf');

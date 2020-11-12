@@ -75,7 +75,7 @@
   <div class="col-lg-12">
     <div class="card">
        <div class="card-header">
-        <strong class="card-title">{{$student->name}} - Periodo: {{$period->nperiodo}}
+        <strong class="card-title">{{$student->name}} {{$student->lastnames}} - Periodo: {{$period->nperiodo}}
           {{$year->year}} - {{Help::ordinal($degree->id)}} {{$degree->section}}
           {{Help::turn($degree->turn)}}</strong>
        </div>
@@ -119,14 +119,23 @@
                                $notaff = ($type->score * ($type->score_types->percentage/100)  )  + $notaff;
                              @endphp
                            <th scope="row">
-                            <input type="number" min="0.00" max="10.00" step="0.01" class="form-control" name="{{$type->id}}"
+                            <input
+                            @if ($period->finish == true)
+                              readonly
+                            @endif
+
+                            min="0.00" max="10.00" type="number"  step="0.01" class="form-control" name="{{$type->id}}"
                             value="{{number_format($type->score,2)}}">
                            </th>
                            @endif
                           @endforeach <!--NOTAS-->
                           @if ($con>0)
                           <th scope="row">
-                            <button type="submit" class="btn btn-info mb-1" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button
+                            @if ($period->finish ==true)
+                              disabled
+                            @endif
+                             data-toggle="tooltip" data-placement="top" title="Click para guardar" type="submit" class="btn btn-info mb-1" ><i class="fa fa-save" aria-hidden="true"></i></button>
                           </th>
                           @endif
                         </tr>

@@ -41,6 +41,9 @@
                   <th width="65" scope="col">Periodo 1</th>
                   <th width="65" scope="col">Periodo 2</th>
                   <th width="65" scope="col">Periodo 3</th>
+                  <th width="45" scope="col">Reporte Asistencia</th>
+                  <th width="45" scope="col">Reporte Notas</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -119,6 +122,12 @@
                         @else
                        <i class="fa fa-times" aria-hidden="true"></i>
                        @endif
+                     </td>
+                     <td>
+                       <a href="{{route('reports.show', $value->id) }}" class="btn btn-primary"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
+                     </td>
+                         <td>
+                       <a href="{{route('scores.pdf', $value->id) }}" class="btn btn-dark"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
                      </td>
                   </tr>
                 @endforeach

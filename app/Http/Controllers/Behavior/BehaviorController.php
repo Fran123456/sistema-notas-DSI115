@@ -147,7 +147,7 @@ class BehaviorController extends Controller
                 ->select('students.id','students.name','students.lastname','students_history.degree_id','students_history.school_year_id')
                 ->where('school_year_id',$activeYear[0]->id)
                 ->where('degree_id',$degreeid)
-                ->where('students_history.status',1)->orderBy('students.name','ASC')->get();
+                ->where('students_history.status',1)->orderBy('students.lastname','ASC')->get();
                 $indicadores=BehaviorIndicator::all();
 
                 return view('behavior.students_behavior', compact('degree','activeYear','activePeriod','students','indicadores'));
@@ -193,7 +193,9 @@ class BehaviorController extends Controller
         ->select('students.name as nombre','students.lastname','behavior_indicators.name','behavior_indicators.code')
         ->where('school_period_id',$periodo->id)
         ->where('school_year_id',$year[0]->id)
-        ->where('degree_id',$degreeid)->get();
+        ->where('degree_id',$degreeid)
+        ->orderBy('students.lastname','ASC')
+        ->get();
         if (  count($students) == 0 ) {
            return back()->with('edit','Sin Registros Encontrados');
         } else {

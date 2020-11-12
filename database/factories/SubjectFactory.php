@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Subject::class, function (Faker $faker) {
     return [
-        'name' => $faker->randomDigit,
+        'name' => "Nueva materia de test",
         'active' => true,
     ];
 });

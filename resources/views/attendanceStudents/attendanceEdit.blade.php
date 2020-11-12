@@ -33,8 +33,8 @@
         <br>
         <div class="text-center"><h3>Edición asistencia fecha {{Help::dateFormatter($attendanceDate)}}</h3></div>                
       <div class="card-body">
-        <form method="post" action="{{route('updateAttendance')}}"  enctype="multipart/form-data">
-          <input name="_method" type="hidden" value="PATCH">            
+        <form method="post" action="{{route('updateAttendance')}}"  enctype="multipart/form-data">          
+            @Method('PATCH')
             @csrf
             <table class="table table-hover">
                 <thead>
