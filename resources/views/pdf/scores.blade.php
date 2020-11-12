@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<strong>Reporte de notas</strong><br>  
+<strong>Reporte de notas</strong><br>  <br>
   <strong>Nombre: </strong>{{$student->name}} {{$student->lastname}}<br>
   <strong>Grado: </strong>{{Help::ordinal($history->degree->degree)}}<br>
   <strong>Sección: </strong>{{$history->degree->section}}<br>
@@ -27,7 +27,7 @@
 
   @foreach ($periods as $key => $value)
     
-    <strong>{{Help::periods($value->nperiodo)}}</strong><br>
+    <strong>{{Help::periods($value->nperiodo)}}</strong><br><br>
 
      @foreach ($history->degree->subjects as $key2 => $value2)
 
@@ -86,9 +86,9 @@
               </tr>
             </tbody>
           </table>  
-          <br><br>        
+                  
       @endforeach
-    <br><br>
+    <br>
   @endforeach
 </body>
 </html>
