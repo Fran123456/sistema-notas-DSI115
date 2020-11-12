@@ -27,18 +27,28 @@
 
   @foreach ($periods as $key => $value)
     
-    <strong>{{Help::periods($value->nperiodo)}}</strong><br><br>
+    <strong>{{Help::periods($value->nperiodo)}}</strong><br>
 
      @foreach ($history->degree->subjects as $key2 => $value2)
 
       @php
         $notaTotal = 0;
+        $coll = 0;
       @endphp
 
        <table class="table">
           <thead>
             <tr class="tr">
-              <th class="th" colspan="6">  
+              @foreach($scores as $ss => $notas)
+                @if($value->id == $notas->school_period_id)  
+                  @if($notas->subject_id == $value2->id) 
+                    @php
+                   $coll = 1 + $coll;
+                   @endphp
+                    @endif
+                  @endif
+                @endforeach  
+              <th class="th" colspan={{$coll+1}}>  
                 <strong>{{$value2->name}}</strong>
               </th>
             </tr>
@@ -76,7 +86,7 @@
               </tr>
             </tbody>
           </table>  
-          <br>        
+          <br><br>        
       @endforeach
     <br><br>
   @endforeach
