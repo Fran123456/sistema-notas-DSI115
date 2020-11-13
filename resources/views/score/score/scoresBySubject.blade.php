@@ -24,7 +24,8 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <strong class="card-title">Notas de la asignatura {{$subject->name}} para el grado {{Help::ordinal($degree->degree)}} {{$degree->section}} - Año {{$schoolYear->year}} - Periodo {{$period->nperiodo}}<br/>Docente: {{$teacher->name}}</strong>
+        <strong class="card-title">Notas de la asignatura {{$subject->name}} para el grado {{Help::ordinal($degree->degree)}} {{$degree->section}} - Año {{$schoolYear->year}} - Periodo {{$period->nperiodo}}
+        @if($period->finish) "cerrado" @endif<br/>Docente: {{$teacher->name}}</strong>
       </div>
         <div class="card-body"> 
         <form method="get" action="{{ route('updateScoresBySubject') }}" enctype="multipart/form-data">
@@ -57,18 +58,30 @@
                   @foreach ($scoreTypes as $type)
                     @foreach ($scores as $score)  
                       @if ($score->student_id==$value->idStudent and $score->score_type_id==$type->id)
-                        <td>
-                          <input type="number" style="background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" required>
-                        </td> 
+                        @if($period->finish)
+                          <td>
+                            <input type="number" style="background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" disabled required>
+                          </td> 
+                        @else
+                          <td>
+                            <input type="number" style="background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" required>
+                          </td> 
+                        @endif                      
                         @php
                         $notafinal = ($score->score * ($type->percentage/100)  )  + $notafinal;
                         @endphp
                       @endif
                     @endforeach                                   
-                  @endforeach                    
+                  @endforeach  
+                @if($period->finish)                 
+                <td>
+                    <button onclick="asignarEstudiante({{$value->idStudent}})" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-light" disabled><i class="fa fa-save" aria-hidden="true"></i></button>
+                </td>
+                @else
                 <td>
                     <button onclick="asignarEstudiante({{$value->idStudent}})" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-light"><i class="fa fa-save" aria-hidden="true"></i></button>
-                </td>
+                </td>                
+                @endif
                 <td>{{number_format($notafinal,2)}}</td>   
               </tr>
             @endforeach
