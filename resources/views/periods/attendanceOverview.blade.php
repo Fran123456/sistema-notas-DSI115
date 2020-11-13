@@ -22,7 +22,7 @@
       <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
       <li class="breadcrumb-item"><a href="{{ route('periods-index',$year->id) }}">Periodos Escolares</a></li>
       <!--TENGO QUE AGREGARLE EL AÑO-->      
-      <li class="breadcrumb-item active" aria-current="page">Resumen Periodo {{$period->nperiodo}} Año {{$year->year}}</li>
+      <li class="breadcrumb-item active" aria-current="page">Resumen Asistencias Periodo {{$period->nperiodo}} Año {{$year->year}}</li>
       </ol>
     </nav>
   </div>
@@ -47,7 +47,7 @@
         <!--Coordinadores Tab-->
         <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
           <div class="card-header">
-            <strong class="card-title">Resumen General</strong>
+            <strong class="card-title">Resumen Asistencias General</strong>
           </div>          
           <div class="col">
             <div class="card-body">
@@ -91,7 +91,7 @@
         <!--Resumen por Grado-->
         <div class="tab-pane fade" id="grados" role="tabpanel" aria-labelledby="grados-tab">
           <div class="card-header">
-            <strong class="card-title">Resumen por Grados</strong>
+            <strong class="card-title">Resumen Asistencias por Grados</strong>
           </div>            
             <div class="row">
               @if(count($degrees))

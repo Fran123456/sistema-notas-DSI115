@@ -46,9 +46,9 @@
                 <tr>
                   <th width="60" scope="col">Periodo</th>
                   <th width="90" scope="col">Inicio</th>
-                  <th width="90" scope="col">Fin</th>
-                  <th width="80" scope="col">Resumen Notas</th>
+                  <th width="90" scope="col">Fin</th>                  
                   <th width="80" scope="col">Resumen Asistencias</th>
+                  <th width="80" scope="col">Resumen Notas</th>
                   <th width="80" scope="col">Estado</th>
                   <th width="80" scope="col">Editar</th>
                   <th width="80"  scope="col">Eliminar</th>
