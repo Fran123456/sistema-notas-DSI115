@@ -7,8 +7,10 @@ use App\SchoolPeriod;
 use App\SchoolYear;
 use App\Help\Help;
 use Illuminate\Http\Request;
-use DB;
 use App\ScoreStudent;
+use Illuminate\Support\Facades\DB;
+use App\Subject;
+use App\Degree;
 
 class PeriodController extends Controller
 {
@@ -177,10 +179,37 @@ class PeriodController extends Controller
 
     public function showPeriodScoresOverview($idYear,$idPeriod){       
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+
         $schoolYear= SchoolYear::find($idYear);
         $period=SchoolPeriod::find($idPeriod);
+        $subjects=Subject::all();
+        $degrees=Degree::all();
+        $information=array();
 
+        foreach($subjects as $subject){
+            $subjectStudentScores=DB::select(
+                "SELECT students.name as student,subjects.name as subject, sum(score*score_type.percentage/100) as average 
+                FROM score_students JOIN subjects ON score_students.subject_id=subjects.id 
+                JOIN score_type ON score_students.score_type_id=score_type.id 
+                JOIN students ON score_students.student_id=students.id 
+                WHERE score_students.school_period_id = ? AND score_students.subject_id=?
+                GROUP BY score_students.student_id",[$idPeriod,$subject->id]);
+            $aprobados=0;
+            $reprobados=0;
+            $sumScores=0;
+            foreach($subjectStudentScores as $score){
+                $sumScores=$sumScores+$score->average;
+                if($score->average>=6) $aprobados++;
+                else $reprobados++;
+            }
+            $inscritos=$aprobados+$reprobados;
+            $periodAverage=$sumScores/$inscritos;
+            array_push($information,array($subject->name,$periodAverage,$aprobados,$reprobados,$inscritos));
+        }
 
-        return view('periods.periodScoresOverview', ["schoolYear"=>$schoolYear,"period"=>$period]);
+        return view('periods.periodScoresOverview', [
+            "schoolYear"=>$schoolYear,
+            "period"=>$period,
+            "information"=>$information]);
     }
 }

@@ -45,13 +45,47 @@
         <!--Notas por materias Tab-->
         <div class="tab-pane fade show active" id="materias" role="tabpanel" aria-labelledby="materias-tab">
           <div class="card-header">
-            <strong class="card-title">RESUMEN DE NOTAS POR MATERIA</strong>
+            <strong class="card-title">RESUMEN DE NOTAS POR MATERIA PERIODO {{$period->nperiodo}} - {{$schoolYear->year}}</strong>
           </div>
 
           <div class="col">
             <div class="card-body">
               <div class="card" style="width: auto;">
-                resumen de notas por materia
+                  <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Materia</th>                          
+                            <th scope="col">Nota promedio en la materia</th>
+                            <th scope="col">Cantidad de alumnos aprobados</th>
+                            <th scope="col">Porcentaje aprobados</th>
+                            <th scope="col">Cantidad de alumnos reprobados</th>
+                            <th scope="col">Porcentaje reprobados</th>
+                            <th scope="col">Total de alumnos inscritos</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @for($i=0;$i<(sizeof($information));$i++)
+                          @php
+                            $materia=$information[$i][0];
+                            $periodAverage=$information[$i][1];
+                            $aprobados=$information[$i][2];
+                            $reprobados=$information[$i][3];
+                            $inscritos=$information[$i][4];                 
+                          @endphp
+                          <tr>
+                              <td class="align-middle">{{$materia}}</td>                   
+                              <td class="align-middle">{{number_format($periodAverage,2)}}</td>
+                              <td class="align-middle">{{$aprobados}}</td>
+                              <td class="align-middle">{{number_format(($aprobados/$inscritos)*100,2)}}%</td>
+                              <td class="align-middle">{{$reprobados}}</td>
+                              <td class="align-middle">{{number_format(($reprobados/$inscritos)*100,2)}}%</td>
+                              <td class="align-middle">{{$inscritos}}</td>
+                          </tr>
+                        @endfor
+                        </tbody>
+                    </table>
+                  </div>
               </div>
             </div>
           </div>
