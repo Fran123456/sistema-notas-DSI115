@@ -68,7 +68,7 @@
                      <!--Resumen Asistencia-->
                      <td><a href="{{route('attendanceOverview',[$year->id,$value->id])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                      <!--Resumen Notas-->
-                     <td><a href="" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                     <td><a href="{{route('periodScoresOverview',[$year->id,$value->id])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                      <td>
                      @if (!($value->current))
                      <a href="{{ route('changePeriodStatus',[$year->id,$value->id]) }}"  class="btn btn-info"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>

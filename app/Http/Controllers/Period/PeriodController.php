@@ -7,6 +7,8 @@ use App\SchoolPeriod;
 use App\SchoolYear;
 use App\Help\Help;
 use Illuminate\Http\Request;
+use DB;
+use App\ScoreStudent;
 
 class PeriodController extends Controller
 {
@@ -171,5 +173,14 @@ class PeriodController extends Controller
         SchoolPeriod::where('current',1)->where('school_year_id',$schoolYear->id)->update(['current'=>0]);
         SchoolPeriod::where('id',$idperiod)->update(['current'=>1]);
         return back()->with('success','<strong>El periodo escolar '.$period->nperiodo. ' - '.$schoolYear->year. ' ha sido activado correctamente</strong>');
+    }
+
+    public function showPeriodScoresOverview($idYear,$idPeriod){       
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+        $schoolYear= SchoolYear::find($idYear);
+        $period=SchoolPeriod::find($idPeriod);
+
+
+        return view('periods.periodScoresOverview', ["schoolYear"=>$schoolYear,"period"=>$period]);
     }
 }

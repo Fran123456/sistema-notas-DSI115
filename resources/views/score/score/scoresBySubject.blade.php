@@ -28,16 +28,18 @@
         @if($period->finish) "cerrado" @endif<br/>Docente: {{$teacher->name}}</strong>
       </div>
         <div class="card-body"> 
+        
         <form method="get" action="{{ route('updateScoresBySubject') }}" enctype="multipart/form-data">
         <input type="text" value="" id="student" name="student" hidden>
         <input type="hidden" value="{{$subject->id}}" name="subject">
         <input type="hidden" value="{{$degree->id}}" name="degree">
         <input type="hidden" value="{{$period->id}}" name="period">
+        <div class="table-responsive">
         <table class="table text-center table-sm table-bordered" id="bootstrap-data-table_length">
           <thead style="background-color:lightblue;color:blue;">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Nombre del estudiante</th>
+              <th scope="col">Nombre estudiante</th>
               @foreach ($scoreTypes as $type)
               <th>
                 {{$type->activity}}<br/> ({{$type->percentage}})%
@@ -60,11 +62,11 @@
                       @if ($score->student_id==$value->idStudent and $score->score_type_id==$type->id)
                         @if($period->finish)
                           <td>
-                            <input type="number" style="background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" disabled required>
+                            <input type="number" style="width:80px;background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" disabled required>
                           </td> 
                         @else
                           <td>
-                            <input type="number" style="background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" required>
+                            <input type="number" style="width:80px;background-color:gray;color:white" class="form-control" min="0.00" max="10.00" step="0.01" value="{{number_format($score->score,2)}}" name="{{$score->id}}" required>
                           </td> 
                         @endif                      
                         @php
@@ -87,6 +89,7 @@
             @endforeach
           </tbody>
         </table>
+        </div>
         </form>
       </div>
     </div>
