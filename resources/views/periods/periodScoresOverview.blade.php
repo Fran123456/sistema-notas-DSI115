@@ -42,7 +42,7 @@
 
     <div class="tab-content" id="myTabContent">
 
-        <!--Notas por materias Tab-->
+        <!--Resumen de notas por materia Tab-->
         <div class="tab-pane fade show active" id="materias" role="tabpanel" aria-labelledby="materias-tab">
           <div class="card-header">
             <strong class="card-title">RESUMEN DE NOTAS POR MATERIA PERIODO {{$period->nperiodo}} - {{$schoolYear->year}}</strong>
@@ -50,10 +50,10 @@
 
           <div class="col">
             <div class="card-body">
-              <div class="card" style="width: auto;">
-                  <div class="table-responsive">
-                    <table class="table">
-                        <thead>
+                  @if(sizeof($subjectsYear)>0)
+                  <div class="table-responsive">                  
+                    <table class="table text-center">
+                        <thead class="thead-light">
                           <tr>
                             <th scope="col">Materia</th>                          
                             <th scope="col">Nota promedio en la materia</th>
@@ -61,47 +61,89 @@
                             <th scope="col">Porcentaje aprobados</th>
                             <th scope="col">Cantidad de alumnos reprobados</th>
                             <th scope="col">Porcentaje reprobados</th>
-                            <th scope="col">Total de alumnos inscritos</th>
+                            <th scope="col">Total de alumnos evaluados</th>
                           </tr>
                         </thead>
                         <tbody>
-                        @for($i=0;$i<(sizeof($information));$i++)
+                        @for($i=0;$i<(sizeof($infoBySubject));$i++)
                           @php
-                            $materia=$information[$i][0];
-                            $periodAverage=$information[$i][1];
-                            $aprobados=$information[$i][2];
-                            $reprobados=$information[$i][3];
-                            $inscritos=$information[$i][4];                 
+                            $subject=$infoBySubject[$i][0];
+                            $averageBySubject=$infoBySubject[$i][1];
+                            $aprobadosBySubject=$infoBySubject[$i][2];
+                            $aprobadosBySubjectPercentage=$infoBySubject[$i][3];
+                            $reprobadosBySubject=$infoBySubject[$i][4];
+                            $reprobadosBySubjectPercentage=$infoBySubject[$i][5];
+                            $evaluadosBySubject=$infoBySubject[$i][6];                 
                           @endphp
                           <tr>
-                              <td class="align-middle">{{$materia}}</td>                   
-                              <td class="align-middle">{{number_format($periodAverage,2)}}</td>
-                              <td class="align-middle">{{$aprobados}}</td>
-                              <td class="align-middle">{{number_format(($aprobados/$inscritos)*100,2)}}%</td>
-                              <td class="align-middle">{{$reprobados}}</td>
-                              <td class="align-middle">{{number_format(($reprobados/$inscritos)*100,2)}}%</td>
-                              <td class="align-middle">{{$inscritos}}</td>
+                              <td class="align-middle">{{$subject}}</td>                   
+                              <td class="align-middle">{{number_format($averageBySubject,2)}}</td>
+                              <td class="align-middle">{{$aprobadosBySubject}}</td>
+                              <td class="align-middle">{{number_format(($aprobadosBySubjectPercentage)*100,2)}}%</td>
+                              <td class="align-middle">{{$reprobadosBySubject}}</td>
+                              <td class="align-middle">{{number_format(($reprobadosBySubjectPercentage)*100,2)}}%</td>
+                              <td class="align-middle">{{$evaluadosBySubject}}</td>
                           </tr>
                         @endfor
                         </tbody>
                     </table>
                   </div>
-              </div>
+                  @else
+                    <p style="color:red;text-align:center;">No se encontraron materias para este año escolar</p>
+                  @endif
             </div>
           </div>
         </div>
 
-        <!--Notas por grados Tab-->
+        <!--Resumen de notas por grado Tab-->
         <div class="tab-pane fade" id="grados" role="tabpanel" aria-labelledby="grados-tab">
           <div class="card-header">
-            <strong class="card-title">RESUMEN DE NOTAS POR GRADO</strong>
+            <strong class="card-title">RESUMEN DE NOTAS POR GRADO PERIODO {{$period->nperiodo}} - {{$schoolYear->year}}</strong>
           </div>
 
           <div class="col">
-            <div class="card-body">
-              <div class="card" style="width: auto;">
-              resumen de notas por grado
-              </div>
+            <div class="card-body">             
+                @if(sizeof($degreesYear)>0)
+                <div class="table-responsive">
+                    <table class="table text-center">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Grado</th>                          
+                            <th scope="col">Nota promedio en el grado</th>
+                            <th scope="col">Cantidad de alumnos aprobados</th>
+                            <th scope="col">Porcentaje aprobados</th>
+                            <th scope="col">Cantidad de alumnos reprobados</th>
+                            <th scope="col">Porcentaje reprobados</th>
+                            <th scope="col">Total de alumnos evaluados</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @for($i=0;$i<(sizeof($infoByDegree));$i++)
+                          @php
+                            $degree=$infoByDegree[$i][0];
+                            $averageByDegree=$infoByDegree[$i][1];
+                            $aprobadosByDegree=$infoByDegree[$i][2];
+                            $aprobadosByDegreePercentage=$infoByDegree[$i][3];
+                            $reprobadosByDegree=$infoByDegree[$i][4];
+                            $reprobadosByDegreePercentage=$infoByDegree[$i][5];
+                            $evaluadosByDegree=$infoByDegree[$i][6];                 
+                          @endphp
+                          <tr>
+                              <td class="align-middle">{{$degree}}</td>                   
+                              <td class="align-middle">{{number_format($averageByDegree,2)}}</td>
+                              <td class="align-middle">{{$aprobadosByDegree}}</td>
+                              <td class="align-middle">{{number_format(($aprobadosByDegreePercentage)*100,2)}}%</td>
+                              <td class="align-middle">{{$reprobadosByDegree}}</td>
+                              <td class="align-middle">{{number_format(($reprobadosByDegreePercentage)*100,2)}}%</td>
+                              <td class="align-middle">{{$evaluadosByDegree}}</td>
+                          </tr>
+                        @endfor
+                        </tbody>
+                    </table>
+                  </div>
+                  @else
+                    <p style="color:red;text-align:center;">No se encontraron grados para este año escolar</p>
+                  @endif       
             </div>
           </div>
         </div>
