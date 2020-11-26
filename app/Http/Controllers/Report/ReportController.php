@@ -19,9 +19,20 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function admin(Request $request)
     {
-        //
+
+        $student = Student::where("id", $request->usuario_id)->first();
+
+        $attendance = AttendanceStudent::where("student_history_id",  $request->usuario_id)->where('period_id', $request->periodo_id)->get();
+
+        $period = SchoolPeriod::where("id", $request->periodo_id)->first();
+
+        $history = StudentHistory::where("student_id",  $request->usuario_id)->first();
+
+        $pdf = PDF::loadView('pdf.reports', compact('student', 'attendance', 'history', 'period'));
+
+         return $pdf->download('ASISTENCIA-'.$student->name.'-'.$student->lastname.'-PERIODO '.$period->nperiodo.'.pdf');
     }
 
     /**
@@ -120,4 +131,6 @@ class ReportController extends Controller
 
         return $pdf->download('reporte-notas.pdf');
     }
+
+
 }

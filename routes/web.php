@@ -145,3 +145,6 @@ Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister'
 Route::resource('reports', 'Report\ReportController');
 Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\ReportController@reportpdf')->name('attendance.pdf');
 Route::get('scores-pdf/{student_id}', 'Report\ReportController@scorespdf')->name('scores.pdf');
+
+//reportes secretaria/director
+Route::post('attendance/report/admin', 'Report\ReportController@admin')->name('report-admin');

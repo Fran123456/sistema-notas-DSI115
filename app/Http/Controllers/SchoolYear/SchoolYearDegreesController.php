@@ -10,6 +10,7 @@ use App\User;
 use App\DegreeSchoolYear;
 use App\DegreeSchoolSubject;
 use App\Help\Help;
+use App\SchoolPeriod;
 use App\Subject;
 use DB;
 
@@ -88,7 +89,7 @@ class SchoolYearDegreesController extends Controller
      */
     public function destroy($id)
     {
-        auth()->user()->authorizeRoles(['Administrador','Secretaria']);  
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
       $year = DegreeSchoolYear::find($id);
 
       $degree = Degree::find($year->degree_id);
@@ -114,7 +115,7 @@ class SchoolYearDegreesController extends Controller
        DegreeSchoolSubject::where('degree_id',$year_degree->degree_id)->delete();
        return redirect()->route('teacher-grade',$year_degree->school_year_id)->with('delete',' <strong> '.Help::ordinal($degree->degree). $degree->section.'-'.  Help::turn($degree->turn).' Eliminado Correctamente </strong>');
     }
-    public function showStudentsDegreeYear($id)    
+    public function showStudentsDegreeYear($id)
     {
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $degree_school_year = DegreeSchoolYear::find($id);
@@ -126,7 +127,8 @@ class SchoolYearDegreesController extends Controller
         ->where('sh.degree_id','=',$degree->id)
         ->where('sh.school_year_id','=',$schoolYear->id)
         ->get();
-        return view('students.studentsDegreeYear',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree]);
+        $periodos= SchoolPeriod::all();
+        return view('students.studentsDegreeYear',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,'periodos'=>$periodos ]);
     }
 
 }

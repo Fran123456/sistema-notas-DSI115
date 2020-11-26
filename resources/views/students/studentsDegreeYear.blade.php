@@ -6,7 +6,7 @@
 <div class="row">
   @include('alerts.alerts')
 </div>
-
+dsds
 <div class="row">
   <div class="col-md-12">
     <nav aria-label="breadcrumb">
@@ -39,6 +39,7 @@
                   <th scope="col">Encargado</th>
                   <th scope="col">Estado</th>
                   <th width="40" scope="col"> Eliminar </th>
+                  <th width="40" scope="col">Asistencias </th>
                 </tr>
               </thead>
               <tbody>
@@ -66,7 +67,7 @@
                        En espera
                       @endif
                      </td>
-                     <td> 
+                     <td>
                      @if (Auth::user()->roles()->first()->name =="Administrador")
                         <form method="POST" action="{{route('studenthistories.destroy', $value->id) }}">
                            @csrf
@@ -74,8 +75,13 @@
                            <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         </form>
                      @else
-                     <button class="btn btn-danger" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button> 
+                     <button class="btn btn-danger" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button>
                      @endif
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#periodos-{{$value->id}}">
+                            <i class="fa fa-download"></i>
+                          </button>
                      </td>
                   </tr>
                 @endforeach
@@ -87,3 +93,4 @@
 </div>
 
 @endsection
+@include('students.modal.periodo')
