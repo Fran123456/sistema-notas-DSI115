@@ -120,6 +120,9 @@ Route::get('scores-subject/update', 'Score\ScoreBySubjectController@updateScores
 Route::resource('periods','Period\PeriodController');
 Route::get('year/{idyear}/periods','Period\PeriodController@index')->name('periods-index');
 Route::get('year/finish-period/{period}','Period\PeriodController@finishPeriod')->name('periods-finish');
+//Resúmenes
+Route::get('year/{idYear}/periods/{idPeriod}/attendances','AttendanceStudent\AttendanceStudentController@attendanceOverview')->name('attendanceOverview');
+Route::get('year/{idYear}/periods/{idPeriod}/scores','Period\PeriodController@showPeriodScoresOverview')->name('periodScoresOverview');
 //para finalizar año
 Route::get('year/finishprocess/{year}','SchoolYear\SchoolYearController@finishProcess')->name('finishProcess');
 

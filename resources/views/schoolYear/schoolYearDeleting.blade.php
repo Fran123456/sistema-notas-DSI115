@@ -53,7 +53,6 @@
             <strong class="card-title">Coordinadores por sección año escolar {{$backSchoolYear->year}}</strong>
           </div>
           <!--Degree_school_year-->
-
           <div class="col">
             <div class="card-body">
               <div class="card" style="width: auto;">
@@ -114,7 +113,7 @@
                             <div class="card-body">
                               <!--<h5 class="card-title">-->
                                 <div class="table-responsive">
-                                  <table class="table table-borderless">
+                                  <table class="table table-borderless table-info">
                                     <tr>
                                       <td><strong>Grado</strong></td>
                                       <td>{{ Help::ordinal($degree->degree)}} </td>
@@ -162,7 +161,7 @@
                     @endforeach
               @else
                 <div class="text-center">
-                  <p class="text-center"><strong>No existen materias asignadas.</strong></p>
+                  <p class="text-center"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No existen materias asignadas.</strong></p>
                 </div>
               @endif
             </div>
