@@ -79,18 +79,17 @@
                 <label  class=" form-control-label">Teléfono</label>
                    <input type="tel" min="1" name="phone" required value="{{$student->phone}}"  class="form-control">
               </div>
-            </div>
-
+            </div>            
             <div class="col-md-2">
               <div class="form-group">
                 <label  class=" form-control-label">Grado escolar</label>
                   <select class="form-control" name="">
-                   @foreach ($degrees as $key => $value)
-                      <option value="{{$value->degree->id}}">{{Help::ordinal($value->degree->degree)}} {{$value->degree->section}} {{ Help::turn($value->degree->turn)}}</option>
+                   @foreach ($degrees as $key => $value)                   
+                      <option value="{{$value->degree->id}}">{{Help::ordinal($value->degree->degree)}} {{$value->degree->section}} {{ Help::turn($value->degree->turn)}}</option>                   
                     @endforeach
                   </select>
               </div>
-            </div>
+            </div>            
 
 
             <div class="col-md-2">

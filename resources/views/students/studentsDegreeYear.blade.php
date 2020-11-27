@@ -6,7 +6,7 @@
 <div class="row">
   @include('alerts.alerts')
 </div>
-dsds
+  
 <div class="row">
   <div class="col-md-12">
     <nav aria-label="breadcrumb">
@@ -18,6 +18,12 @@ dsds
       </ol>
     </nav>
   </div>
+</div>
+
+<div class="row ">
+    <div class="col-md-12 col-sm-12 col-xs-12 text-right">
+       <a class="btn btn-info mb-1"href="{{route('asignStudentForm',[$degree->id,$schoolYear->id])}}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    </div>
 </div>
 
 <div class="row">
@@ -91,6 +97,7 @@ dsds
     </div>
   </div>
 </div>
+
 
 @endsection
 @include('students.modal.periodo')

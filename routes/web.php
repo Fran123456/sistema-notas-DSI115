@@ -72,6 +72,10 @@ Route::resource('yearsdegree', 'SchoolYear\SchoolYearDegreesController');
 Route::post('yearsdegree/delete/{id}', 'SchoolYear\SchoolYearDegreesController@delete')->name('yearsdegree_delete');
 Route::get('yeardegree/{id}/students/','SchoolYear\SchoolYearDegreesController@showStudentsDegreeYear')->name('showStudentsDegreeYear');
 
+//ASIGNAR ESTUDIANTE
+Route::get('year/asignation/student/{idDegree}/{idYear}', 'SchoolYear\SchoolYearDegreesController@asignStudentForm')->name('asignStudentForm');
+Route::post('year/asignation/student/save', 'SchoolYear\SchoolYearDegreesController@asignStudent')->name('asignStudent');
+
 /*SUBJECTS*/
 Route::resource('subjects', 'Subject\SubjectController');
 Route::get('subject/active/{id}', 'Subject\SubjectController@changeStatusSubject')->name('changeStatusSubject');

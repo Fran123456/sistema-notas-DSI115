@@ -10,12 +10,17 @@ use App\User;
 use App\DegreeSchoolYear;
 use App\DegreeSchoolSubject;
 use App\SchoolPeriod;
+use App\ScoreStudent;
+use App\Student;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use SebastianBergmann\Diff\Diff;
 use Superglobals;
 use Illuminate\Support\Facades\DB;
 use App\StudentHistory;
+use App\Subject;
+use Sabberworm\CSS\Value\Size;
+
 class SchoolYearController extends Controller
 {
     /**
@@ -33,14 +38,117 @@ class SchoolYearController extends Controller
     public function finish($id){
       $year = SchoolYear::find($id);
       $periods = SchoolPeriod::where('school_year_id', $id)->get();
-      $periods2 = SchoolPeriod::where('school_year_id', $id)->where('nperiodo', false)->get();
+      $periods2 = SchoolPeriod::where('school_year_id', $id)->where('finish', false)->get();
+
       return view('schoolYear.finish.finish', compact('year','periods','periods2'));
     }
 
-    public function finishProcess($year){
-        $yearx = SchoolYear::find($year);
-        $periods = SchoolPeriod::where('school_year_id',$year)->get();
+    public function finishProcess($year){      
+      $yearx = SchoolYear::find($year);      
+      $nextYear=SchoolYear::where('year','>',$yearx->year)->get();
 
+      //Validamos si existe un año creado diferente para poder cerrar 
+      if(count($nextYear)==0){
+        return redirect()->back()->with('delete','<strong> Debe crear un año para proceder al cierre del '.$yearx->year.'</strong>');
+      }
+
+      $periods = SchoolPeriod::where('school_year_id',$year)->get();
+
+      $students= Student::all();
+      $subjects= Subject::all();
+
+      $aprobados=[];
+      $reprobados=[];
+      
+
+      foreach($students as $student){
+        $flag=0; //bandera para controlar si es aprobado o reprobado        
+        $scores=[];//para almacenar los promedios finales de todas las notas, tendrá 7 elementos por ser 7 materias
+
+        foreach($subjects as $subject){// por cada materia
+          foreach($periods as $period){// revisaremos cada periodo
+            
+            $notasPeriodo=[];//para guardar las notas del periodo
+            //Consultamos todas las notas del estudiante
+            $query=DB::table('score_students')
+                    ->join('score_type','score_type.id','=','score_students.score_type_id')
+                    ->where('score_students.school_year_id','=',$year)
+                    ->where('score_students.school_period_id','=',$period->id)
+                    ->where('score_students.subject_id','=',$subject->id)
+                    ->where('score_students.student_id','=',$student->id)                    
+                    ->select('*')
+                    ->get();
+                        
+            $suma = 0;//para ir sumando la nota del periodo de la materia ocupamos el foreach
+            foreach($query as $comprobacion){
+              $suma += ($comprobacion->score * ($comprobacion->percentage/100));
+            }
+            array_push($notasPeriodo,$suma);//lo guardamos
+          }          
+
+          $sumaMateria=0;//para sacar la nota final de la materia, igual con foreach
+          foreach($notasPeriodo as $score){
+            $sumaMateria += ($score/sizeof($notasPeriodo));
+          }
+          
+          array_push($scores,$sumaMateria);//lo guardamos en el array de notas finales
+
+        }
+        
+        //Analizaremos las notas para saber si dejó una materia
+        foreach($scores as $score){
+          if($score < 6.00 ){
+            $flag=1;//modificamos el valor de la bandera
+          }
+        }        
+
+        if($flag==1){//si el valor de flag es 1 lo guardamos en el array de reprobados
+          array_push($reprobados,$student);
+        }
+        else{
+          array_push($aprobados,$student);//si el valor es 0 se guarda en aprobados
+        }
+      }            
+
+      /*
+      En http://localhost/sistema-notas-DSI115/public/students se visualizará estado = en espera
+      debido a que así fue controlado en la vista:
+          @if ($value->status =="AI")
+          Antiguo Ingreso
+          @elseif($value->status =="NI")
+          Nuevo Ingreso
+          @elseif ($value->status =="EG")
+          Egresado
+          @elseif ($value->status =="AB")
+          Abandonó
+          @else
+          En espera
+          @endif
+      */
+      //Actualizaremos el status para los aprobados
+      foreach($aprobados as $aprobado){
+        
+        Student::where('id','=',$aprobado->id)->update([
+          'status' => 'AIA', //AIA = Antiguo Ingreso Aprobado
+        ]);
+
+        DB::table('students_history')
+          ->join('degrees','degrees.id','=','students_history.degree_id')                      
+          ->where('students_history.student_id','=',$aprobado->id)
+          ->where('degrees.degree','=',6)
+          ->update([
+            'status' => 'EG', //EG = egresado
+          ]);        
+      }
+
+      //Actualizaremos el status para los reprobados
+      foreach($reprobados as $reprobado){
+        Student::where('id','=',$reprobado->id)->update([
+          'status' => 'AIR', //AIR = Antiguo Ingreso Reprobado
+        ]);
+      }
+       
+      return redirect()->route('years.index');
     }
 
     /**
