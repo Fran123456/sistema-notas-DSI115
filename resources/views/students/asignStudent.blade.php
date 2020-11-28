@@ -6,7 +6,7 @@
 <div class="row">
   @include('alerts.alerts')
 </div>
-  
+
 
 
 <div class="row">
@@ -26,22 +26,23 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-        <br>
-        <div class="text-center"><h3>Asignar alumnos</h3></div>                
+        <div class="text-center"><h3>Asignar alumnos</h3></div>
       <div class="card-body">
+
+          <h3>{{Help::ordinal($degree->degree)}} {{$degree->section}}   {{Help::turn($degree->turn)}}</h3>
         <form method="POST" action="{{route('asignStudent')}}"  enctype="multipart/form-data">
-            @csrf            
-                
+            @csrf
+
                 <input hidden value="{{$schoolYear->id}}" name="schoolYear">
                 <input hidden value="{{$degree->id}}" name="degree">
-                                                                     
-                <select multiple required name="students[]" class="form-control">
-                  @foreach($aprobados as $key => $value) 
-                        <option value="{{$value->student_id}}">{{$value->name}} {{$value->lastname}}</option>
-                  @endforeach  
-                  @foreach($reprobados as $key => $value) 
-                        <option value="{{$value->student_id}}">{{$value->name}} {{$value->lastname}}</option>
-                  @endforeach  
+
+                <select size="20"  multiple required name="students[]" class="form-control">
+                  @foreach($aprobados as $key => $value)
+                        <option selected value="{{$value->student_id}}">{{$value->name}} {{$value->lastname}} ({{$value->student_id}}) </option>
+                  @endforeach
+                  @foreach($reprobados as $key => $value)
+                        <option selected value="{{$value->student_id}}">{{$value->name}} {{$value->lastname}} ({{$value->student_id}}) </option>
+                  @endforeach
                 </select>
             <button class="btn btn-primary" type="submit" >Guardar cambios  <i class="fa fa-check-circle"></i></button>
         </form>

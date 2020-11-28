@@ -142,7 +142,7 @@ class DegreeSchoolSubjectSeeder extends Seeder
                             'school_year_id'=> $year->id,
                             'degree_id'=>$degree->id,
                             'subject_id'=>$subject->id,
-                            'score'=>rand(0.00,10.00)
+                            'score'=>rand(4.00,10.00)
                            ]);
                        }
                     }

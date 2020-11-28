@@ -48,7 +48,7 @@
                   <th scope="col">Activo</th>
                   <th scope="col" width="40">Estado</th>
                   <th width="40" scope="col"> Administrar </th>
-                  <th width="40" scope="col"> Periodos </th>                  
+                  <th width="40" scope="col"> Periodos </th>
                   <th width="40" scope="col"> Finalizar </th>
                   <th width="40" scope="col"> Eliminar </th>
                 </tr>
@@ -87,10 +87,21 @@
                      </td>
 
                      <td>
+                       @if ($value->finish)
+                         <button type="button" disabled class="btn btn-primary" name="button"><i class="fa fa-layer-group" aria-hidden="true"></i></button>
+                       @else
                         <a href="{!! route('periods-index',$value->id) !!}" class="btn btn-primary"><i class="fa fa-layer-group" aria-hidden="true"></i></a>
-                      </td>                      
+                       @endif
+
+                      </td>
+
                       <td>
-                        <a href="{{ route('finishyear', $value->id) }}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        @if ($value->finish)
+                          <button type="button" disabled class="btn btn-warning" name="button"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                        @else
+                          <a href="{{ route('finishyear', $value->id) }}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        @endif
+
                       </td>
 
                       <td>
