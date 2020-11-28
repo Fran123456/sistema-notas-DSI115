@@ -29,7 +29,7 @@
                 <th scope="row">{{$key+1}}</th>
                 <td>{{Help::ordinal($degreex->degree)}} {{$degreex->section}} </td>
                 <td>{{Help::turn($degreex->turn)}}  </td>
-                <td>{{$degreex->teacher[0]->name}}  </td>
+                <td>{{ Help::getTeacher($degreex->pivot->user_id)}}  </td>
                 <td>{{$degreex->pivot->capacity}}  </td>
                 <td> {{$materiasAnex[$key]}} </td>
                 <td> {{$studentAnex[$key]}} </td>
@@ -39,7 +39,7 @@
                 </td>
                 <td>
                         <a href="{{ route('showStudentsDegreeYear',$degreex->pivot) }}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                </td>                
+                </td>
                 <td>
                   @if($year->finish == 0)
                   <a href="{{route('editYear_grade',$degreex->pivot->id )}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>

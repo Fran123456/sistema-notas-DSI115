@@ -172,7 +172,15 @@ class SchoolYearDegreesController extends Controller
 
     //Para guardar los registros
     public function asignStudent(Request $request){
+
+
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+        //validamos si quiere ampliar la capacidad
+        $d = DegreeSchoolYear::find($request->degreeCapaId);
+        DegreeSchoolYear::where('id', $request->degreeCapaId)->update([
+          'capacity'=> $d->capacity + $request->capacity
+        ]);
+        //validamos si quiere ampliar la capacidad
 
         //Consultamos la capacidad
         $capacidad=DegreeSchoolYear::where('degree_id','=',$request->degree)
@@ -206,7 +214,10 @@ class SchoolYearDegreesController extends Controller
                 ]);
             }
 
-            return redirect()->route('teacher-grade',$request->schoolYear);
+            DegreeSchoolYear::where('id', $request->degreeCapaId)->update([
+              'full'=> $d->capacity + $request->capacity
+            ]);
+            return redirect()->route('teacher-grade',$request->schoolYear)->with('success','Alumnos asignados correctamente');
         }
         else{
             return redirect()->back()->with('delete','Está superando la capacidad máxima asignada por cupos.');

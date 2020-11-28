@@ -23,7 +23,8 @@ class Degree extends Model
         return $this->belongsToMany('App\User','degree_school_year','degree_id','user_id')
                     ->using('App\DegreeSchoolYear')->withPivot([
                       'capacity',
-                      'id'
+                      'id',
+                      'user_id'
                     ]);
     }
 

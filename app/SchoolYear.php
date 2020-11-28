@@ -17,7 +17,8 @@ class SchoolYear extends Model
                         ->using('App\DegreeSchoolYear','degree_id')
                         ->withPivot([
                             'capacity',
-                            'id'
+                            'id',
+                            'user_id'
                         ]);
     }
 
