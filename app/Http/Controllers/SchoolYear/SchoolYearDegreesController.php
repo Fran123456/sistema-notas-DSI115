@@ -140,6 +140,7 @@ class SchoolYearDegreesController extends Controller
         $degreeSchoolYear=DegreeSchoolYear::where('degree_id','=',$idDegree)
                                             ->where('school_year_id','=',$idSchoolYear)
                                             ->get()->first();
+
         $degree=Degree::find($idDegree);
         $schoolYear=SchoolYear::find($idSchoolYear);
         $students=[];

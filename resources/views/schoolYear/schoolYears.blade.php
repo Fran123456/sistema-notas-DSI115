@@ -44,6 +44,7 @@
                   <th width="40" scope="col">#</th>
                   <th width="200" scope="col">Fecha inicio</th>
                   <th width="200" scope="col">Fecha de finalización</th>
+                    <th width="200" scope="col">Finalizado</th>
                   <th scope="col">Año</th>
                   <th scope="col">Activo</th>
                   <th scope="col" width="40">Estado</th>
@@ -62,6 +63,13 @@
 
                      <td>{{Help::dateFormatter($value->start_date)}}</td>
                      <td>{{Help::dateFormatter($value->end_date)}}</td>
+                     <td>
+                       @if ($value->finish)
+                         FINALIZADO
+                      @else
+                        EN CURSO
+                       @endif
+                     </td>
                      <td>{{$value->year}}</td>
                      <td>
                       @if ($value->active)

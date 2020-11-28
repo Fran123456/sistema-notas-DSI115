@@ -29,10 +29,12 @@
         <div class="text-center"><h3>Asignar alumnos</h3></div>
       <div class="card-body">
 
-          <h3>{{Help::ordinal($degree->degree)}} {{$degree->section}}   {{Help::turn($degree->turn)}}</h3>
+        <h4>{{Help::ordinal($degree->degree)}} {{$degree->section}}   {{Help::turn($degree->turn)}}</h4>
+        <h5>Capacidad del salon: {{$degreeSchoolYear->capacity}}</h5>
+        <h5>Docente: {{Help::getTeacher($degreeSchoolYear->user_id)}}</h5>
+        <h5>Alumnos por inscribir: {{count($aprobados) + count($reprobados)}}</h5>
         <form method="POST" action="{{route('asignStudent')}}"  enctype="multipart/form-data">
             @csrf
-
                 <input hidden value="{{$schoolYear->id}}" name="schoolYear">
                 <input hidden value="{{$degree->id}}" name="degree">
 
