@@ -131,11 +131,15 @@ class SchoolYearDegreesController extends Controller
         ->where('sh.school_year_id','=',$schoolYear->id)
         ->get();
         $periodos= SchoolPeriod::all();
-        return view('students.studentsDegreeYear',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,'periodos'=>$periodos ]);
+        return view('students.studentsDegreeYear',["students"=>$students,"schoolYear"=>$schoolYear,"degree"=>$degree,'periodos'=>$periodos]);
     }
 
     //Para la vista de asignación de estudiantes
     public function asignStudentForm($idDegree,$idSchoolYear){
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+        $degreeSchoolYear=DegreeSchoolYear::where('degree_id','=',$idDegree)
+                                            ->where('school_year_id','=',$idSchoolYear)
+                                            ->get()->first();
         $degree=Degree::find($idDegree);
         $schoolYear=SchoolYear::find($idSchoolYear);
         $students=[];
@@ -162,7 +166,7 @@ class SchoolYearDegreesController extends Controller
                     ->get();
                 
 
-        return view('students.asignStudent',compact('degree','schoolYear','aprobados','reprobados'));
+        return view('students.asignStudent',compact('degree','schoolYear','aprobados','reprobados','degreeSchoolYear'));
     }
 
     //Para guardar los registros

@@ -83,9 +83,13 @@
             <div class="col-md-2">
               <div class="form-group">
                 <label  class=" form-control-label">Grado escolar</label>
-                  <select class="form-control" name="">
-                   @foreach ($degrees as $key => $value)                   
-                      <option value="{{$value->degree->id}}">{{Help::ordinal($value->degree->degree)}} {{$value->degree->section}} {{ Help::turn($value->degree->turn)}}</option>                   
+                  <select class="form-control" name="degree">
+                   @foreach ($degrees as $key => $value)
+                      @if($value->turn == 'm')
+                      <option value="{{$value->id}}">{{Help::ordinal($value->degree)}} {{$value->section}} Matutino</option>
+                      @else
+                      <option value="{{$value->id}}">{{Help::ordinal($value->degree)}} {{$value->section}} Vespertino</option>
+                      @endif
                     @endforeach
                   </select>
               </div>

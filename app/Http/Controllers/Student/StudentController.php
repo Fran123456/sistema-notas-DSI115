@@ -113,7 +113,11 @@ class StudentController extends Controller
     {
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $actually = SchoolYear::where('active', true)->first();
-        $degrees = DegreeSchoolYear::where('school_year_id', $actually->id)->get();
+        //$degrees = DegreeSchoolYear::where('school_year_id', $actually->id)->get();        
+        $degrees=DB::table('degree_school_year')
+                    ->join('degrees','degrees.id','=','degree_school_year.degree_id')
+                    ->where('degree_school_year.school_year_id','=',$actually->id)
+                    ->get();        
         $student = Student::where("id", $id)->first();
         return view('students.edit', compact('student', 'degrees','actually'));
     }
@@ -127,10 +131,11 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+        auth()->user()->authorizeRoles(['Administrador','Secretaria']);                    
+        $current = SchoolYear::where('active', true)->get()->first();
+
         Student::where('id', $id)
         ->update([
-
             'name'      =>$request->name,
             'lastname'  =>$request->lastname,
             'age'       =>$request->age,
@@ -141,6 +146,25 @@ class StudentController extends Controller
             'status'    =>$request->status,
             'address'   =>$request->address
         ]);
+        $query=StudentHistory::where('student_id','=',$id)                                
+                                ->where('school_year_id','=',$current->id)
+                                ->get();
+        if(count($query)==0){
+            StudentHistory::create([
+                'degree_id' => $request->degree,
+                'school_year_id' => $current->id,
+                'student_id' => $id,
+                'status' => 1,
+            ]);
+        }
+        else
+        {
+            StudentHistory::where('student_id','=',$id)                
+                ->where('school_year_id','=',$current->id)
+                ->update([
+                    'degree_id' => $request->degree,
+                ]);
+        }
 
         return redirect()->route('students.index')->with('edit','<strong>El alumno/a '.$request->name.' fue actualizado correctamente</strong>');
     }
@@ -154,10 +178,11 @@ class StudentController extends Controller
     public function destroy($id)
     {
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
-
+        
         $history = StudentHistory::where("student_id", $id)->first();   
 
         StudentHistory::destroy($history->id);     
+
         Student::destroy($id); 
 
           

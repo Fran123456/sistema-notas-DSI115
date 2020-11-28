@@ -16,7 +16,8 @@
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('years.index') }}">Años escolares</a></li>
         <li class="breadcrumb-item"><a href="{{ route('teacher-grade',$schoolYear->id) }}">Crear grado, docente para año escolar</a></li>
-        <li class="breadcrumb-item active" aria-current="page">BREADCUMB POR CORREGIR</li>
+        <li class="breadcrumb-item"><a href="{{ route('showStudentsDegreeYear',$degreeSchoolYear->id) }}">Estudiantes</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Asignar</li>
       </ol>
     </nav>
   </div>

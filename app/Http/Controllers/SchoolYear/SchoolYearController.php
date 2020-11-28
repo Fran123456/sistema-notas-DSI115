@@ -36,6 +36,7 @@ class SchoolYearController extends Controller
     }
 
     public function finish($id){
+      auth()->user()->authorizeRoles(['Administrador']);
       $year = SchoolYear::find($id);
       $periods = SchoolPeriod::where('school_year_id', $id)->get();
       $periods2 = SchoolPeriod::where('school_year_id', $id)->where('finish', false)->get();
@@ -44,6 +45,7 @@ class SchoolYearController extends Controller
     }
 
     public function finishProcess($year){      
+      auth()->user()->authorizeRoles(['Administrador']);
       $yearx = SchoolYear::find($year);      
       $nextYear=SchoolYear::where('year','>',$yearx->year)->get();
 
@@ -148,7 +150,7 @@ class SchoolYearController extends Controller
         ]);
       }
        
-      return redirect()->route('years.index');
+      return redirect()->route('years.index')->with('Año escolar '.$yearx->year .' cerrado satisfactoriamente');
     }
 
     /**

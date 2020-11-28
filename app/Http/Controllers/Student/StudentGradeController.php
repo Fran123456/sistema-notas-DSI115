@@ -9,13 +9,18 @@ use App\Degree;
 use App\SchoolYear;
 use App\DegreeSchoolYear;
 use App\StudentHistory;
+use Illuminate\Support\Facades\DB;
 
 class StudentGradeController extends Controller
 {
    public function addStudent(){
       auth()->user()->authorizeRoles(['Administrador','Secretaria']);
       $actually = SchoolYear::where('active', true)->first();
-      $degrees = DegreeSchoolYear::where('school_year_id', $actually->id)->get();
+      //$degrees = DegreeSchoolYear::where('school_year_id', $actually->id)->get();
+      $degrees=DB::table('degree_school_year')
+                    ->join('degrees','degrees.id','=','degree_school_year.degree_id')
+                    ->where('degree_school_year.school_year_id','=',$actually->id)
+                    ->get();
       return view('students.studentCreate',compact('degrees','actually'));
    }
 
