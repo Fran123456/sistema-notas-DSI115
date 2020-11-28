@@ -54,6 +54,7 @@
           <hr>
 
           <div class="row">
+          @if($year->finish == 0)
             @if (count($degrees) > 0)
 
             <div class="col-md-12">
@@ -104,7 +105,13 @@
                   <br>
                 </div>
               @endif
-        </form>
+            @else
+                <div class="col-md-12">
+                  <h5 class="text-center"><strong> Año {{$year->year}} finalizado</strong></h5>
+                  <br>
+                </div>
+            @endif
+</form>
 
             <div class="col-md-12">
               <div class="col-md-12">

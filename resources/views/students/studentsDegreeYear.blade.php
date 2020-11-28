@@ -22,7 +22,11 @@
 
 <div class="row ">
     <div class="col-md-12 col-sm-12 col-xs-12 text-right">
-       <a class="btn btn-info mb-1"href="{{route('asignStudentForm',[$degree->id,$schoolYear->id])}}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        @if($schoolYear->finish == 0)
+          <a class="btn btn-primary mb-1"href="{{route('asignStudentForm',[$degree->id,$schoolYear->id])}}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        @else
+          <button disabled class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        @endif
     </div>
 </div>
 
@@ -78,7 +82,11 @@
                         <form method="POST" action="{{route('studenthistories.destroy', $value->id) }}">
                            @csrf
                            <input type="hidden" name="_method" value="delete" />
-                           <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                           @if($schoolYear->finish == 0)
+                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                           @else
+                            <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                           @endif 
                         </form>
                      @else
                      <button class="btn btn-danger" disabled=""><i class="fa fa-trash" aria-hidden="true"></i></button>

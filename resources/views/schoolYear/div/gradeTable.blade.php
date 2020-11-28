@@ -41,14 +41,22 @@
                         <a href="{{ route('showStudentsDegreeYear',$degreex->pivot) }}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
                 </td>                
                 <td>
+                  @if($year->finish == 0)
                   <a href="{{route('editYear_grade',$degreex->pivot->id )}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                  @else
+                  <button disabled class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                  @endif
                 </td>
                 <td>
 
                 <form action="{{route('yearsdegree.destroy', $degreex->pivot)}}" method="post">
                   @csrf
                   @method('DELETE')
-                  <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  @if($year->finish == 0)
+                    <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  @else
+                    <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  @endif
                 </form>
 
                </td>

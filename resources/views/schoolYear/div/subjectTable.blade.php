@@ -17,9 +17,13 @@
                 <th scope="row">{{$key+1}}</th>
                 <td>{{$subject->name}}  </td>
                 <td>{{Help::getTeacher($subject->pivot->user_id) }} </td>
-                <td>
-                  <a href="{{ route('deleteSubjectsDegree', $subject->pivot->id) }}" class="btn btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>  </td>
-               </td>
+                <td>                
+                @if($schoolYear->finish == 0)
+                  <a href="{{ route('deleteSubjectsDegree', $subject->pivot->id) }}" class="btn btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>  
+                @else
+                  <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                @endif                  
+                </td>               
            </tr>
       @endforeach
   </tbody>
