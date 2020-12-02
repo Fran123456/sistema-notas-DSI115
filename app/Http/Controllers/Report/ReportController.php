@@ -11,6 +11,10 @@ use App\SchoolYear;
 use App\ScoreStudent;
 use App\AttendanceStudent;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\User;
+use App\Degree;
+use DB;
+use App\Subject;
 
 class ReportController extends Controller
 {
@@ -132,5 +136,62 @@ class ReportController extends Controller
         return $pdf->download('reporte-notas.pdf');
     }
 
+    public function failedpdf($idDegree, $idYear, $idTeacher)
+    {
+        $schoolYear = SchoolYear::where('active', true)->first();
+        $teacher=User::find($idTeacher);
+        $degree= Degree::find($idDegree);
+        $students=  User::studentsByYearByDegree($degree->id,$schoolYear->id);
 
+        $notas=DB::select(
+        "SELECT students.name as nombre, students.lastname as apellido,students.id as id,subjects.name as materia, score_students.school_period_id as periodo, sum((score*score_type.percentage/100)/3) as promedio 
+
+        FROM score_students
+
+        JOIN subjects ON score_students.subject_id=subjects.id 
+        JOIN score_type ON score_students.score_type_id=score_type.id 
+        JOIN students ON score_students.student_id=students.id
+        JOIN degrees ON score_students.degree_id=degrees.id
+        JOIN school_period ON score_students.school_period_id=school_period.id 
+
+        WHERE score_students.degree_id=? AND score_students.school_year_id=?
+
+        GROUP BY score_students.student_id,score_students.subject_id",[$idDegree,$schoolYear->id]);
+
+        //dd($notas);
+
+        $pdf = PDF::loadView('pdf.failed', compact('schoolYear', 'teacher', 'degree', 'students','notas'));
+
+        return $pdf->download('reporte-reprobados.pdf');
+        
+    }
+
+    public function passedpdf($idDegree, $idYear, $idTeacher)
+    {
+
+        $schoolYear = SchoolYear::where('active', true)->first();
+        $teacher=User::find($idTeacher);
+        $degree= Degree::find($idDegree);
+        $students=  User::studentsByYearByDegree($degree->id,$schoolYear->id);
+
+        $notas=DB::select(
+        "SELECT students.name as nombre, students.lastname as apellido,students.id as id,subjects.name as materia, score_students.school_period_id as periodo, sum((score*score_type.percentage/100)/3) as promedio 
+
+        FROM score_students
+
+        JOIN subjects ON score_students.subject_id=subjects.id 
+        JOIN score_type ON score_students.score_type_id=score_type.id 
+        JOIN students ON score_students.student_id=students.id
+        JOIN degrees ON score_students.degree_id=degrees.id
+        JOIN school_period ON score_students.school_period_id=school_period.id 
+
+        WHERE score_students.degree_id=? AND score_students.school_year_id=?
+
+        GROUP BY score_students.student_id,score_students.subject_id",[$idDegree,$schoolYear->id]);
+
+        $pdf = PDF::loadView('pdf.passed', compact('schoolYear', 'teacher', 'degree', 'students', 'notas'));
+
+        return $pdf->download('reporte-aprobados.pdf');
+
+    }
 }
