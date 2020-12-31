@@ -15,6 +15,7 @@ use App\User;
 use App\Degree;
 use DB;
 use App\Subject;
+use App\ScoreType;
 
 class ReportController extends Controller
 {
@@ -193,5 +194,82 @@ class ReportController extends Controller
 
         return $pdf->download('reporte-aprobados.pdf');
 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function periodScoresPdf($idDegree, $idPeriod, $idYear)
+    {
+        $degree= Degree::find($idDegree);
+        $schoolYear = SchoolYear::where('id', $idYear)->first();
+        $students=  User::studentsByYearByDegree($degree->id,$schoolYear->id);
+        $period = SchoolPeriod::find($idPeriod);
+        $subjects = Subject::All();
+
+        $notas=DB::select(
+        "SELECT students.name as nombre, students.lastname as apellido,students.id as id,subjects.name as materia,score_students.score as nota, score_type.percentage as porcentaje, score_type.activity as activity
+
+        FROM score_students
+
+        JOIN subjects ON score_students.subject_id=subjects.id 
+        JOIN score_type ON score_students.score_type_id=score_type.id 
+        JOIN students ON score_students.student_id=students.id
+        JOIN degrees ON score_students.degree_id=degrees.id
+
+        WHERE score_students.degree_id=? AND score_students.school_year_id=? AND score_students.school_period_id=?
+
+        GROUP BY score_students.subject_id, score_students.score_type_id, score_students.student_id
+
+        ORDER BY score_students.student_id",[$idDegree,$schoolYear->id,$idPeriod]);
+
+        $activities=ScoreType::where('degree_id', $idDegree)
+        ->where('school_period_id', $idPeriod)
+        ->get();
+
+        $promedios=DB::select(
+        "SELECT students.id as id,subjects.name as materia, sum(score*score_type.percentage*0.01) as promedio 
+
+        FROM score_students
+
+        JOIN subjects ON score_students.subject_id=subjects.id 
+        JOIN score_type ON score_students.score_type_id=score_type.id 
+        JOIN students ON score_students.student_id=students.id
+        JOIN degrees ON score_students.degree_id=degrees.id
+
+        WHERE score_students.degree_id=? AND score_students.school_year_id=? AND score_students.school_period_id=?
+
+        GROUP BY score_students.student_id,score_students.subject_id",[$idDegree,$idYear, $idPeriod]);
+
+        //dd($promedios);
+
+        //dd($notas);
+
+
+        $pdf = PDF::loadView('pdf.periodScores', compact('degree', 'schoolYear', 'students', 'period', 'subjects', 'notas', 'activities', 'promedios'));
+
+        return $pdf->download('reporte-notas-periodo.pdf');
     }
 }

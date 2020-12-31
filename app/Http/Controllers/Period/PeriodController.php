@@ -272,6 +272,7 @@ class PeriodController extends Controller
             }
             
             $degreeData=Help::ordinal($degree->degree)." ".$degree->section;
+            $degreeId = $degree->id;
 
             array_push($infoByDegree,array(
                 $degreeData,
@@ -280,7 +281,8 @@ class PeriodController extends Controller
                 $aprobadosByDegreePercentage,
                 $reprobadosByDegree,
                 $reprobadosByDegreePercentage,
-                $evaluadosByDegree
+                $evaluadosByDegree,
+                $degreeId
             ));        
         }
 
