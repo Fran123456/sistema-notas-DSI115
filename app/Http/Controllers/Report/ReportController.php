@@ -196,31 +196,6 @@ class ReportController extends Controller
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function periodScoresPdf($idDegree, $idPeriod, $idYear)
     {
         $degree= Degree::find($idDegree);
@@ -271,5 +246,30 @@ class ReportController extends Controller
         $pdf = PDF::loadView('pdf.periodScores', compact('degree', 'schoolYear', 'students', 'period', 'subjects', 'notas', 'activities', 'promedios'));
 
         return $pdf->download('reporte-notas-periodo.pdf');
+
+    }    
+
+    public function attendancespdf($idYear, $idPeriod,$degree,$section)
+    {
+
+        $schoolYear = SchoolYear::find($idYear);
+        $period=SchoolPeriod::find($idPeriod);
+        $degree=Degree::where('degree',$degree)->where('section',$section)->first();
+
+        $attendances= DB::select(
+        "SELECT students.name as name,students.lastname as lastname,
+        sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
+        sum(CASE WHEN attendance_students.active = 0 THEN 1 ELSE 0 END) as faltas,
+        sum(CASE WHEN attendance_students.active = 2 THEN 1 ELSE 0 END) as permisos 
+        FROM attendance_students 
+        INNER JOIN students_history ON attendance_students.student_history_id=students_history.id 
+        INNER JOIN degrees ON students_history.degree_id = degrees.id 
+        INNER JOIN students ON students_history.student_id = students.id 
+        WHERE attendance_students.period_id=? AND degrees.id=? 
+        GROUP BY attendance_students.student_history_id",[$period->id,$degree->id]);
+
+        $pdf = PDF::loadView('pdf.attendances', compact('schoolYear', 'period','degree','attendances'));
+        return $pdf->download('ASISTENCIAS-GRADO'.$degree->degree.''.$degree->section.'-PERIODO'.$period->nperiodo.'-AÑO'.$schoolYear->year.'.pdf');
+
     }
 }
