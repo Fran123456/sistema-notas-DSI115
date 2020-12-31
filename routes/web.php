@@ -157,3 +157,4 @@ Route::get('passed-students/{degreeid}/{year}/{teacher}', 'Report\ReportControll
 
 //reportes secretaria/director
 Route::post('attendance/report/admin', 'Report\ReportController@admin')->name('report-admin');
+Route::get('attendancesByDegree/{year}/{period}/{degree}/{section}', 'Report\ReportController@attendancespdf')->name('attendances.pdf');

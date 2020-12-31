@@ -91,7 +91,7 @@
         <!--Resumen por Grado-->
         <div class="tab-pane fade" id="grados" role="tabpanel" aria-labelledby="grados-tab">
           <div class="card-header">
-            <strong class="card-title">Resumen Asistencias por Grados</strong>
+            <strong class="card-title">Resumen Asistencias por Grados periodo {{$period->nperiodo}} año {{$year->year}}</strong>
           </div>            
             <div class="row">
               @if(count($degrees))
@@ -144,6 +144,14 @@
                                         <td>{{number_format($degree->porPermisos*100,2)}}</td>
                                         </tr>                                      
                                     </tbody>
+                                  </table>
+                                </div>
+                                <div class="table-responsive">
+                                  <table class="table table-borderless">
+                                    <tr>
+                                      <td>Descargar detalle de asistencias por alumno</td>
+                                      <td><a href="{{ route('attendances.pdf',[$year->id, $period->id,$degree->degree,$degree->section]) }}" class="btn btn-info"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                                    </tr>                          
                                   </table>
                                 </div>
                             </div>
