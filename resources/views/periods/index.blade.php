@@ -46,13 +46,14 @@
                 <tr>
                   <th width="60" scope="col">Periodo</th>
                   <th width="90" scope="col">Inicio</th>
-                  <th width="90" scope="col">Fin</th>                  
-                  <th width="80" scope="col">Resumen Asistencias</th>
-                  <th width="80" scope="col">Resumen Notas</th>
-                  <th width="80" scope="col">Estado</th>
-                  <th width="80" scope="col">Editar</th>
-                  <th width="80"  scope="col">Eliminar</th>
-                  <th  width="140"scope="col">ACCIONES</th>
+                  <th width="90" scope="col">Fin</th>
+                  <th width="60" scope="col">Asistencias</th>
+                  <th width="60" scope="col">Notas</th>
+                  <th width="60" scope="col">Conducta</th>
+                  <th width="60" scope="col">Estado</th>
+                  <th width="60" scope="col">Editar</th>
+                  <th width="60"  scope="col">Eliminar</th>
+                  <th  width="80"scope="col">ACCIONES</th>
 
                 </tr>
               </thead>
@@ -69,6 +70,9 @@
                      <td><a href="{{route('attendanceOverview',[$year->id,$value->id])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                      <!--Resumen Notas-->
                      <td><a href="{{route('periodScoresOverview',[$year->id,$value->id])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                     <td>
+                       <a href="" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                     </td>
                      <td>
                      @if (!($value->current))
                      <a href="{{ route('changePeriodStatus',[$year->id,$value->id]) }}"  class="btn btn-info"><i class="fas fa-exchange-alt" aria-hidden="true"></i></a>
