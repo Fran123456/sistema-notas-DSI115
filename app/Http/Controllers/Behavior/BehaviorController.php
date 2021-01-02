@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Behavior;
 use App\BehaviorIndicator;
 use App\BehaviorIndicatorsStudent;
 use App\Degree;
+use App\DegreeSchoolYear;
 use App\Help\Help;
 use App\Http\Controllers\Controller;
 use App\SchoolPeriod;
 use App\SchoolYear;
 use App\StudentHistory;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -214,4 +216,32 @@ class BehaviorController extends Controller
         ->where('degree_id',$iddegrre)->delete();
         return back()->with('delete','Registros Eliminado Correctamente del <strong> PERIODO'.$periodo->nperiodo.'</strong>');
     }
+
+
+    public function indicatorsByStudent($year, $period){
+      $p = SchoolPeriod::where('school_year_id', $year)->where('nperiodo', $period)->first();
+      $indicator = BehaviorIndicator::all();
+      $d = DegreeSchoolYear::where('school_year_id', $year)->get();
+      $response = array();
+      foreach ($d as $key => $value) {
+           $aux = array();
+          foreach ($indicator as $key2 => $value3) {
+            $response = BehaviorIndicatorsStudent::where('school_period_id', $period)->where('degree_id', $value->degree_id)
+            ->where('behavior_indicator_id', $value3->id)->get();
+            $data = ['grade'=> Help::ordinal($value->degree->degree) . ' ' . $value->degree->section . ' ' . Help::turn($value->degree->turn)  ,
+                      'behavior'=>  $value3->name,
+                      'behavior_code'=> $value3->code,
+                      'count'=> count($response)];
+            array_push($aux, $data);
+          }
+          $response[$key] = $aux;
+      }
+      return $response;
+
+
+      return view('behavior.behaviorGrade',compact('year','period','p'));
+    }
+
+
+
 }

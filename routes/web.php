@@ -147,6 +147,9 @@ Route::get('behaviors/register/{degreeid}/{idperiod}','Behavior\BehaviorControll
 Route::get('behaviors/register/detail/{degreeid}/{idperiod}','Behavior\BehaviorController@detail')->name('behaviors-register-detail');
 Route::get('behaviors/register/delete/{degreeid}/{idperiod}','Behavior\BehaviorController@delete')->name('behaviors-register-delete');
 Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister')->name('behaviors-register-save');
+Route::get('behavior/period/{year}/{period}','Behavior\BehaviorController@indicatorsByStudent')->name('behaviors-period-student');
+
+
 
 /*REPORTS*/
 Route::resource('reports', 'Report\ReportController');

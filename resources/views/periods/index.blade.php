@@ -71,7 +71,7 @@
                      <!--Resumen Notas-->
                      <td><a href="{{route('periodScoresOverview',[$year->id,$value->id])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                      <td>
-                       <a href="" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                       <a href="{!! route('behaviors-period-student',[$year->id,$value->id]) !!}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                      </td>
                      <td>
                      @if (!($value->current))
