@@ -155,3 +155,7 @@ Route::get('scores-pdf/{student_id}', 'Report\ReportController@scorespdf')->name
 
 //reportes secretaria/director
 Route::post('attendance/report/admin', 'Report\ReportController@admin')->name('report-admin');
+
+//inventario
+Route::resource('inventario', 'Inventario\InventarioController');
+Route::get('inventory/add_product','Inventario\InventarioController@add_product')->name('add_product');

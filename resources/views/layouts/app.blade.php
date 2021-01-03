@@ -65,7 +65,7 @@
                 </span>
             </div>    <div class="app-header__content">
                 <div class="app-header-left">
-                    
+
                </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
@@ -169,7 +169,7 @@
                                         <li>
                                             <a href="{{ route('users.index') }}"><i class="metismenu-icon"></i>Usuarios</a>
                                         </li>
-                                    
+
                                         <li>
                                           <a href="{{ route('roles.index') }}"><i class="metismenu-icon"></i>Roles</a>
                                         </li>
@@ -203,10 +203,10 @@
                                         Profesor
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul class="mm-collapse" style="height: 7.04px;">                                                                            
+                                    <ul class="mm-collapse" style="height: 7.04px;">
                                         <li>
                                             <a href="{{ route('gradesTeacher',Auth::user()->id) }}"><i class="metismenu-icon"></i>Grados</a>
-                                        </li>                                                                                                                
+                                        </li>
                                     </ul>
                                 </li>
                                 @endif
@@ -215,7 +215,12 @@
                                     <a href="{{route('behaviors.index')}}"><i class="metismenu-icon fa fa-users" aria-hidden="true"></i>Conducta</a>
                                 </li>
                                 @endif
-                               
+                                @if(Auth::user()->roles()->first()->name == "Administrador")
+                                <li>
+                                    <a href="{{route('inventario.index')}}"><i class="metismenu-icon fa fa-box" aria-hidden="true"></i>Inventario</a>
+                                </li>
+                                @endif
+
                               <!--GENERAL-->
 
                               <!--PUBLICACIONES-->
@@ -318,7 +323,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>--> 
+                    </div>-->
                    </div>
         </div>
     </div>
