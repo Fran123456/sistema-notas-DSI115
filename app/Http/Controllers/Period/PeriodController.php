@@ -179,7 +179,7 @@ class PeriodController extends Controller
         return back()->with('success','<strong>El periodo escolar '.$period->nperiodo. ' - '.$schoolYear->year. ' ha sido activado correctamente</strong>');
     }
 
-    public function showPeriodScoresOverview($idYear,$idPeriod){       
+    public function showPeriodScoresOverview($idYear,$idPeriod){
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
 
         $schoolYear= SchoolYear::find($idYear);
@@ -193,7 +193,7 @@ class PeriodController extends Controller
         foreach($subjects as $subject){
 
             $subjectYear=DegreeSchoolSubject::where('subject_id',$subject->id)->where('school_year_id',$idYear)->get();
-            
+
             if(sizeof($subjectYear)>0){
                 $averageBySubject=0;
                 $aprobadosBySubject=0;
@@ -201,12 +201,12 @@ class PeriodController extends Controller
                 $reprobadosBySubject=0;
                 $reprobadosBySubjectPercentage=0;
                 $sumScoresBySubject=0;
-                
+
                 $studentAverageBySubject=DB::select(
-                    "SELECT students.name as student,subjects.name as subject, sum(score*score_type.percentage/100) as average 
-                    FROM score_students JOIN subjects ON score_students.subject_id=subjects.id 
-                    JOIN score_type ON score_students.score_type_id=score_type.id 
-                    JOIN students ON score_students.student_id=students.id 
+                    "SELECT students.name as student,subjects.name as subject, sum(score*score_type.percentage/100) as average
+                    FROM score_students JOIN subjects ON score_students.subject_id=subjects.id
+                    JOIN score_type ON score_students.score_type_id=score_type.id
+                    JOIN students ON score_students.student_id=students.id
                     WHERE score_students.school_period_id = ? AND score_students.subject_id=?
                     GROUP BY score_students.student_id",[$idPeriod,$subject->id]);
 
@@ -218,10 +218,10 @@ class PeriodController extends Controller
 
                 $evaluadosBySubject=$aprobadosBySubject+$reprobadosBySubject;
                 if($evaluadosBySubject!=0){
-                    $averageBySubject=$sumScoresBySubject/$evaluadosBySubject; 
+                    $averageBySubject=$sumScoresBySubject/$evaluadosBySubject;
                     $aprobadosBySubjectPercentage=$aprobadosBySubject/$evaluadosBySubject;
-                    $reprobadosBySubjectPercentage=$reprobadosBySubject/$evaluadosBySubject;             
-                }  
+                    $reprobadosBySubjectPercentage=$reprobadosBySubject/$evaluadosBySubject;
+                }
 
                 array_push($infoBySubject,array(
                     $subject->name,
@@ -246,18 +246,18 @@ class PeriodController extends Controller
             $reprobadosByDegree=0;
             $reprobadosByDegreePercentage=0;
             $sumScoresByDegree=0;
-            
+
             $studentScoresByDegree=DB::select(
-                "SELECT students.name as student,degrees.degree as degree, sum(score*score_type.percentage/100) as sumAverages 
-                FROM score_students JOIN score_type ON score_students.score_type_id=score_type.id 
-                JOIN degrees ON score_students.degree_id=degrees.id 
-                JOIN students ON score_students.student_id=students.id 
-                WHERE score_students.school_period_id = ? AND score_students.degree_id=? 
+                "SELECT students.name as student,degrees.degree as degree, sum(score*score_type.percentage/100) as sumAverages
+                FROM score_students JOIN score_type ON score_students.score_type_id=score_type.id
+                JOIN degrees ON score_students.degree_id=degrees.id
+                JOIN students ON score_students.student_id=students.id
+                WHERE score_students.school_period_id = ? AND score_students.degree_id=?
                 GROUP BY score_students.student_id",[$idPeriod,$degree->id]);
-            
+
             $nSubjectsByDegree=sizeof(DB::select("SELECT count(subject_id) as n FROM score_students WHERE degree_id=? AND school_year_id=? AND school_period_id=? GROUP BY subject_id",[$degree->id,$idYear,$idPeriod]));
 
-            foreach($studentScoresByDegree as $score){ 
+            foreach($studentScoresByDegree as $score){
                 $studentAverage=$score->sumAverages/$nSubjectsByDegree;
                 $sumScoresByDegree=$sumScoresByDegree+$studentAverage;
                 if($studentAverage>=6) $aprobadosByDegree++;
@@ -270,8 +270,9 @@ class PeriodController extends Controller
                 $aprobadosByDegreePercentage=$aprobadosByDegree/$evaluadosByDegree;
                 $reprobadosByDegreePercentage=$reprobadosByDegree/$evaluadosByDegree;
             }
-            
+
             $degreeData=Help::ordinal($degree->degree)." ".$degree->section;
+            $degreeId = $degree->id;
 
             array_push($infoByDegree,array(
                 $degreeData,
@@ -280,8 +281,9 @@ class PeriodController extends Controller
                 $aprobadosByDegreePercentage,
                 $reprobadosByDegree,
                 $reprobadosByDegreePercentage,
-                $evaluadosByDegree
-            ));        
+                $evaluadosByDegree,
+                $degreeId
+            ));
         }
 
         return view('periods.periodScoresOverview', [
@@ -292,4 +294,10 @@ class PeriodController extends Controller
             "degreesYear"=>$degreesYear,
             "subjectsYear"=>$subjectsYear]);
     }
+
+
+
+
+
+
 }

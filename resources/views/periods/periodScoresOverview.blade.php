@@ -115,6 +115,7 @@
                             <th scope="col">Cantidad de alumnos reprobados</th>
                             <th scope="col">Porcentaje reprobados</th>
                             <th scope="col">Total de alumnos evaluados</th>
+                            <th scope="col">Reporte de notas</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -136,6 +137,9 @@
                               <td class="align-middle">{{$reprobadosByDegree}}</td>
                               <td class="align-middle">{{number_format(($reprobadosByDegreePercentage)*100,2)}}%</td>
                               <td class="align-middle">{{$evaluadosByDegree}}</td>
+                              <td class="align-middle">
+                                <a href="{{ route('period-scores.pdf', [$infoByDegree[$i][7], $period->id, $schoolYear->id]) }}" class="btn btn-dark"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
+                              </td>
                           </tr>
                         @endfor
                         </tbody>

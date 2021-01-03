@@ -49,6 +49,8 @@
                   <th width="40" scope="col">Alumnos</th>
                   <th width="50" scope="col">Actividades</th>
                   <th width="40" scope="col">Materias</th>
+                  <th width="45" scope="col">Reporte Aprobados</th>
+                  <th width="45" scope="col">Reporte Reprobados</th>
                 <!--  <th width="40" scope="col"> Notas </th>-->
                 
                 </tr>
@@ -85,6 +87,12 @@
                      <td>
                           <a href="{{ route('showSubjectsByDegree',[Auth::user()->id,$value[1]->id]) }}" class="btn btn-secondary"><i class="fa fa-book" aria-hidden="true"></i></a>                
                      </td>
+                     <td>
+                  <a href="{{ route('passed.pdf',[$value[1]->id, $y->id, Auth::user()->id]) }}" class="btn btn-dark"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
+                     </td>
+                     <td>
+                      <a href="{{ route('failed.pdf',[$value[1]->id, $y->id, Auth::user()->id]) }}" class="btn btn-dark"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>
+                      </td>
                       <!--<td>
                         <form action="{{route('getScoresTypeByStudent')}}" method="get" enctype="multipart/form-data">
                            <input hidden value="{{$y->id}}" name="year">

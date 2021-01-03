@@ -147,11 +147,16 @@ Route::get('behaviors/register/{degreeid}/{idperiod}','Behavior\BehaviorControll
 Route::get('behaviors/register/detail/{degreeid}/{idperiod}','Behavior\BehaviorController@detail')->name('behaviors-register-detail');
 Route::get('behaviors/register/delete/{degreeid}/{idperiod}','Behavior\BehaviorController@delete')->name('behaviors-register-delete');
 Route::post('behaviors/register/save','Behavior\BehaviorController@saveRegister')->name('behaviors-register-save');
+Route::get('behavior/period/{year}/{period}','Behavior\BehaviorController@indicatorsByStudent')->name('behaviors-period-student');
+
+
 
 /*REPORTS*/
 Route::resource('reports', 'Report\ReportController');
 Route::get('attendance-report-pdf/{student_id}/{period_id}', 'Report\ReportController@reportpdf')->name('attendance.pdf');
 Route::get('scores-pdf/{student_id}', 'Report\ReportController@scorespdf')->name('scores.pdf');
+Route::get('failed-students/{degreeid}/{year}/{teacher}', 'Report\ReportController@failedpdf')->name('failed.pdf');
+Route::get('passed-students/{degreeid}/{year}/{teacher}', 'Report\ReportController@passedpdf')->name('passed.pdf');
 
 //reportes secretaria/director
 Route::post('attendance/report/admin', 'Report\ReportController@admin')->name('report-admin');
@@ -159,3 +164,6 @@ Route::post('attendance/report/admin', 'Report\ReportController@admin')->name('r
 //inventario
 Route::resource('inventario', 'Inventario\InventarioController');
 Route::get('inventory/add_product','Inventario\InventarioController@add_product')->name('add_product');
+
+Route::get('periodScores/{degree}/{period}/{year}', 'Report\ReportController@periodScoresPdf')->name('period-scores.pdf');
+Route::get('attendancesByDegree/{year}/{period}/{degree}/{section}', 'Report\ReportController@attendancespdf')->name('attendances.pdf');
