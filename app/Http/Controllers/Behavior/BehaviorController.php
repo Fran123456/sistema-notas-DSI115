@@ -221,10 +221,11 @@ class BehaviorController extends Controller
     public function indicatorsByStudent($year, $period){
       $p = SchoolPeriod::where('school_year_id', $year)->where('nperiodo', $period)->first();
       $indicator = BehaviorIndicator::all();
+
       $d = DegreeSchoolYear::where('school_year_id', $year)->get();
-      $response = array();
+      $finish = array();
       foreach ($d as $key => $value) {
-           $aux = array();
+          $aux = array();
           foreach ($indicator as $key2 => $value3) {
             $response = BehaviorIndicatorsStudent::where('school_period_id', $period)->where('degree_id', $value->degree_id)
             ->where('behavior_indicator_id', $value3->id)->get();
@@ -232,14 +233,15 @@ class BehaviorController extends Controller
                       'behavior'=>  $value3->name,
                       'behavior_code'=> $value3->code,
                       'count'=> count($response)];
-            array_push($aux, $data);
+            array_push($aux,$data);
           }
-          $response[$key] = $aux;
+          $finish[$key] =$aux ;
       }
-      return $response;
+      //return $finish;
+      //return $finish[0][0]['grade'];
 
 
-      return view('behavior.behaviorGrade',compact('year','period','p'));
+      return view('behavior.behaviorGrade',compact('year','period','p','finish'));
     }
 
 

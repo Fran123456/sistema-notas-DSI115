@@ -29,13 +29,30 @@
           <div class="card-body card-block">
 
             <div class="row">
-              <div class="col-md-4">
+              @foreach ($finish as $key => $element)
+                <div class="col-md-6">
                 <div class="card">
                       <div class="card-body">
-                        This is some text within a card body.
+                        @php
+                          $c =0;
+                        @endphp
+                       @foreach ($element as $key2 => $element2)
+                        @if ($key2 == 0)
+                           <h5><strong>{{$element2['grade']}}</strong></h5><br>
+                          @endif  
+                        {{$element2['behavior']}} <strong>{{$element2['behavior_code']}}</strong>    <span class="badge badge-secondary">{{$element2['count']}}</span> <br>
+                        @php
+                          $c+=$element2['count']
+                        @endphp
+                       @endforeach
+                       Total alumnos <span class="badge badge-success">{{$c}}</span>
                       </div>
-                    </div>
+                    </div><br>
+                    
               </div>
+              <br><br>
+              @endforeach
+             
             </div>
 
 
