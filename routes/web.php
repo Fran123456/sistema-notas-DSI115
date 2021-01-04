@@ -160,6 +160,7 @@ Route::get('passed-students/{degreeid}/{year}/{teacher}', 'Report\ReportControll
 
 //reportes secretaria/director
 Route::post('attendance/report/admin', 'Report\ReportController@admin')->name('report-admin');
+Route::get('periodBehavior/{degree}/{period}/{year}', 'Report\ReportController@behaviorpdf')->name('period-behavior.pdf');
 
 //inventario
 Route::resource('inventario', 'Inventario\InventarioController');

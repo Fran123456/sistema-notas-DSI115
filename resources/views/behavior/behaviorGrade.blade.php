@@ -45,7 +45,9 @@
                           $c+=$element2['count']
                         @endphp
                        @endforeach
-                       Total alumnos <span class="badge badge-success">{{$c}}</span>
+                       Total alumnos <span class="badge badge-success">{{$c}}</span><br><br>
+                       <strong>Reporte de conducta:</strong>
+                      <a href="{{ route('period-behavior.pdf', [$element2['gradeId'], $p->nperiodo, $p->year]) }}" class="btn btn-dark"><i class="fa fa-clipboard-list" aria-hidden="true"></i></a>            
                       </div>
                     </div><br>
                     

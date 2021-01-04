@@ -16,6 +16,7 @@ use App\Degree;
 use DB;
 use App\Subject;
 use App\ScoreType;
+use App\BehaviorIndicatorsStudent;
 
 class ReportController extends Controller
 {
@@ -271,5 +272,24 @@ class ReportController extends Controller
         $pdf = PDF::loadView('pdf.attendances', compact('schoolYear', 'period','degree','attendances'));
         return $pdf->download('ASISTENCIAS-GRADO'.$degree->degree.''.$degree->section.'-PERIODO'.$period->nperiodo.'-AÑO'.$schoolYear->year.'.pdf');
 
+    }
+
+    public function behaviorpdf($idDegree, $idPeriod, $idYear)
+    {
+        $degree= Degree::find($idDegree);
+        $schoolYear = SchoolYear::where('id', $idYear)->first();
+        $students=  User::studentsByYearByDegree($degree->id,$schoolYear->id);
+        $period = SchoolPeriod::find($idPeriod);
+
+        $behavior = BehaviorIndicatorsStudent::where('degree_id', $idDegree)
+        ->where('school_period_id', $idPeriod)
+        ->where('school_year_id', $idYear)
+        ->get();
+
+        //dd($behavior);
+
+        $pdf = PDF::loadView('pdf.behavior', compact('degree', 'schoolYear', 'students', 'period', 'behavior'));
+
+        return $pdf->download('reporte-conducta-periodo');
     }
 }
