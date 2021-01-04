@@ -29,11 +29,11 @@
         <div class="card-header"><strong>Información del usuario </strong></div>
         <div class="card-body card-block">
           <div class="row">
-            <div class="col-md-2 col-xs-12">
-              <p class="text-center">Foto actual</p>
-              <img height="200" width="200" src="{{ asset('images/users/'.$user->photo) }}">
+            <div class="form-group col-md-4">
+                <p class="text-left">Foto actual</p>
+                    <img height="200" width="200" src="{{ asset('images/users/'.$user->photo) }}">
             </div>
-            <div class="col-md-10 col-xs-12">
+            <div class="form-group col-md-8">
                  <p>
                   <h5>Nombre: <strong> {{$user->name}}</strong></h5>
                   <h5>Rol: <strong> {{Auth::user()->roles()->first()->name}}</strong></h5>
@@ -49,9 +49,9 @@
                   @else
                    <h5>Dirección: -</h5>
                   @endif
-                 
-                  
-                  
+
+
+
                   <h5>Fecha de creación: <strong> {{$created_at}}</strong></h5>
 
                 </p>
