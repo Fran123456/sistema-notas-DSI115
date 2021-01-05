@@ -83,9 +83,12 @@ class StudentController extends Controller
         //
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
         $student = Student::where("id", $id)->first();
-        $studentrecord = StudentHistory::where("student_id", $id)->get();        
+        $studentrecord = StudentHistory::where("student_id", $id)->get();      
+       
         $currentyear = SchoolYear::where('active', true)->first();
         $periods = SchoolPeriod::all();
+        
+       
         $behavior = BehaviorIndicatorsStudent::where("student_id", $id)->get();
         $scores = ScoreStudent::where("student_id", $id)->get();
         return view('students.history', compact('student', 'studentrecord', 'currentyear', 'periods', 'behavior', 'scores'));

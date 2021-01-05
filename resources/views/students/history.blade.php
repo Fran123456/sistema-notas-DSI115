@@ -136,11 +136,16 @@
                     </td>
                       @endforeach
                       <td>
-                        @if($value2->nperiodo == $value->attendancebyperiod->period_id)
+                        @if (isset($value->attendancebyperiod->period_id))
+                          @if($value2->nperiodo == $value->attendancebyperiod->period_id)
                         {{$value->attendancebyperiod->active}}
                           @else
                            N/A
                         @endif
+                        @else 
+                         N/A
+                        @endif
+                        
                       </td>
                       <td>
                       @foreach($behavior as $k => $v)

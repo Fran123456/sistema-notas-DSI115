@@ -9,6 +9,8 @@ use App\Degree;
 use App\SchoolYear;
 use App\DegreeSchoolYear;
 use App\StudentHistory;
+use App\ScoreType;
+use App\ScoreStudent;
 use Illuminate\Support\Facades\DB;
 
 class StudentGradeController extends Controller
@@ -48,6 +50,22 @@ class StudentGradeController extends Controller
      ->where('degree_id',$request->degree_id)->update([
        'full' =>  $ds->full+1
      ]);
+
+     $scores = ScoreType::where('degree_id',$request->degree_id)->where('school_year_id',$request->school_year_id)->
+     where('send', true)->get();
+     foreach ($scores as $key => $score) {
+       ScoreStudent::create([
+        'score_type_id'=>$score->id,
+        'student_id'=>$student->id,
+        'school_period_id'=> $score->school_period_id,
+        'school_year_id'=>$score->school_year_id,
+        'degree_id'=>$score->degree_id,
+        'subject_id'=>$score->subject_id,
+       ]);
+     }
+
+
+
 
      return back()->with('success','El alumno: ' . $student->name . ' ' . $student->lastname . ' ha sido registrado correctamente');
    }
