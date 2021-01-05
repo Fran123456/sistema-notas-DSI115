@@ -230,6 +230,7 @@ class BehaviorController extends Controller
             $response = BehaviorIndicatorsStudent::where('school_period_id', $period)->where('degree_id', $value->degree_id)
             ->where('behavior_indicator_id', $value3->id)->get();
             $data = ['grade'=> Help::ordinal($value->degree->degree) . ' ' . $value->degree->section . ' ' . Help::turn($value->degree->turn)  ,
+                      'gradeId'=>$value->degree->id,
                       'behavior'=>  $value3->name,
                       'behavior_code'=> $value3->code,
                       'count'=> count($response)];
@@ -237,6 +238,7 @@ class BehaviorController extends Controller
           }
           $finish[$key] =$aux ;
       }
+      //dd($finish);
       //return $finish;
       //return $finish[0][0]['grade'];
 
