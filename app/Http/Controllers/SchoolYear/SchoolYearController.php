@@ -144,15 +144,21 @@ class SchoolYearController extends Controller
         Student::where('id','=',$aprobado->id)->update([
           'status' => 'AIA', //AIA = Antiguo Ingreso Aprobado
         ]);
-
-        DB::table('students_history')
-          ->join('degrees','degrees.id','=','students_history.degree_id')
-          ->where('students_history.student_id','=',$aprobado->id)
-          ->where('degrees.degree','=',6)
-          ->update([
-            'status' => 'EG', //EG = egresado
-          ]);
+              
       }
+      
+      //Actualizaremos el estado de los aprobados del grado más alto a egresado
+      $maxDegree=DB::table('degrees')->max('degree');
+      DB::table('students_history')
+          ->join('degrees','degrees.id','=','students_history.degree_id')
+          ->join('students','students_history.student_id','=','students.id')
+          ->where('students.status','=','AIA')
+          ->where('degrees.degree','=',$maxDegree)
+          ->update([
+            'students.status' => 'EG', //EG = egresado
+          ]);
+
+      
 
       //Actualizaremos el status para los reprobados
       foreach($reprobados as $reprobado){
