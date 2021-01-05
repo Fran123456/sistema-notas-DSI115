@@ -26,6 +26,15 @@ class StudentGradeController extends Controller
 
    public function registerStudent(Request $request){
     auth()->user()->authorizeRoles(['Administrador','Secretaria']);
+   
+
+    $ds = DegreeSchoolYear::where('school_year_id', $request->school_year_id)
+     ->where('degree_id',$request->degree_id)->first();
+
+     if($ds->full == $ds->capacity){
+      return back()->with('delete','Error , no hay capacidad para el grado que ha seleccionado, habilitar mas cupos para poder matricular el alumno.');
+     }
+
      $student = Student::create($request->all());
      $history = StudentHistory::create([
        'student_id' => $student->id,
@@ -34,9 +43,7 @@ class StudentGradeController extends Controller
        'status' => true
      ]);
 
-     $ds = DegreeSchoolYear::where('school_year_id', $request->school_year_id)
-     ->where('degree_id',$request->degree_id)->first();
-
+    
      DegreeSchoolYear::where('school_year_id', $request->school_year_id)
      ->where('degree_id',$request->degree_id)->update([
        'full' =>  $ds->full+1
