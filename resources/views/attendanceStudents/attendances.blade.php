@@ -36,8 +36,12 @@
                           <div class="card">
 
                             <div class="card-body">
+                                @if ($periodoActual->finish == false)
+                                  <a href="{{route('attendanceRecord',$degree->id)}}" class="btn btn-success">Tomar Asistencia</a>
+                                @else
+                                  <button disabled class="btn btn-success" type="button" name="button">Tomar Asistencia</button>
+                                @endif
 
-                               <a href="{{route('attendanceRecord',$degree->id)}}" class="btn btn-success">Tomar Asistencia</a>
                                <!-- <a href="" class="btn btn-primary">Historial de Registros</a> -->
                                 <hr>
                                 <!-- Boton de filtrado-->
@@ -112,7 +116,11 @@
                                               <a href="{{ route('showAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                             </td>
                                             <td>
-                                              <a href="{{ route('editAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                              @if ($periodoActual->finish == false)
+                                                <a href="{{ route('editAttendance',[$value->degree_id,$value->attendance_date])}}" class="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                              @else
+                                                <button class="btn btn-warning" type="button" disabled name="button"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                                              @endif
                                             </td>
 
                                           </tr>

@@ -123,8 +123,8 @@ class AttendanceStudentController extends Controller
     }
 
     public function updateAttendanceRecord(Request $request){
-  
-        auth()->user()->authorizeRoles(['Docente']);        
+
+        auth()->user()->authorizeRoles(['Docente']);
 
         $newArray=array_combine($request->student_id,$request->asistencia);
 
@@ -133,12 +133,12 @@ class AttendanceStudentController extends Controller
             ->where('school_year_id',$request->activeYear)
             ->where('student_id',$key)
             ->get()->first();
-            
+
             AttendanceStudent::where('student_history_id', $studentHistoryId->id)->where('attendance_date',$request->date)
             ->update([
                 'active' => $student,
-              ]);              
-        }        
+              ]);
+        }
         return redirect()->route('attendancesDates',$request->degree)->with('edit','<strong> Los cambios fueron guardados con éxito </strong>');
 
     }
@@ -175,7 +175,7 @@ class AttendanceStudentController extends Controller
         $degSchoolYear= DegreeSchoolYear::find($idDegreeSchoolYear);
         $degree= Degree::find($degSchoolYear->degree_id);
         /*$students= StudentHistory::where('degree_id',$degree->id)
-        ->where('school_year_id',$activedYear)                
+        ->where('school_year_id',$activedYear)
         ->get();*/
 
         $students=DB::table('students_history')
@@ -184,7 +184,7 @@ class AttendanceStudentController extends Controller
                         ->where('students_history.school_year_id',$activedYear)
                         ->select('*')
                         ->orderBy('students.lastname')
-                        ->get();             
+                        ->get();
 
         $std= Student::all();
 
@@ -198,8 +198,8 @@ class AttendanceStudentController extends Controller
         auth()->user()->authorizeRoles(['Docente']);
         $activedYear=SchoolYear::where('active',1)->get()->first()->id;
         $periodoActual= SchoolPeriod::where('school_year_id',$activedYear)->where('current',1)->first();
-        
-        
+
+
         $data= $request->all();
 
         $fechaValidacion= AttendanceStudent::where('attendance_date','=',$request->date)
@@ -229,8 +229,8 @@ class AttendanceStudentController extends Controller
 
             return redirect()->route('attendancesDates',$grado->id)->with('edit','<strong>'.count($data['student_id']).'  </strong> Asistencias Guardadas del
             Grado:   <strong>  '.$mensaje.'</strong>  fecha: <strong> '.$request->date.'</strong> ');
-        }        
-                    
+        }
+
     }
 
     public function filter(Request $request,$control)
@@ -270,7 +270,7 @@ class AttendanceStudentController extends Controller
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
 
         $period=SchoolPeriod::find($idPeriod);
-        $year=SchoolYear::find($period->school_year_id);        
+        $year=SchoolYear::find($period->school_year_id);
 
         $attendances = DB::select("
             SELECT sum(CASE WHEN attendance_students.active = 1 THEN 1 ELSE 0 END) as asistencias,
