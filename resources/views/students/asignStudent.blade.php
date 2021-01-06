@@ -59,7 +59,7 @@
                     <div class="" id="add">
                      <div id="pad">
                          <label><strong>alumnos seleccionados: {{ count($aprobados) + count($reprobados) }}</strong> </label>
-                         <label for="">{{ count($aprobados) + count($reprobados) -  $degreeSchoolYear->capacity + count($inscritos)}}</label>
+                         
                      </div>
                     </div>
                     <input id="cupos" class="form-control" type="number" min="0" name="capacity" value="{{ count($aprobados) + count($reprobados) -  $degreeSchoolYear->capacity + count($inscritos)}}">
