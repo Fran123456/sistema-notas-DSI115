@@ -59,6 +59,7 @@
                     <div class="" id="add">
                      <div id="pad">
                          <label><strong>alumnos seleccionados: {{ count($aprobados) + count($reprobados) }}</strong> </label>
+                         <label for="">{{ count($aprobados) + count($reprobados) -  $degreeSchoolYear->capacity + count($inscritos)}}</label>
                      </div>
                     </div>
                     <input id="cupos" class="form-control" type="number" min="0" name="capacity" value="{{ count($aprobados) + count($reprobados) -  $degreeSchoolYear->capacity + count($inscritos)}}">
@@ -97,7 +98,7 @@ $select.children(':selected').each((idx, el) => {
 if(capacidad == alumnos){
   $("#cupos").val(0);
 }else if(capacidad < alumnos)
-  $("#cupos").val(alumnos - capacidad +);
+  $("#cupos").val(alumnos - capacidad  +{{count($inscritos)}});
 else{
   $("#cupos").val(0);
 }
