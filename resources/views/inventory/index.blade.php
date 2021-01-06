@@ -73,7 +73,7 @@
                                 <th class="text-center">Imagen</th>
                                 <th>Modelo </th>
                                 <th>Producto </th>
-                                <th>Fabricante </th>
+                                <th>Categoria </th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Stock</th>
 

@@ -184,6 +184,9 @@ Route::post('inventory/stock-save','Inventario\InventarioController@product_hist
 Route::get('inventory/history','Inventario\InventarioController@product_history')->name('product_history');
 //inventario reportes
 Route::get('inventory/reporte','Inventario\InventarioController@inventory_report')->name('inventory_report');
+Route::post('inventory/reporte-history','Inventario\InventarioController@report_history')->name('report_history');
+Route::post('inventory/reporte-state','Inventario\InventarioController@report_state')->name('report_state');
+Route::post('inventory/reporte-category','Inventario\InventarioController@report_category')->name('report_category');
 
 Route::get('periodScores/{degree}/{period}/{year}', 'Report\ReportController@periodScoresPdf')->name('period-scores.pdf');
 Route::get('attendancesByDegree/{year}/{period}/{degree}/{section}', 'Report\ReportController@attendancespdf')->name('attendances.pdf');

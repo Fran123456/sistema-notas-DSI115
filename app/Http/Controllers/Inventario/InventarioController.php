@@ -151,7 +151,52 @@ class InventarioController extends Controller
     }
     public function inventory_report()
     {
-        return view('inventory.reports');
+        $products= inventoryProduct::all();
+        $categories= inventoryCategory::all();
+        return view('inventory.reports', compact('products','categories'));
+    }
+    public function report_history(Request $request)
+    {
+       // dd($request->all());
+
+        $history= inventoryHistory::join('inventory_products','inventory_products.id','inventory_history.product_id')
+        ->select('inventory_history.id','inventory_history.code','inventory_history.reason','inventory_history.lastStock','inventory_history.actualStock',
+    'inventory_products.code as codigoProducto','inventory_products.name','inventory_history.created_at','inventory_history.responsable')
+    ->where('inventory_products.id',$request->product)
+     ->where('inventory_history.created_at','>',$request->starDate)
+    ->where('inventory_history.created_at','<',$request->endDate)
+    ->orderBy('inventory_history.created_at','desc')->get();
+    //dd($history);
+        $pdf = \PDF::loadView('inventory.reports.historial', compact('history') );
+        // return $pdf->stream();
+         return $pdf->download('historial-producto.pdf');
+    }
+    public function report_state(Request $request)
+    {
+       // dd($request->all());
+
+       $products= inventoryProduct::join('inventory_category','inventory_category.id','inventory_products.category_id')
+       ->select('inventory_products.id','inventory_products.code','inventory_products.img','inventory_products.name as product','inventory_products.model',
+       'inventory_products.state','inventory_products.stock','inventory_category.name as category')
+       ->where('state',$request->state)
+      ->get();
+        $pdf = \PDF::loadView('inventory.reports.estado', compact('products') );
+        // return $pdf->stream();
+         return $pdf->download('estado-producto.pdf');
+    }
+    public function report_category(Request $request)
+    {
+       // dd($request->all());
+
+       $products= inventoryProduct::join('inventory_category','inventory_category.id','inventory_products.category_id')
+       ->select('inventory_products.id','inventory_products.code','inventory_products.img','inventory_products.name as product','inventory_products.model',
+       'inventory_products.state','inventory_products.stock','inventory_category.name as category')
+       ->where('inventory_category.id',$request->category)
+      ->get();
+    //dd($history);
+        $pdf = \PDF::loadView('inventory.reports.categoria', compact('products') );
+        // return $pdf->stream();
+         return $pdf->download('categoria-producto.pdf');
     }
 
 
