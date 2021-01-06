@@ -290,6 +290,6 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('pdf.behavior', compact('degree', 'schoolYear', 'students', 'period', 'behavior'));
 
-        return $pdf->download('reporte-conducta-periodo');
+        return $pdf->download('reporte-conducta-periodo.pdf');
     }
 }
