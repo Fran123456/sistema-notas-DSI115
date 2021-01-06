@@ -33,6 +33,8 @@
         <h6>Capacidad del salon: {{$degreeSchoolYear->capacity}}</h6>
         <h6>Docente: {{Help::getTeacher($degreeSchoolYear->user_id)}}</h6>
         <h6>Alumnos por inscribir: {{count($aprobados) + count($reprobados)}}</h6>
+        <h6>Alumnos inscritos: {{count($inscritos)}}</h6>
+        <h6>Numero de cupos: {{  $degreeSchoolYear->capacity - count($inscritos)}}</h6>
         <hr>
         <form method="POST" action="{{route('asignStudent')}}"  enctype="multipart/form-data">
             @csrf
@@ -56,10 +58,10 @@
                     <br>
                     <div class="" id="add">
                      <div id="pad">
-                         <label><strong>alumnos seleccionados: {{ count($aprobados) + count($reprobados)}}</strong> </label>
+                         <label><strong>alumnos seleccionados: {{ count($aprobados) + count($reprobados) }}</strong> </label>
                      </div>
                     </div>
-                    <input id="cupos" class="form-control" type="number" min="0" name="capacity" value="{{ count($aprobados) + count($reprobados) -  $degreeSchoolYear->capacity}}">
+                    <input id="cupos" class="form-control" type="number" min="0" name="capacity" value="{{ count($aprobados) + count($reprobados) -  $degreeSchoolYear->capacity + count($inscritos)}}">
 
                     <input type="hidden" name="degreeCapaId" value="{{$degreeSchoolYear->id}}">
                     <br>
@@ -77,7 +79,7 @@
 
 <script type="text/javascript">
 var capacidad = {{$degreeSchoolYear->capacity}} //definida al inicio
-var cupos =$("#cupos").val();
+var cupos =$("#cupos").val() ;
 let $select = $('#student');
 let selecteds = [];
 var alumnos = 0;
@@ -95,7 +97,7 @@ $select.children(':selected').each((idx, el) => {
 if(capacidad == alumnos){
   $("#cupos").val(0);
 }else if(capacidad < alumnos)
-  $("#cupos").val(alumnos - capacidad);
+  $("#cupos").val(alumnos - capacidad +);
 else{
   $("#cupos").val(0);
 }
@@ -120,7 +122,7 @@ $select.children(':selected').each((idx, el) => {
 if(capacidad == alumnos){
   $("#cupos").val(0);
 }else if(capacidad < alumnos)
-  $("#cupos").val(alumnos - capacidad);
+  $("#cupos").val(alumnos - capacidad + {{count($inscritos)}});
 else{
   $("#cupos").val(0);
 }
