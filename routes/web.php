@@ -164,7 +164,26 @@ Route::get('periodBehavior/{degree}/{period}/{year}', 'Report\ReportController@b
 
 //inventario
 Route::resource('inventario', 'Inventario\InventarioController');
+//productos
 Route::get('inventory/add_product','Inventario\InventarioController@add_product')->name('add_product');
+Route::post('category','Inventario\InventarioController@add_product_store')->name('add_product_store');
+Route::get('inventory/edit/{id}','Inventario\InventarioController@edit_product')->name('edit_product');
+Route::post('inventory/save/{id}','Inventario\InventarioController@edit_product_save')->name('edit_product_save');
+Route::post('inventory/save/{id}','Inventario\InventarioController@edit_product_save')->name('edit_product_save');
+Route::get('category','Inventario\InventarioController@category')->name('category');
+Route::get('inventory-delete/{id}','Inventario\InventarioController@product_delete')->name('product_delete_item');
+//categorias
+Route::get('category','Inventario\InventarioController@category')->name('category');
+Route::post('category/crear','Inventario\InventarioController@category_store')->name('category_store');
+Route::post('category/update-{id}','Inventario\InventarioController@category_update')->name('category_update');
+Route::get('category-delete/{id}','Inventario\InventarioController@categoty_delete_item')->name('categoty_delete_item');
+//stock
+Route::get('inventory/stock','Inventario\InventarioController@stock')->name('stock');
+Route::post('inventory/stock-save','Inventario\InventarioController@product_history_save')->name('product_history_save');
+//historial productos
+Route::get('inventory/history','Inventario\InventarioController@product_history')->name('product_history');
+//inventario reportes
+Route::get('inventory/reporte','Inventario\InventarioController@inventory_report')->name('inventory_report');
 
 Route::get('periodScores/{degree}/{period}/{year}', 'Report\ReportController@periodScoresPdf')->name('period-scores.pdf');
 Route::get('attendancesByDegree/{year}/{period}/{degree}/{section}', 'Report\ReportController@attendancespdf')->name('attendances.pdf');

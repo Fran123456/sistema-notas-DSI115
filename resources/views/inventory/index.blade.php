@@ -1,6 +1,9 @@
 @extends('inventory.template')
+@include('alerts.dataTable')
 @section('content')
-
+<div class="row">
+    @include('alerts.alerts')
+</div>
 
  {{-- <!-- modal crear catalogo -->
  <div id="modal" class="modal fade" role="dialog">
@@ -73,36 +76,41 @@
                                 <th>Fabricante </th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Stock</th>
-                                <th class="text-right">Precio</th>
+
                                 <th></th>
 
                               </tr>
                             </thead>
                             <tbody>
 
-                               @foreach ($students as $key => $item)
+                               @foreach ($products as $key => $item)
                                <tr>
                                 <th scope="row">{{$key+1}}</th>
-                                <td>ff4453</td>
+                                <td>{{$item->code}}</td>
                                 <td class="text-center">
                                     <img src="{{asset('assets/inventario/product.png')}}" alt="Product Image" class="img-rounded" width="60">
                                 </td>
-                                <td class="text-center">9123456</td>
-                                <td> MÁQUINAS DE ORDEÑAR</td>
-                                <td>Lenovo</td>
+                                <td class="text-center">{{$item->model}}</td>
+                                <td> {{$item->product}}</td>
+                                <td>{{$item->category}}</td>
                                 <td class="text-center">
-                                    <span class="label label-success">Activo</span>
+                                    @if ($item->state == true)
+                                    <span class="label label-success">ACTIVO</span>
+                                    @else
+                                    <span class="label label-danger">INACTIVO</span>
+                                    @endif
+
                                 </td>
-                                <td class="text-center">444</td>
-                                <td class="text-right">40.00</td>
+                                <td class="text-center">{{$item->stock}}</td>
+
 
 
                                 <td>
                                 <div class="btn-group pull-right">
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Acciones <span class="fa fa-caret-down"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="edit_product.php?id=141"><i class="fa fa-edit"></i> Editar</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#barcodeModal" data-id="141" data-product_code="9123456" data-product_name=" MÁQUINAS DE ORDEÑAR"><i class="fa fa-barcode"></i> Código de barra</a></li>
+                                        <li><a href="{{route('edit_product',$item->id)}}"><i class="fa fa-edit"></i> Editar</a></li>
+
                                         <li><a href="#" data-toggle="modal" data-target="#eliminar-{{$item->id}}"><i class="fa fa-trash"></i> Borrar</a></li>
                                      </ul>
 
