@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Inventario;
 
+use App\Help\Help;
 use App\Http\Controllers\Controller;
 use App\inventoryCategory;
 use App\inventoryHistory;
@@ -46,9 +47,18 @@ class InventarioController extends Controller
     }
     public function add_product_store(Request $request)
     {
+        //dd($request->all());
+        //dd( $request->hasFile('imagen') );
+        $nameFile= null;
+        if($request->hasFile('imagen')){
+            $nameFile= Help::uploadFile($request, 'inventory/','imagen');
+            $nameFile= 'inventory/'.$nameFile;
+
+             }
+
         inventoryProduct::create([
             'code' => $request->code,
-            'img' => $request->imagen,
+            'img' => $nameFile,
             'model' => $request->model,
             'name' => $request->productName,
             'category_id' => $request->category,
@@ -60,10 +70,17 @@ class InventarioController extends Controller
     }
     public function edit_product_save(Request $request, $idProducto)
     {
+         $row=inventoryProduct::find($idProducto);
+         $nameFile= $row->img;
+        // dd( $request->has('imagen') );
+        if($request->hasFile('imagen')){
+            $nameFile= Help::uploadFile($request, 'inventory/','imagen');
+            $nameFile= 'inventory/'.$nameFile;
 
+             }
         inventoryProduct::where('id',$idProducto)->update([
             'code' => $request->code,
-            'img' => $request->imagen,
+            'img' => $nameFile,
             'model' => $request->model,
             'name' => $request->productName,
             'category_id' => $request->category,

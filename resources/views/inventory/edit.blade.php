@@ -17,7 +17,11 @@
         <div class="box box-primary">
           <div class="box-body box-profile">
           <div id="load_img">
-            <img class=" img-responsive" src="https://picsum.photos/200" >
+            @if ($product[0]->img == null)
+            <img class=" img-responsive"  src="{{asset('assets/inventario/product.png')}}" >
+            @else
+            <img class=" img-responsive" src="{{asset($product[0]->img)}}" >
+            @endif
             </div>
           </div>
           <!-- /.box-body -->
@@ -31,7 +35,7 @@
         {{-- formulario --}}
       <div class="box">
        <div class="box-body">
-       <form action="{{route('edit_product_save',$product[0]->id)}}" method="POST">
+       <form action="{{route('edit_product_save',$product[0]->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-6">

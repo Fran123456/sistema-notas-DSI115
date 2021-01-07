@@ -88,7 +88,11 @@
                                 <th scope="row">{{$key+1}}</th>
                                 <td>{{$item->code}}</td>
                                 <td class="text-center">
-                                    <img src="{{asset('assets/inventario/product.png')}}" alt="Product Image" class="img-rounded" width="60">
+                                   @if ($item->img == null)
+                                   <img src="{{asset('assets/inventario/product.png')}}" alt="Product Image" class="img-rounded" width="60">
+                                   @else
+                                   <img src="{{asset($item->img)}}" alt="Product Image" class="img-rounded" width="60">
+                                   @endif
                                 </td>
                                 <td class="text-center">{{$item->model}}</td>
                                 <td> {{$item->product}}</td>

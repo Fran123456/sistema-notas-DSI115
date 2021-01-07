@@ -34,7 +34,7 @@
         {{-- formulario --}}
       <div class="box">
        <div class="box-body">
-       <form action="{{route('add_product_store')}}" method="POST">
+       <form action="{{route('add_product_store')}}" method="POST" enctype="multipart/form-data">
            @csrf
         <div class="row">
             <div class="col-md-6">

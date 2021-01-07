@@ -15,7 +15,7 @@ class ProductsSeeder extends Seeder
        for ($i=0; $i <40 ; $i++) {
         DB::table('inventory_products')->insert([
             'code' => Str::random(10),
-            'img' => Str::random(10),
+            'img' => null,
             'model' => Str::random(5),
             'name' => Str::random(5),
             'category_id' => random_int(1,3),
