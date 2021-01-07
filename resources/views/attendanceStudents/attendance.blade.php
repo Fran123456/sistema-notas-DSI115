@@ -30,8 +30,8 @@
 <div class="col-sm-12">
 <div class="card">
         <div class="card-body">
-                    <div class="text-center"><h3>Asistencia fecha: {{Help::dateFormatter($attendanceDate)}}</h3></div>                    
-                    <div class="table-responsive">                        
+                    <div class="text-center"><h3>Asistencia fecha: {{Help::dateFormatter($attendanceDate)}}</h3></div>
+                    <div class="table-responsive">
                         <table class=" table table-hover" id="bootstrap-data-table_length">
                             <thead>
                                 <tr>

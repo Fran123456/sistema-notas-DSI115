@@ -26,8 +26,16 @@
     <div class="card">
       <div class="card-header">
         <strong class="card-title">REGISTROS DE INDICADORES DE  CONDUCTA PARA EL GRADO: {{Help::ordinal($grado->degree).' '. $grado->section .'-'. Help::turn($grado->turn)}}</strong>
+
       </div>
         <div class="card-body">
+         <h5>Periodo activo: {{$p->nperiodo}}</h5>
+         <h6>Estado: @if ($p->finish == false)
+            <strong>Activo</strong>
+         @else
+            <strong>Finalizado</strong>
+         @endif</h6>
+         <br>
             <table class="table" id="bootstrap-data-table_length">
               <thead>
                 <tr>
@@ -47,7 +55,12 @@
                      </td>
 
                      <td>
+                        @if ($value->finish== false  && $value->current == true)
                         <a href="{{ route('behaviors-register', [$grado->id,$value->id]) }}" class="btn btn-primary"><i class="fa fa-receipt" aria-hidden="true"></i></a>
+                        @else
+                          <button type="button" disabled name="button" class="btn btn-primary"><i class="fa fa-receipt" aria-hidden="true"></i></button>
+
+                        @endif
                      </td>
                      <td>
                         <a href="{{ route('behaviors-register-detail', [$grado->id,$value->id]) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -56,7 +69,14 @@
                        {{--  <form action="">
                             <button href="{{route('behaviors-register-delete', $value->id)}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                          </form> --}}
-                      <a href="{{route('behaviors-register-delete', [$grado->id,$value->id])}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+                        @if ($value->finish== false  && $value->current == true)
+                          <a href="{{route('behaviors-register-delete', [$grado->id,$value->id])}}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        @else
+                          <button type="button" disabled name="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        @endif
+
+
                     </td>
                   </tr>
                 @endforeach

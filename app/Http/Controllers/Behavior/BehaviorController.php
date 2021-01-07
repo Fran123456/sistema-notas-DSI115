@@ -111,15 +111,18 @@ class BehaviorController extends Controller
         BehaviorIndicator::find($request->id)->delete();
         return back()->with('delete','Indicador de Conducta Eliminado Correctamente');
     }
+
     public function all($degree)
     {
         auth()->user()->authorizeRoles(['Docente']);
         $activo= SchoolYear::where('active',1)->get();
         //dd($activo[0]->id);
+        $p = SchoolPeriod::where('school_year_id',$activo[0]->id)->where('current', true)->first();
         $periodos = SchoolPeriod::where('school_year_id',$activo[0]->id)->get();
        $grado= Degree::find($degree);
-       return view('behavior.all_list', compact('grado','periodos'));
+       return view('behavior.all_list', compact('grado','periodos','p'));
     }
+
     public function register($degreeid, $periodid)
     {
         auth()->user()->authorizeRoles(['Docente']);

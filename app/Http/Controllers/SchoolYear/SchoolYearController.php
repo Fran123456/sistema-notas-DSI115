@@ -79,9 +79,8 @@ class SchoolYearController extends Controller
         $scores=[];//para almacenar los promedios finales de todas las notas, tendrá 7 elementos por ser 7 materias
 
         foreach($subjects as $subject){// por cada materia
-          foreach($periods as $period){// revisaremos cada periodo
-
-            $notasPeriodo=[];//para guardar las notas del periodo
+          $notasPeriodo=[];//para guardar las notas del periodo
+          foreach($periods as $period){// revisaremos cada periodo            
             //Consultamos todas las notas del estudiante
             $query=DB::table('score_students')
                     ->join('score_type','score_type.id','=','score_students.score_type_id')
@@ -97,17 +96,16 @@ class SchoolYearController extends Controller
               $suma += ($comprobacion->score * ($comprobacion->percentage/100));
             }
             array_push($notasPeriodo,$suma);//lo guardamos
-          }
-
+          }          
           $sumaMateria=0;//para sacar la nota final de la materia, igual con foreach
+          //dd($notasPeriodo);
           foreach($notasPeriodo as $score){
             $sumaMateria += ($score/sizeof($notasPeriodo));
           }
 
-          array_push($scores,$sumaMateria);//lo guardamos en el array de notas finales
-
-        }
-
+          array_push($scores,$sumaMateria);//lo guardamos en el array de notas finales          
+        }        
+        //dd($notasPeriodo,$scores);
         //Analizaremos las notas para saber si dejó una materia
         foreach($scores as $score){
           if($score < 6.00 ){
