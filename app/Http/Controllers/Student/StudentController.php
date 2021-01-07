@@ -181,13 +181,25 @@ class StudentController extends Controller
     public function destroy($id)
     {
         auth()->user()->authorizeRoles(['Administrador','Secretaria']);
-        
-        $history = StudentHistory::where("student_id", $id)->first();   
-
-        StudentHistory::destroy($history->id);     
-
+                
+        //Recuperaremos todos los registros del estudiante en StudentHistory
+        $histories = StudentHistory::where("student_id", $id)->get();
+        foreach($histories as $history){
+            //Consultamos los grados en los que estuvo
+            $degreeSchoolYear=DegreeSchoolYear::where('degree_id',$history->degree_id)
+                                                ->where('school_year_id',$history->school_year_id)
+                                                ->get()->first();
+            //Le actualizaremos el cupo al grado, tanto pasados como el actual
+            DegreeSchoolYear::where('degree_id',$history->degree_id)
+            ->where('school_year_id',$history->school_year_id)
+            ->update([
+                "full" => ($degreeSchoolYear->full - 1)
+            ]);
+            //Eliminamos el historial
+            StudentHistory::destroy($history->id);     
+        }        
+        //Eliminamos al alumno
         Student::destroy($id); 
-
           
         return redirect()->route('students.index')->with('delete','<strong>El alumno/a fue eliminado correctamente</strong>');
     }

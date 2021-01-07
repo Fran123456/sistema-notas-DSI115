@@ -78,12 +78,15 @@
                       @endif
                      </td>
                      <td>
-                     @if (Auth::user()->roles()->first()->name =="Administrador")
+                     @if (Auth::user()->roles()->first()->name =="Administrador" ||Auth::user()->roles()->first()->name =="Secretaria")
                         <form method="POST" action="{{route('studenthistories.destroy', $value->id) }}">
                            @csrf
                            <input type="hidden" name="_method" value="delete" />
                            @if($schoolYear->finish == 0)
-                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <!--<button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-{{$value->id}}">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
                            @else
                             <button disabled class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                            @endif 
@@ -106,6 +109,6 @@
   </div>
 </div>
 
-
 @endsection
 @include('students.modal.periodo')
+@include('students.modal.deleteAssignation')
