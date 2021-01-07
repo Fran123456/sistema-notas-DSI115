@@ -183,6 +183,8 @@ class SchoolYearDegreesController extends Controller
         DegreeSchoolYear::where('id', $request->degreeCapaId)->update([
           'capacity'=> $d->capacity + $request->capacity
         ]);
+
+
         //validamos si quiere ampliar la capacidad
 
         //Consultamos la capacidad
@@ -198,6 +200,7 @@ class SchoolYearDegreesController extends Controller
         //Contamos los que se quiere agregar
         $nuevos=count($request->students);
         $total= $nuevos + $inscritos;
+      
 
         //Si no se sobrepasa el límite procesamos, de lo contrario retornamos a la vista anterior
         if(  $total <= $capacidad->capacity){
@@ -218,7 +221,7 @@ class SchoolYearDegreesController extends Controller
             }
 
             DegreeSchoolYear::where('id', $request->degreeCapaId)->update([
-              'full'=> $d->capacity + $request->capacity
+              'full'=> $d->full + $nuevos
             ]);
             return redirect()->route('teacher-grade',$request->schoolYear)->with('success','Alumnos asignados correctamente');
         }
