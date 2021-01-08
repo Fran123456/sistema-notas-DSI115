@@ -8,7 +8,9 @@
   }
 </style>
 
-
+<div class="row">
+  @include('alerts.alerts')
+</div>
 
 <div class="row">
     <div class="col-md-12">

@@ -13,6 +13,7 @@ use App\Subject;
 use App\Degree;
 use App\DegreeSchoolYear;
 use App\DegreeSchoolSubject;
+use Carbon\Carbon;
 
 class PeriodController extends Controller
 {
@@ -69,7 +70,7 @@ class PeriodController extends Controller
       } */
 
        if ($cantidad >= 3) {
-        return back()->with('delete','No se pueden asignar mas de 3 periodos a un año escolar');
+        return back()->with('delete','No se pueden asignar más de 3 periodos a un año escolar');
     } else {
         $year= SchoolYear::find($idyear);
     return view('periods.create', compact('year','periodos','n1','n2','n3'));
@@ -86,6 +87,7 @@ class PeriodController extends Controller
     public function store(Request $request, $idyear)
     {
         auth()->user()->authorizeRoles(['Administrador']);
+        $schoolYear=SchoolYear::find($idyear);        
         $bandera=0;
         $periodos= SchoolPeriod::where('school_year_id',$idyear)->orderBy('nperiodo','ASC')->get();
         foreach ($periodos as $value) {
@@ -95,18 +97,61 @@ class PeriodController extends Controller
         }
 
         if ($bandera==1) {
-            return back()->with('delete','Error. Ya existe el  <strong>PERIODO '.$request->nperiodo.'</strong>. Seleccione Otra Opcion.');
+            return back()->with('delete','Error. Ya existe el  <strong>PERIODO '.$request->nperiodo.'</strong>. Seleccione Otra Opcion.')->withInput();
         } else {
-            SchoolPeriod::create([
-                'start_date' => $request->startdate,
-                'end_date' => $request->enddate,
-                'school_year_id' => $idyear,
-                'nperiodo' => $request->nperiodo,
-            ]);
-            return redirect()->route('periods-index',$idyear)->with('success','Registro Creado Correctamente');
+
+            //Revisando las fechas entre periodo
+            $startDate= Carbon::create($request->startdate);
+            $endDate= Carbon::create($request->enddate);
+            foreach($periodos as $period){
+                $startDatePeriodCreated= Carbon::create($period->start_date);
+                $endDatePeriodCreated= Carbon::create($period->end_date);
+                if(($startDate->lessThanOrEqualTo($startDatePeriodCreated)||$startDate->lessThanOrEqualTo($endDatePeriodCreated))&& $request->nperiodo > $period->nperiodo){
+                    if($startDate->year!=$schoolYear->year){
+                        return back()->with('delete','<strong>Error. La fecha de inicio seleccionada se encuentra en un año diferente al seleccionado</strong>')->withInput();
+                    }else{
+                        return back()->with('delete','<strong>Error. La fecha de inicio se encuentra dentro del periodo '.$period->nperiodo .' ya registrado</strong>')->withInput();
+                    }                
+                }
+                if(($endDate->greaterThanOrEqualTo($startDatePeriodCreated))&& $request->nperiodo < $period->nperiodo){
+                    if($startDate->year!=$schoolYear->year){
+                        return back()->with('delete','<strong>Error. La fecha de finalización seleccionada se encuentra en un año diferente al seleccionado</strong>')->withInput();
+                    }else{
+                        return back()->with('delete','<strong>Error. La fecha de finalización se encuentra dentro de un periodo ya registrado</strong>')->withInput();
+                    }                
+                }                                
+            }
+
+            //Revisando fechas respecto a las fechas establecidas del año escolar
+            $schoolYearStartDate=Carbon::create($schoolYear->start_date);
+            $schoolYearEndDate=Carbon::create($schoolYear->end_date);            
+            if(!($startDate->between($schoolYearStartDate,$schoolYearEndDate))){
+                return back()->with('delete','<strong>Error. La fecha de inicio introducida no se encuentra dentro del rango de fechas establecidas del año escolar actual.</strong>')->withInput();
+            }
+            if(!($endDate->between($schoolYearStartDate,$schoolYearEndDate))){
+                return back()->with('delete','<strong>Error. La fecha de finalización introducida no se encuentra dentro del rango de fechas establecidas del año escolar actual.</strong>')->withInput();
+            }
+            
+            //Revisando que la fecha de inicio no sea mayor a la de finalización
+            if($startDate->lessThan($endDate)){
+                if($schoolYear->year == $startDate->year && $schoolYear->year == $endDate->year){
+                    SchoolPeriod::create([
+                        'start_date' => $request->startdate,
+                        'end_date' => $request->enddate,
+                        'school_year_id' => $idyear,
+                        'nperiodo' => $request->nperiodo,
+                    ]);
+                    return redirect()->route('periods-index',$idyear)->with('success','Registro Creado Correctamente');
+                }
+                else{
+                    return back()->with('delete','<strong>Error. El año ingresado no es igual al año seleccionado en las fechas.</strong>')->withInput();
+                }
+            }
+            else{
+                return back()->with('delete','<strong>Error. La fecha de inicio es mayor o igual a la fecha de finalización del periodo.</strong>')->withInput();
+            }
+            
         }
-
-
 
     }
 
@@ -143,14 +188,56 @@ class PeriodController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $idperiodo)
-    {
+    {           
         auth()->user()->authorizeRoles(['Administrador']);
         $periodo= SchoolPeriod::find($idperiodo);
-        SchoolPeriod::where('id',$idperiodo)->update([
-            'start_date' => $request->startdate,
-            'end_date' => $request->enddate,
-        ]);
-        return redirect()->route('periods-index',$periodo->school_year_id)->with('edit','Registro Actualizado Correctamente');
+        $schoolYear=SchoolYear::find($periodo->school_year_id);
+        $periodos= SchoolPeriod::where('school_year_id',$periodo->school_year_id)
+                                ->where('nperiodo','<>',$periodo->nperiodo)
+                                ->orderBy('nperiodo','ASC')->get();        
+        $startDate= Carbon::create($request->startdate);
+        $endDate= Carbon::create($request->enddate);
+        foreach($periodos as $period){
+            $startDatePeriodCreated= Carbon::create($period->start_date);
+            $endDatePeriodCreated= Carbon::create($period->end_date);
+            if(($startDate->lessThanOrEqualTo($startDatePeriodCreated)||$startDate->lessThanOrEqualTo($endDatePeriodCreated))&& $periodo->nperiodo > $period->nperiodo){
+                if($startDate->year!=$schoolYear->year){
+                    return back()->with('delete','<strong>Error. La fecha de inicio seleccionada se encuentra en un año diferente al seleccionado</strong>');    
+                }else{
+                    return back()->with('delete','<strong>Error. La fecha de inicio se encuentra dentro del periodo '.$period->nperiodo .' ya registrado</strong>');    
+                }                
+            }
+            if(($endDate->greaterThanOrEqualTo($startDatePeriodCreated))&& $periodo->nperiodo < $period->nperiodo){                
+                if($startDate->year!=$schoolYear->year){
+                    return back()->with('delete','<strong>Error. La fecha de finalización seleccionada se encuentra en un año diferente al seleccionado</strong>');    
+                }else{
+                    return back()->with('delete','<strong>Error. La fecha de finalización se encuentra dentro de un periodo ya registrado</strong>');
+                }                
+            }                                
+        }
+
+        //Revisando fechas respecto a las fechas establecidas del año escolar
+        $schoolYearStartDate=Carbon::create($schoolYear->start_date);
+        $schoolYearEndDate=Carbon::create($schoolYear->end_date);            
+        if(!($startDate->between($schoolYearStartDate,$schoolYearEndDate))){
+            return back()->with('delete','<strong>Error. La fecha de inicio introducida no se encuentra dentro del rango de fechas establecidas del año escolar actual.</strong>');
+        }
+        if(!($endDate->between($schoolYearStartDate,$schoolYearEndDate))){
+            return back()->with('delete','<strong>Error. La fecha de finalización introducida no se encuentra dentro del rango de fechas establecidas del año escolar actual.</strong>');
+        }
+        
+        if($startDate->lessThan($endDate)){
+            
+                SchoolPeriod::where('id',$idperiodo)->update([
+                    'start_date' => $request->startdate,
+                    'end_date' => $request->enddate,
+                ]);
+                return redirect()->route('periods-index',$periodo->school_year_id)->with('edit','Registro Actualizado Correctamente');                        
+        }
+        else{
+            return back()->with('delete','<strong>Error. La fecha de inicio es mayor o igual a la fecha de finalización del periodo.</strong>');
+        }
+        
     }
 
     /**

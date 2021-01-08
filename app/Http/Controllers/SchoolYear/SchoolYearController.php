@@ -19,6 +19,7 @@ use Superglobals;
 use Illuminate\Support\Facades\DB;
 use App\StudentHistory;
 use App\Subject;
+use Carbon\Carbon;
 use Sabberworm\CSS\Value\Size;
 
 class SchoolYearController extends Controller
@@ -243,11 +244,27 @@ class SchoolYearController extends Controller
     public function store(Request $request)
     {
       auth()->user()->authorizeRoles(['Administrador']);
+      
        $validate = SchoolYear::where('year', $request->year)->get();
        if(count($validate)>0){
          return back()->with('delete', "No se puede agregar el año escolar porque ya existe un registro con el mismo año")
          ->withInput();
        }
+
+      $startYear=Carbon::create($request->year,1,1);
+      $endYear=Carbon::create($request->year,12,31);
+      $startDate= Carbon::create($request->start_date);
+      $endDate= Carbon::create($request->end_date);
+      
+      if(!($startDate->between($startYear,$endYear))){
+        return back()->with('delete', "La fecha de inicio ingresada no correponde con el año introducida.")->withInput();
+      }
+      if(!($endDate->between($startYear,$endYear))){
+        return back()->with('delete', "La fecha de finalización ingresada no correponde con el año introducida.")->withInput();
+      }
+      if($startDate->greaterThanOrEqualTo($endDate)){
+        return back()->with('delete', "La fecha de inicio es igual o mayor a la fecha de finalización ingresada.")->withInput();
+      }
 
        if($request->active == 1){
          SchoolYear::where('active', true)->update([
