@@ -23,7 +23,12 @@
   <strong>Turno: </strong>{{Help::turn($history->degree->turn)}}<br>
   <strong>Año: </strong>{{$history->year->year}}<br><br>
 
-
+  @php
+    $promediosFinales=[];
+    foreach($history->degree->subjects as $subject){
+      array_push($promediosFinales,0);
+    }
+  @endphp
 
   @foreach ($periods as $key => $value)
     
@@ -31,7 +36,7 @@
 
      @foreach ($history->degree->subjects as $key2 => $value2)
 
-      @php
+      @php        
         $notaTotal = 0;
         $coll = 0;
       @endphp
@@ -76,21 +81,51 @@
                            
                     @php
                       $notaTotal =  $notaTotal + ($notas->score * ($notas->score_types->percentage*0.01));
-
+                      
                     @endphp
 
                     @endif
+                    
                   @endif
                 @endforeach  
-                      <td class="td">{{$notaTotal}}</td>
+                      <td class="td">{{$notaTotal}}</td>                    
+                      @php
+                        $promediosFinales[$value2->id - 1]= $promediosFinales[$value2->id - 1] + $notaTotal;
+                      @endphp
               </tr>
             </tbody>
           </table>  
                   
-      @endforeach
+      @endforeach      
     <br>
   @endforeach
+
+@php
+
+foreach($promediosFinales as $number => $promedio){ 
+  $promediosFinales[$number]=number_format(($promedio/3),2);
+}
+@endphp
+
+  <table>
+    <thead>    
+      <tr>
+        <td>Promedios Finales</td>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($history->degree->subjects as $number => $subject)    
+      <tr>
+        <td><strong>{{$subject->name}}</strong></td>
+        @if($promediosFinales[$number] >= 6.00)
+          <td>{{$promediosFinales[$number]}}</td>
+        @else
+          <td style="color: red;"><strong>{{$promediosFinales[$number]}}</strong></td>
+        @endif
+      </tr>      
+      @endforeach
+    </tbody>
+  </table>
 </body>
 </html>
-
 

@@ -17,6 +17,7 @@ use DB;
 use App\Subject;
 use App\ScoreType;
 use App\BehaviorIndicatorsStudent;
+use App\Help\Help;
 
 class ReportController extends Controller
 {
@@ -128,10 +129,11 @@ class ReportController extends Controller
 
     public function scorespdf($id)
     {
+        $schoolYear=Help::getSchoolYear();        
         $student = Student::where("id", $id)->first();
-        $history = StudentHistory::where("student_id", $id)->first();
-        $periods = SchoolPeriod::all();
-        $scores = ScoreStudent::where("student_id", $id)->get();
+        $history = StudentHistory::where("student_id", $id)->where('school_year_id',$schoolYear->id)->first();
+        $periods = SchoolPeriod::where('school_year_id',$schoolYear->id)->get();
+        $scores = ScoreStudent::where("student_id", $id)->where('school_year_id',$schoolYear->id)->get();
 
         $pdf = PDF::loadView('pdf.scores', compact('student', 'history', 'periods', 'scores'));
 
